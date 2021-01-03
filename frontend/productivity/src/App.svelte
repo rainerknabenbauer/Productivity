@@ -3,7 +3,7 @@
 	import MoveableBlock from './MoveableBlock.svelte';
 
 	async function getTasks() {
-		const res = await fetch('http://localhost:8080/mocks');
+		const res = await fetch('http://localhost:8080/tasks');
         return await res.json();
     }
 

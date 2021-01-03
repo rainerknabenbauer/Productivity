@@ -10,10 +10,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @RestController
-class TodoController {
+class TaskController {
 
-    @GetMapping(path = ["/mocks"])
-    fun getMocks(): ResponseEntity<ArrayList<Task>> {
+    @GetMapping(path = ["/tasks"])
+    fun getTasks(): ResponseEntity<ArrayList<Task>> {
 
         println("called getMock")
 
@@ -38,16 +38,6 @@ class TodoController {
 
         return ResponseEntity.ok(mocks);
     }
-
-    @GetMapping(path = ["/mock"])
-    fun getMock() = ResponseEntity.ok(Task(
-        UUID.randomUUID(),
-        "Mock",
-        TaskDescription("shortDescription", "long description", null),
-        LocalDate.now(),
-        0,
-        null,
-        null))
 
     @GetMapping(path = ["", "/"])
     fun getDefault() : String {

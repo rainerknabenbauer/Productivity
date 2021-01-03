@@ -40,6 +40,6 @@
 
 <!-- The block gets attached to the mouse when you hold down left mouse button -->
 <div id={task.id} on:mousedown={toggle} on:mouseup={toggle}>
-    {isActive}
+    {task.title}
 </div>
 
