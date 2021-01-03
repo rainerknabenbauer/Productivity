@@ -22,10 +22,15 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+# Svelte
+node_modules
+public/build/
+
 # Mac
 .DS_Store
 
 # IDE
+.vscode
 .idea/
 .gradle/
 build/
