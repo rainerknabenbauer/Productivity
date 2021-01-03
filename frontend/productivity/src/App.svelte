@@ -1,30 +1,22 @@
+
 <script>
-	export let name;
+	import MoveableBlock from './MoveableBlock.svelte';
+
+	async function getTasks() {
+		const res = await fetch('http://localhost:8080/mocks');
+        return await res.json();
+    }
+
+	let tasksQuery = getTasks();
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<style></style>
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+{#await tasksQuery then tasks}
+	{#each tasks as task (task.id)}
+        <MoveableBlock {task}/>
+    {/each}
+{/await}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
+
