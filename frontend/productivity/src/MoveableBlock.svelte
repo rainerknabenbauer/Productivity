@@ -51,6 +51,7 @@
     .title {
         padding: 5px;
         background-image: linear-gradient(red, #efefef);
+        letter-spacing: 1px;
     }
 
     .shortDescription {
