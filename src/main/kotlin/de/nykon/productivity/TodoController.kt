@@ -24,5 +24,8 @@ class TodoController {
     fun getMock() = ResponseEntity.ok(Mock("001", "Mock title", "Description"))
 
     @GetMapping(path = ["", "/"])
-    fun getDefault() = "Demo string"
+    fun getDefault() : String {
+        Thread.sleep(1000)
+        return "Demo string"
+    }
 }
