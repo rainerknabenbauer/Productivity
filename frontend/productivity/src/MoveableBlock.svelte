@@ -38,6 +38,16 @@
         border-radius: 3px;
     }
 
+    .edit {
+        float: right;
+        font-size: 8pt;
+    }
+
+    .edit:hover {
+        color: lightgrey;
+        cursor: default;
+    }
+
     .title {
         padding: 5px;
         background-image: linear-gradient(red, #efefef);
@@ -52,6 +62,7 @@
 <!-- The block gets attached to the mouse when you hold down left mouse button -->
 <div class="task" id={task.id} on:mousedown={toggle} on:mouseup={toggle}>
     <div class="header">
+        <div class="edit">Edit</div>
 		<div class="details">
 			<div class="title">{task.title}</div>
 			<div class="shortDescription">{task.description.shortDescription}</div>
