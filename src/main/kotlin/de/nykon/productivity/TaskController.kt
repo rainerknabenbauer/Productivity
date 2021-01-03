@@ -21,7 +21,7 @@ class TaskController {
         mocks.add(Task(
             UUID.randomUUID(),
             "Mock",
-            TaskDescription("shortDescription", "long description", null),
+            TaskDescription("This is really a short one.", "long description", null),
             LocalDate.now(),
             0,
             null,
@@ -30,7 +30,7 @@ class TaskController {
         mocks.add(Task(
             UUID.randomUUID(),
             "Mock 2",
-            TaskDescription("shortDescription2", "long description2", null),
+            TaskDescription("This is really a short two.", "long description2", null),
             LocalDate.now(),
             0,
             null,
