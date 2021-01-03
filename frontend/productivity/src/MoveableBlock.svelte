@@ -19,59 +19,27 @@
         if (isActive) {
             var block = document.getElementById(task.id);
             block.style.position = "absolute";
-            block.style.left = event.clientX-(block.offsetWidth/2)+"px";
-            block.style.top = event.clientY-(block.offsetHeight/2)+"px";
+            block.style.left = event.clientX-25+"px";
+            block.style.top = event.clientY-25+"px";
         }
     });
 </script>
 
 <style>
-	article {
-		background-color: #fff;
-		border: 1px #ccc solid;
-		border-radius: 4px;
-		padding: 1rem;
-	}
-
-    article:hover {
-        background-color: lightgrey;
-        border: 1px darkolivegreen solid;
+    div {
+        position: absolute;
+        top: 15%;
+        width: 50px;
+        height: 50px;
+        cursor: -webkit-grab; 
+        cursor: grab;
+        border-bottom-width: 1px;
+        border-color: black;
     }
-
-	.header {
-		align-items: center;
-		display: flex;
-	}
-
-	.details {
-		flex: 1 1 auto;
-		margin-left: 0.5rem
-	}
-
-    .priority {
-        border: 2px solid grey;
-        background-color: red;
-        border-radius: 5px;
-        width: 1em;
-        height: 1em;
-    }
-
-	h4 {
-		margin: 0;
-	}
 </style>
 
-<article id={task.id} on:mousedown={toggle} on:mouseup={toggle}>
-	<div class="header">
-		<div class="priority"/>
-		<div class="details">
-            <h4>{task.title}</h4>
-            {task.description.shortDescription}
-		</div>
-	</div>
-	<div class="body">
-		<slot></slot>
-	</div>
-</article>
-
 <!-- The block gets attached to the mouse when you hold down left mouse button -->
+<div id={task.id} on:mousedown={toggle} on:mouseup={toggle}>
+    {task.title}
+</div>
+
