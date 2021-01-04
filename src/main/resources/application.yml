@@ -1,0 +1,8 @@
+spring:
+  jackson:
+    default-property-inclusion: non_null
+  data:
+    mongodb:
+      uri: mongodb+srv://nykon:N8gwkLwNIjVZecO7@mongodb.wecon.mongodb.net/productivity?retryWrites=true&w=majority
+
+

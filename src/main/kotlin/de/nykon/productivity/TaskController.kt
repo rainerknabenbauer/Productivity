@@ -2,46 +2,28 @@ package de.nykon.productivity
 
 import de.nykon.productivity.value.Task
 import de.nykon.productivity.value.TaskDescription
+import de.nykon.productivity.value.UI
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 import java.util.*
-import kotlin.collections.ArrayList
 
 @RestController
-class TaskController {
+class TaskController(private val taskService: TaskService) {
 
     @GetMapping(path = ["/tasks"])
-    fun getTasks(): ResponseEntity<ArrayList<Task>> {
+    fun getTasks(): ResponseEntity<MutableList<Task>> {
 
-        println("called getMock")
-
-        val mocks = ArrayList<Task>()
-        mocks.add(Task(
-            UUID.randomUUID(),
-            "Mock",
-            TaskDescription("shortDescription", "long description", null),
-            LocalDate.now(),
-            0,
-            null,
-            null))
-
-        mocks.add(Task(
-            UUID.randomUUID(),
-            "Mock 2",
-            TaskDescription("shortDescription2", "long description2", null),
-            LocalDate.now(),
-            0,
-            null,
-            null))
-
-        return ResponseEntity.ok(mocks);
+        println("called getTasks")
+        return ResponseEntity.ok(taskService.findAll())
     }
 
-    @GetMapping(path = ["", "/"])
-    fun getDefault() : String {
-        Thread.sleep(1000)
-        return "Demo string"
+    @PostMapping(path = ["/ui/{id}"])
+    fun setPosition(@PathVariable id: UUID, @RequestBody ui: UI): Task {
+        println("set UI of $id to x=${ui.xPosition} | y=${ui.yPosition}")
+        return taskService.save(Task(id, "updated task",
+            TaskDescription("","",""),
+            LocalDate.now(), 0, listOf(), listOf(), ui))
     }
+
 }
