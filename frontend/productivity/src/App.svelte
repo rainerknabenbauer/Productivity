@@ -1,6 +1,10 @@
 
 <script>
 	import MoveableBlock from './MoveableBlock.svelte';
+	import Button from './Button.svelte';
+	import AddNote from './AddNote.svelte'
+
+	let isAddNoteVisible = false;
 
 	async function getTasks() {
 		let json = [];
@@ -10,15 +14,27 @@
 
 		return json;
     }
-
 	let tasksQuery = getTasks();
+
+	function toggleAddNoteVisibility(event) {
+		isAddNoteVisible = !isAddNoteVisible;
+	}
+
+	function addNote() {
+		alert("added");
+	}
 </script>
 
-<style></style>
+
+<Button text="Add note" on:click={toggleAddNoteVisibility} />
+
+{#if isAddNoteVisible}
+	<AddNote on:click={addNote} />
+{/if}
 
 {#await tasksQuery then tasks}
 	{#each tasks as task (task.id)}
-        <MoveableBlock {task}/>
+        <MoveableBlock {...task}/>
     {/each}
 {/await}
 

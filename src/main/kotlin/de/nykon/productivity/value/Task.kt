@@ -16,5 +16,6 @@ data class Task(
     val endDate: LocalDate,
     val priority: Int,
     val preDependency: List<UUID>?,
-    val postDependency: List<UUID>?
+    val postDependency: List<UUID>?,
+    val ui: UI
 )

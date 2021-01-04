@@ -1,13 +1,13 @@
 <script>
-    import MoveableBlock from "./MoveableBlock.svelte";
-
-    
-
-    
+    export let text;
 </script>
 
 <style>
+
 </style>
 
+<button on:click>
+    {text}
+</button>
 
 

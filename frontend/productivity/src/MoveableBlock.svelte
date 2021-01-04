@@ -1,10 +1,17 @@
 <script>
-    export let task;
+        export let id = undefined;
+        export let title = undefined;
+        export let description = undefined;
+        export let endDate = undefined;
+        export let priority = undefined;
+        export let preDependency = undefined;
+        export let postDependency = undefined;
+        export let ui = undefined;
 
     let isActive = false;
 
     function toggle() {
-        var block = document.getElementById(task.id);
+        var block = document.getElementById(id);
         isActive = !isActive;
 
         if (isActive) {
@@ -17,7 +24,7 @@
     // Attach box to cursor
     document.addEventListener('mousemove', (event) => {
         if (isActive) {
-            var block = document.getElementById(task.id);
+            var block = document.getElementById(id);
             block.style.position = "absolute";
             block.style.left = event.clientX-(block.offsetWidth/2)+"px";
             block.style.top = event.clientY-(block.offsetHeight/2)+"px";
@@ -61,12 +68,12 @@
 </style>
 
 <!-- The block gets attached to the mouse when you hold down left mouse button -->
-<div class="task" id={task.id} on:mousedown={toggle} on:mouseup={toggle}>
+<div class="task" id={id} on:mousedown={toggle} on:mouseup={toggle}>
     <div class="header">
         <div class="edit">Edit</div>
 		<div class="details">
-			<div class="title">{task.title}</div>
-			<div class="shortDescription">{task.description.shortDescription}</div>
+			<div class="title">{title}</div>
+			<div class="shortDescription">{description.shortDescription}</div>
 		</div>
     </div>
 </div>
