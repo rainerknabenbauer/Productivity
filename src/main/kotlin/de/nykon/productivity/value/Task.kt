@@ -1,5 +1,7 @@
 package de.nykon.productivity.value
 
+import org.bson.types.ObjectId
+import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDate
 import java.util.*
@@ -12,6 +14,7 @@ import java.util.*
  */
 @Document(collection = "tasks")
 data class Task(
+    @Id val databaseId: ObjectId?,
     val id: UUID,
     val title: String,
     val description: TaskDescription,

@@ -7,13 +7,15 @@
 	let isAddNoteVisible = false;
 
 	async function getTasks() {
-		let json = [];
-		const res = await fetch('http://localhost:8080/tasks')
-							.then(response => json = response.json())
-							.catch(error => json = JSON.parse('[{"id":"404","title":"Error","description":{"shortDescription":"Failed to connect to server.","longDescription":"Connection to server could not be established."},"endDate":"","priority":0}]'));
+		let result = [];
+		
+		await fetch('http://localhost:8080/tasks')
+							.then(response => result = response.json())
+							.catch(error => result = JSON.parse('[{"id":"404","title":"Error","description":{"shortDescription":"Failed to connect to server.","longDescription":"Connection to server could not be established."},"endDate":"","priority":0}]'));
 
-		return json;
-    }
+		return result;
+	}
+	
 	let tasksQuery = getTasks();
 
 	function toggleAddNoteVisibility(event) {
@@ -21,7 +23,8 @@
 	}
 
 	function addNote() {
-		alert("added");
+		let json = JSON.parse('[{"id":"404","title":"Error","description":{"shortDescription":"Failed to connect to server.","longDescription":"Connection to server could not be established."},"endDate":"","priority":0}]');
+		tasksQuery = [...tasksQuery, json];
 	}
 </script>
 
