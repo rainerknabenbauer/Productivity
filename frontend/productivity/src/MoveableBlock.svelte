@@ -45,12 +45,13 @@
         border-radius: 3px;
     }
 
-    .edit {
+    .options {
         float: right;
-        font-size: 8pt;
+        font-size: 12pt;
+        padding-right: 2px;
     }
 
-    .edit:hover {
+    .options:hover {
         color: lightgrey;
         cursor: default;
     }
@@ -70,11 +71,12 @@
 <!-- The block gets attached to the mouse when you hold down left mouse button-->
 <div class="task" id={id} on:mousedown={toggle} on:mouseup={toggle}>
     <div class="header">
-        <div class="edit">Edit</div>
+        <div class="options">&#10008;</div>
 		<div class="details">
 			<div class="title">{title}</div>
 			<div class="shortDescription">{description.shortDescription}</div>
-		</div>
+        </div>
+        <div class="options">&#9998;</div>
     </div>
 </div>
 
