@@ -3,14 +3,12 @@ package de.nykon.productivity
 import de.nykon.productivity.value.Task
 import de.nykon.productivity.value.TaskDescription
 import de.nykon.productivity.value.UI
-import lombok.extern.slf4j.Slf4j
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.log
 
 @RestController
 class TaskController(private val taskService: TaskService) {

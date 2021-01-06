@@ -1,10 +1,10 @@
 <script>
-    import { onDestroy } from "svelte";
 
     export let task;
     console.log(task);
 
     let isMoving = false;
+
 
     function toggle() {
         var block = document.getElementById(task.id);
@@ -52,7 +52,7 @@
 <style>
     .task {
         position: absolute;
-        top: 15%;
+        top: 35pt;
         cursor: -webkit-grab; 
         cursor: grab;
         border: 1px solid darkgreen;
@@ -86,7 +86,7 @@
 </style>
 
 <!-- The block gets attached to the mouse when you hold down left mouse button-->
-<div class="task" id={task.id} on:mousedown={toggle} on:mouseup={toggle}>
+<div class="task" id={task.id} on:mousedown={toggle} on:mouseup={toggle} >
     <div class="header">
         <div class="options">&#10008;</div>
 		<div class="details">
