@@ -1,18 +1,21 @@
 class Task {
-    constructor(id, title, shortDescription, longDescription, additionalNotes, endDate, priority, preDependency, postDependency, ui) {
-        this.id = id;
-		this.title = title;
+	constructor() {
+		this.id = undefined;
+		this.title = "";
 		this.description = {
-			shortDescription: shortDescription,
-			longDescription: longDescription,
-			additionalNotes: additionalNotes
+			shortDescription: "",
+			longDescription: "",
+			additionalNotes: ""
 		};
-        this.endDate = endDate;
-        this.priority = priority;
-        this.preDependency = preDependency;
-		this.postDependency = postDependency;
-		this.ui = ui;
-    }
+        this.endDate = undefined;
+        this.priority = 0;
+        this.preDependency = undefined;
+		this.postDependency = undefined;
+		this.ui = {
+			xPosition: 0,
+			yPosition: 0
+		};
+	}
 }
 
 export default Task;

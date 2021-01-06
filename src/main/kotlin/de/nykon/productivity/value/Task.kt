@@ -19,7 +19,7 @@ data class Task(
     val id: UUID = UUID.randomUUID(),
     val title: String,
     val description: TaskDescription,
-    val endDate: LocalDate,
+    val endDate: LocalDate?,
     val priority: Int,
     val preDependency: List<UUID>?,
     val postDependency: List<UUID>?,

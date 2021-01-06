@@ -4,18 +4,19 @@
 
     let task = new Task();
 
-    
-    async function addTask(url = 'http://localhost:8080/tasks', task) {
-        const response = await fetch(url, {
+    async function addTask() {
+        console.log(JSON.stringify(task));
+        const response = await fetch('http://localhost:8080/tasks', {
             method: 'POST',
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Media-Type': "MediaType.APPLICATION_JSON"
             },
             body: JSON.stringify(task)
+        }).then(data => {
+            console.log(data)
         });
-
-        return response.json();
     }
 </script>
 

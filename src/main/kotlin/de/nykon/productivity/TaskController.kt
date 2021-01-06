@@ -3,6 +3,7 @@ package de.nykon.productivity
 import de.nykon.productivity.value.Task
 import de.nykon.productivity.value.TaskDescription
 import de.nykon.productivity.value.UI
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
@@ -19,9 +20,12 @@ class TaskController(private val taskService: TaskService) {
         return ResponseEntity.ok(taskService.findAll())
     }
 
-    @PostMapping(path = ["/tasks"])
+    @CrossOrigin(origins = ["http://localhost:5000"])
+    @PostMapping(path = ["/tasks"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun saveTask(@RequestBody task: Task): Task {
-        return taskService.save(task)
+        val savedTask = taskService.save(task)
+        println("saved task: $savedTask")
+        return savedTask
     }
 
     @PostMapping(path = ["/ui/{id}"])  //TODO probably change to PUT
