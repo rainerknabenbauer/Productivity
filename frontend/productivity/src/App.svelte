@@ -3,8 +3,14 @@
 	import MoveableBlock from './MoveableBlock.svelte';
 	import Button from './Button.svelte';
 	import AddNote from './AddNote.svelte'
+	import { onMount } from 'svelte';
 
 	let isAddNoteVisible = false;
+	let tasksQuery = [];
+
+	onMount(async () => {
+		tasksQuery = getTasks();
+	});
 
 	async function getTasks() {
 		let result = [];
@@ -15,16 +21,13 @@
 
 		return result;
 	}
-	
-	let tasksQuery = getTasks();
 
 	function toggleAddNoteVisibility(event) {
 		isAddNoteVisible = !isAddNoteVisible;
 	}
 
 	function addNote() {
-		let json = JSON.parse('[{"id":"404","title":"Error","description":{"shortDescription":"Failed to connect to server.","longDescription":"Connection to server could not be established."},"endDate":"","priority":0}]');
-		tasksQuery = [...tasksQuery, json];
+		tasksQuery = getTasks();
 	}
 </script>
 
