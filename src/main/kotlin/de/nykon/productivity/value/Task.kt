@@ -17,6 +17,7 @@ import java.util.*
 data class Task(
     @JsonIgnore @Id val databaseId: ObjectId?,
     val id: UUID = UUID.randomUUID(),
+    val active: Boolean = false,
     val title: String,
     val description: TaskDescription,
     val endDate: LocalDate?,
