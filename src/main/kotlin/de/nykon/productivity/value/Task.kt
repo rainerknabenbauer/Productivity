@@ -15,9 +15,8 @@ import java.util.*
  */
 @Document(collection = "tasks")
 data class Task(
-    @JsonIgnore @Id val databaseId: ObjectId?,
-    val id: UUID = UUID.randomUUID(),
-    val active: Boolean = false,
+    @Id val id: String = UUID.randomUUID().toString(),
+    val isActive: Boolean = false,
     val title: String,
     val description: TaskDescription,
     val endDate: LocalDate?,

@@ -1,33 +1,50 @@
 <script>
-        export let id = undefined;
-        export let title = undefined;
-        export let description = undefined;
-        export let endDate = undefined;
-        export let priority = undefined;
-        export let preDependency = undefined;
-        export let postDependency = undefined;
-        export let ui = undefined;
+    import { onDestroy } from "svelte";
 
-    let isActive = false;
+    export let task;
+    console.log(task);
+
+    let isMoving = false;
 
     function toggle() {
-        var block = document.getElementById(id);
-        isActive = !isActive;
+        var block = document.getElementById(task.id);
+        isMoving = !isMoving;
 
-        if (isActive) {
+        if (isMoving) {
             block.style.cursor = "grabbing";
         } else {
             block.style.cursor = "grab";
+            updateTask();
         }
     }
 
+    //send to server
+    async function updateTask() {
+                console.log(JSON.stringify(task));
+                const response = await fetch('http://localhost:8080/tasks', {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Media-Type': "MediaType.APPLICATION_JSON"
+                    },
+                    body: JSON.stringify(task)
+                }).then(data => {
+                    console.log(data)
+                });
+            }
+
     // Attach box to cursor
     document.addEventListener('mousemove', (event) => {
-        if (isActive) {
-            var block = document.getElementById(id);
+        if (isMoving) {
+            var block = document.getElementById(task.id);
             block.style.position = "absolute";
-            block.style.left = event.clientX-(block.offsetWidth/2)+"px";
-            block.style.top = event.clientY-(block.offsetHeight/2)+"px";
+
+            task.ui.xPosition = event.clientX-(block.offsetWidth/2);
+            task.ui.yPosition = event.clientY-(block.offsetHeight/2);
+
+            block.style.left = task.ui.xPosition+"px";
+            block.style.top = task.ui.yPosition+"px";
         }
     });
 </script>
@@ -69,12 +86,12 @@
 </style>
 
 <!-- The block gets attached to the mouse when you hold down left mouse button-->
-<div class="task" id={id} on:mousedown={toggle} on:mouseup={toggle}>
+<div class="task" id={task.id} on:mousedown={toggle} on:mouseup={toggle}>
     <div class="header">
         <div class="options">&#10008;</div>
 		<div class="details">
-			<div class="title">{title}</div>
-			<div class="shortDescription">{description.shortDescription}</div>
+			<div class="title">{task.title}</div>
+			<div class="shortDescription">{task.description.shortDescription}</div>
         </div>
         <div class="options">&#9998;</div>
     </div>

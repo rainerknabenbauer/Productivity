@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface TaskRepository : MongoRepository<Task, UUID> {
+interface TaskRepository : MongoRepository<Task, String> {
+
 
 }

@@ -1,11 +1,12 @@
 class Task {
 	constructor() {
 		this.id = undefined;
+		this.isActive = undefined;
 		this.title = "";
 		this.description = {
 			shortDescription: "",
 			longDescription: "",
-			additionalNotes: ""
+			additionalNotes: undefined
 		};
         this.endDate = undefined;
         this.priority = 0;
