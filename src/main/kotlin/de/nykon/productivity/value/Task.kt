@@ -1,5 +1,6 @@
 package de.nykon.productivity.value
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
@@ -14,8 +15,8 @@ import java.util.*
  */
 @Document(collection = "tasks")
 data class Task(
-    @Id val databaseId: ObjectId?,
-    val id: UUID,
+    @JsonIgnore @Id val databaseId: ObjectId?,
+    val id: UUID = UUID.randomUUID(),
     val title: String,
     val description: TaskDescription,
     val endDate: LocalDate,

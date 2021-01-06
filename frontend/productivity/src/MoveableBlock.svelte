@@ -67,7 +67,7 @@
 
 </style>
 
-<!-- The block gets attached to the mouse when you hold down left mouse button -->
+<!-- The block gets attached to the mouse when you hold down left mouse button-->
 <div class="task" id={id} on:mousedown={toggle} on:mouseup={toggle}>
     <div class="header">
         <div class="edit">Edit</div>
