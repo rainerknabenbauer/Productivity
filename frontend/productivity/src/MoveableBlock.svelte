@@ -100,9 +100,7 @@
 
 {#if isVisible}
     <!-- The block gets attached to the mouse when you hold down left mouse button-->
-    <div class="task" id={task.id}  
-        style="position: absolute; top: {task.ui.yposition}px; left: {task.ui.xposition}px">
-        
+    <div class="task" id={task.id} style="position: absolute; top: {task.ui.yposition}px; left: {task.ui.xposition}px">
         <div class="header">
             <div class="options" on:click={deleteTask(task)}>&#10008;</div>
             <div class="details" on:mousedown={toggle} on:mouseup={toggle}>

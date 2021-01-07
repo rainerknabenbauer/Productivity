@@ -26,8 +26,9 @@
 		isAddNoteVisible = !isAddNoteVisible;
 	}
 
-	function addNote() {
+	async function addNote() {
 		tasksPromise = getTasks();
+		isAddNoteVisible = !isAddNoteVisible;
 	}
 </script>
 
@@ -35,7 +36,7 @@
 <Button text="Add note" on:click={toggleAddNoteVisibility} />
 
 {#if isAddNoteVisible}
-	<AddNote on:click={addNote} />
+	<AddNote on:refresh={addNote} />
 {/if}
 
 {#await tasksPromise then tasks}

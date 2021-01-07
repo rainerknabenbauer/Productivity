@@ -1,6 +1,15 @@
 <script>
     import Button from './Button.svelte';
     import Task from './Task.js';
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
+
+    function sayHello() {
+		dispatch('refresh', {
+			text: 'refresh'
+		});
+	}
 
     let task = new Task();
 
@@ -17,6 +26,8 @@
         }).then(data => {
             console.log(data)
         });
+
+        sayHello();
     }
 </script>
 
