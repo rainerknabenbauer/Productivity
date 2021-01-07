@@ -34,17 +34,12 @@
                 });
             }
 
-    // Attach box to cursor
+    // Calculate relative position of DIV
     document.addEventListener('mousemove', (event) => {
         if (isMoving) {
             var block = document.getElementById(task.id);
-            block.style.position = "absolute";
-
             task.ui.xposition = event.clientX-(block.offsetWidth/2);
             task.ui.yposition = event.clientY-(block.offsetHeight/2);
-
-            block.style.left = task.ui.xposition+"px";
-            block.style.top = task.ui.yposition+"px";
         }
     });
 </script>
