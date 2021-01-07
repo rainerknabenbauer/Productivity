@@ -1,4 +1,6 @@
 <script>
+    import DeleteTask from './DeleteTask.svelte'
+    import EditTask from './EditTask.svelte'
 
     export let task;
     console.log(task);
@@ -82,12 +84,12 @@
 <!-- The block gets attached to the mouse when you hold down left mouse button-->
 <div class="task" id={task.id} on:mousedown={toggle} on:mouseup={toggle} style="position: absolute; top: {task.ui.yposition}px; left: {task.ui.xposition}px">
     <div class="header">
-        <div class="options">&#10008;</div>
+        <div class="options"><DeleteTask /></div>
 		<div class="details">
 			<div class="title">{task.title}</div>
 			<div class="shortDescription">{task.description.shortDescription}</div>
         </div>
-        <div class="options">&#9998;</div>
+        <div class="options"><EditTask /></div>
     </div>
 </div>
 
