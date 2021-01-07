@@ -6,10 +6,10 @@
 	import { onMount } from 'svelte';
 
 	let isAddNoteVisible = false;
-	let tasksQuery = [];
+	let tasksPromise = [];
 
 	onMount(async () => {
-		tasksQuery = getTasks();
+		tasksPromise = getTasks();
 	});
 
 	async function getTasks() {
@@ -27,7 +27,7 @@
 	}
 
 	function addNote() {
-		tasksQuery = getTasks();
+		tasksPromise = getTasks();
 	}
 </script>
 
@@ -38,7 +38,7 @@
 	<AddNote on:click={addNote} />
 {/if}
 
-{#await tasksQuery then tasks}
+{#await tasksPromise then tasks}
 	{#each tasks as task (task.id)}
         <MoveableBlock {task}/>
     {/each}

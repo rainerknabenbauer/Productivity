@@ -19,19 +19,6 @@
         }
     }
 
-    
-    
-    
-    
-    
-    
-    // MERGE DELETE TASK AND UPDATE TASK ---- SWITCH STATEMENT
-
-
-
-
-
-
     async function deleteTask(task) {
         isVisible = false;
         console.log("Deleting Task");
@@ -113,7 +100,9 @@
 
 {#if isVisible}
     <!-- The block gets attached to the mouse when you hold down left mouse button-->
-    <div class="task" id={task.id} on:mousedown={toggle} on:mouseup={toggle} style="position: absolute; top: {task.ui.yposition}px; left: {task.ui.xposition}px">
+    <div class="task" id={task.id} on:mousedown={toggle} on:mouseup={toggle} 
+        style="position: absolute; top: {task.ui.yposition}px; left: {task.ui.xposition}px">
+        
         <div class="header">
             <div class="options" on:click={deleteTask(task)}>&#10008;</div>
             <div class="details">
