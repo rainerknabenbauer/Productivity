@@ -13,8 +13,8 @@ class Task {
         this.preDependency = undefined;
 		this.postDependency = undefined;
 		this.ui = {
-			xPosition: 0,
-			yPosition: 0
+			xposition: 0,
+			yposition: 0
 		};
 	}
 }

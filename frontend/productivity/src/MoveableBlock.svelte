@@ -40,19 +40,18 @@
             var block = document.getElementById(task.id);
             block.style.position = "absolute";
 
-            task.ui.xPosition = event.clientX-(block.offsetWidth/2);
-            task.ui.yPosition = event.clientY-(block.offsetHeight/2);
+            task.ui.xposition = event.clientX-(block.offsetWidth/2);
+            task.ui.yposition = event.clientY-(block.offsetHeight/2);
 
-            block.style.left = task.ui.xPosition+"px";
-            block.style.top = task.ui.yPosition+"px";
+            block.style.left = task.ui.xposition+"px";
+            block.style.top = task.ui.yposition+"px";
         }
     });
 </script>
 
 <style>
     .task {
-        position: absolute;
-        top: 35pt;
+
         cursor: -webkit-grab; 
         cursor: grab;
         border: 1px solid darkgreen;
@@ -86,7 +85,7 @@
 </style>
 
 <!-- The block gets attached to the mouse when you hold down left mouse button-->
-<div class="task" id={task.id} on:mousedown={toggle} on:mouseup={toggle} >
+<div class="task" id={task.id} on:mousedown={toggle} on:mouseup={toggle} style="position: absolute; top: {task.ui.yposition}px; left: {task.ui.xposition}px">
     <div class="header">
         <div class="options">&#10008;</div>
 		<div class="details">
