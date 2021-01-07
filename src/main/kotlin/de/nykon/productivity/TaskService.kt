@@ -8,30 +8,7 @@ import java.util.*
 class TaskService(private val taskRepository: TaskRepository) {
 
     fun save(task: Task): Task {
-        val fetchedTask = taskRepository.findById(task.id)
-
-        if (fetchedTask.isPresent) {
-            val originalTask = fetchedTask.get()
-
-            println("replacing task")
-
-            return taskRepository.save(
-                Task(
-                    task.id,
-                    task.isActive,
-                    task.title,
-                    task.description,
-                    task.endDate,
-                    task.priority,
-                    task.preDependency,
-                    task.postDependency,
-                    task.ui
-                )
-            )
-        } else {
-            println("adding new task")
-            return taskRepository.save(task)
-        }
+        return taskRepository.save(task)
     }
 
     fun get(id: String): Optional<Task> {
