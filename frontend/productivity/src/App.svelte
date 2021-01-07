@@ -40,7 +40,7 @@
 
 {#await tasksQuery then tasks}
 	{#each tasks as task (task.id)}
-        <MoveableBlock task={task}/>
+        <MoveableBlock {task}/>
     {/each}
 {/await}
 

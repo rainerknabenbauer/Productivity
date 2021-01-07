@@ -1,7 +1,7 @@
 class Task {
 	constructor() {
 		this.id = undefined;
-		this.isActive = undefined;
+		this.isBeingWorkedOn = undefined;
 		this.title = "";
 		this.description = {
 			shortDescription: "",
@@ -13,8 +13,8 @@ class Task {
         this.preDependency = undefined;
 		this.postDependency = undefined;
 		this.ui = {
-			xposition: 0,
-			yposition: 0
+			xposition: 5,
+			yposition: 45
 		};
 	}
 }

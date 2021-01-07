@@ -19,8 +19,8 @@ class TaskService(private val taskRepository: TaskRepository) {
         return taskRepository.findAll()
     }
 
-    fun findById(id: String): Task {
-        return taskRepository.findById(id).orElse(null)
+    fun delete(task: Task) {
+        return taskRepository.delete(task)
     }
 
 }

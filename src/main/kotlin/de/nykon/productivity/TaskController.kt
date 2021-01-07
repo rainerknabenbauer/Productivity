@@ -35,6 +35,13 @@ class TaskController(private val taskService: TaskService) {
             LocalDate.now(), 0, listOf(), listOf(), ui))
     }
 
+    @CrossOrigin(origins = ["http://localhost:5000"])
+    @DeleteMapping(path = ["/tasks"])
+    fun deleteTask(@RequestBody task: Task) {
+        println("delete task: $task")
+        taskService.delete(task)
+    }
+
 
 
     @GetMapping(path = ["/sample"])

@@ -14,7 +14,7 @@ import java.util.*
 @Document(collection = "tasks")
 data class Task(
     @Id val id: String = UUID.randomUUID().toString(),
-    val isActive: Boolean = false,
+    val isBeingWorkedOn: Boolean = false,
     val title: String,
     val description: TaskDescription,
     val endDate: LocalDate?,
