@@ -1,9 +1,9 @@
 
 <script>
+	import { onMount } from 'svelte';
 	import MoveableBlock from './MoveableBlock.svelte';
 	import Button from './Button.svelte';
 	import AddNote from './AddNote.svelte'
-	import { onMount } from 'svelte';
 
 	let isAddNoteVisible = false;
 	let tasksPromise = [];
@@ -17,7 +17,7 @@
 		
 		await fetch('http://localhost:8080/tasks')
 							.then(response => result = response.json())
-							.catch(error => result = alert(error));
+							.catch(error => alert(error));
 
 		return result;
 	}
