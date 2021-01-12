@@ -6,11 +6,12 @@
 	import Filter from './Filter.svelte';
 	import RotatingBlock from './RotatingBlock.svelte';
 	import Task from './Task.js';
+import Greeting from './Greeting.svelte';
 
 	let isAddNoteVisible = false;
 	let tasksPromise = [];
 	let task;
-	let symbol = "&#x2794;";
+	let symbol = "☆";
 
 	onMount(async () => {
 		tasksPromise = getTasks();
@@ -78,5 +79,6 @@
 <!-- End page content -->
 </div>
 
+<Greeting />
 
 
