@@ -69,7 +69,7 @@
         cursor: grab;
         border: 1px solid darkgreen;
         min-width: 250px;
-        max-width: 500px;
+        max-width: 325px;
         background-color: #efefef;
         border-radius: 3px;
     }
