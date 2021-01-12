@@ -95,6 +95,38 @@
         margin-left: 5px;
     }
 
+    .rainbow {
+	margin: 0;
+	font-family: "Exo", sans-serif;
+	color: #fff;
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab );
+	background-size: 400% 400%;
+	-webkit-animation: gradientBG 10s ease infinite;
+	        animation: gradientBG 10s ease infinite;
+}
+
+@-webkit-keyframes gradientBG {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+@keyframes gradientBG {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
 </style>
 
 {#if isVisible}
@@ -103,7 +135,7 @@
         <div class="header w3-light-grey">
             <div class="options" on:click={deleteTask(task)}>&#10008;</div>
             <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
-                <div class="title w3-flat-wet-asphalt w3-serif">{task.title}</div>
+                <div class="title w3-flat-wet-asphalt rainbow w3-serif">{task.title}</div>
                 <div class="shortDescription">{task.description.shortDescription}
                     <div class="options"><EditTask /></div>
                 </div>
