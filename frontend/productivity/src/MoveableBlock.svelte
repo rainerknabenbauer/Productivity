@@ -72,6 +72,13 @@
         max-width: 325px;
         background-color: #efefef;
         border-radius: 3px;
+
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
     .options {
