@@ -94,6 +94,9 @@
         width: 100%;
         resize: none;
     }
+    .textarea:focus {
+        outline: none;
+    }
     .content {
         width: 100%;
     }
