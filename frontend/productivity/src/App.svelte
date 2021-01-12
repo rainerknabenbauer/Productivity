@@ -23,13 +23,13 @@
 		return result;
 	}
 
-	function toggleAddNoteVisibility(event) {
+	function toggleAddNoteVisibility() {
 		isAddNoteVisible = !isAddNoteVisible;
 	}
 
 	async function addNote() {
-		isAddNoteVisible = !isAddNoteVisible;
 		tasksPromise = getTasks();
+		isAddNoteVisible = !isAddNoteVisible;
 	}
 </script>
 
@@ -56,7 +56,7 @@
   </header>
 
   {#if isAddNoteVisible}
-	  <AddNote on:hideModal={event => {console.log("event HideModal received"); isAddNoteVisible =! isAddNoteVisible}} />
+	  <AddNote on:refresh={addNote} />
   {/if}
   
   {#await tasksPromise then tasks}

@@ -5,7 +5,7 @@
 
     const dispatch = createEventDispatcher();
 
-    function sayHello() {
+    function refresh() {
 		dispatch('refresh', {
 			text: 'refresh'
 		});
@@ -27,7 +27,7 @@
             console.log(data)
         });
 
-        sayHello();
+        refresh();
     }
 </script>
 
