@@ -39,7 +39,9 @@
 
 <style>
 * {
+    position: relative;
   box-sizing: border-box;
+  z-index: 5;
 }
 
 /* Style the side navigation */
@@ -48,17 +50,15 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    min-width: 350px;
-    max-width: 800px;
     border-style: solid;
     border-width: 1px;
+    width: 45%;
 }
 
 .sidenav {
   height: 100%;
-  width: 190px;
+  min-width: 190px;
   position: relative;
-  z-index: 1;
   top: 0;
   left: 0;
   overflow-x: hidden;
@@ -70,7 +70,7 @@
 
 
 /* Side navigation links */
-.sidenav-element {
+.sidenavelement {
   padding: 3px 10px;
   text-decoration: none;
   display: block;
@@ -81,41 +81,42 @@
 }
 
 /* Change color on hover */
-.sidenav-element:hover {
+.sidenavelement:hover {
   background-color: #ddd;
   color: black;
 }
 
 /* Style the content */
-.input {
-        border: 1px solid darkgreen;
-        padding: 0px;
-        margin: 0px;
-        min-width: 200px;
-        height: 100%;
-        width: 100%
-    }
     .textarea {
         margin: 0px;
-        padding: 0px;
+        padding: 4px 7px 4px 7px;
         height: 100%;
         width: 100%;
+        resize: none;
     }
     .content {
         width: 100%;
     }
+    .save {
+        background-color: rgb(190, 154, 160);
+        display: flex;
+        justify-content: center;
+        margin-top: 7px;
+    }
+
 </style>
 
 <div class="containers w3-light-grey">
     <div class="sidenav">
-        <div class="sidenav-element" on:click={() => loadPage("title")}>Titel</div>
-        <div class="sidenav-element" on:click={() => loadPage("shortDescription")}>Short description</div>
-        <div class="sidenav-element" on:click={() => loadPage("longDescription")}>Long description</div>
-        <div class="sidenav-element" on:click={() => loadPage("additionalNotes")}>Additional notes</div>
-        <div class="sidenav-element" on:click={() => loadPage("timePeriod")}>Time period</div>
-        <div class="sidenav-element" on:click={() => loadPage("priority")}>Priority</div>
-        <div class="sidenav-element" on:click={() => loadPage("leadingTasks")}>Leading tasks</div>
-        <div class="sidenav-element" on:click={() => loadPage("followingTasks")}>Following Tasks</div>
+        <div class="sidenavelement" on:click={() => loadPage("title")}>Titel</div>
+        <div class="sidenavelement" on:click={() => loadPage("shortDescription")}>Short description</div>
+        <div class="sidenavelement" on:click={() => loadPage("longDescription")}>Long description</div>
+        <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes</div>
+        <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Time period</div>
+        <div class="sidenavelement" on:click={() => loadPage("priority")}>Priority</div>
+        <div class="sidenavelement" on:click={() => loadPage("leadingTasks")}>Leading tasks</div>
+        <div class="sidenavelement" on:click={() => loadPage("followingTasks")}>Following Tasks</div>
+        <div class="sidenavelement save" on:click={addTask}>SAVE</div>
     </div>
     
     <div class="content">
