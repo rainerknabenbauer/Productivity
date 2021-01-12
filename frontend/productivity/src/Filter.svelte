@@ -7,6 +7,11 @@
 		float: right;
         color: #636363;
         background-color: lightgrey;
+
+        text-align: center;
+        letter-spacing: 1px;
+        text-decoration: none;
+        font-family: 'Open Sans';
 	}
 </style>
 

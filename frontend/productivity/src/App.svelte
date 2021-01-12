@@ -5,6 +5,7 @@
 	import Button from './Button.svelte';
 	import AddNote from './AddNote.svelte'
 	import Filter from './Filter.svelte';
+import RotatingBlock from './RotatingBlock.svelte';
 
 	let isAddNoteVisible = false;
 	let isModalVisible = false;
@@ -44,7 +45,7 @@
   <!-- Header -->
   <header class="w3-light-grey">
     <div class="w3-section w3-bottombar w3-padding-16">
-	  <Button text="Add note" on:click={toggleAddNoteVisibility} />
+	  <RotatingBlock data-back="Add note" on:click={toggleAddNoteVisibility} />
       <Filter/>
     </div>
   </header>
