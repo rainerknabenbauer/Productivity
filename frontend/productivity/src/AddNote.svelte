@@ -3,6 +3,12 @@
     import Task from './Task.js';
     import { createEventDispatcher } from 'svelte';
 
+    $: selected = "title";
+
+    function loadPage(name) {
+        selected = name;
+    }
+
     const dispatch = createEventDispatcher();
 
     function refresh() {
@@ -32,60 +38,108 @@
 </script>
 
 <style>
-    .main {
-        background-color: lightgrey;
-        position: absolute;
-        z-index: 10;
-        display: grid;
-        grid-template-columns: auto auto;
-        border: 1px solid darkgreen;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .name {
-        border: 1px solid darkgreen;
-        padding: 3px;
-        letter-spacing: 1px;
-    }
+/* Style the side navigation */
 
-    .input {
+.containers { 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    min-width: 350px;
+    max-width: 800px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 190px;
+  position: relative;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  padding: 10px 0px 10px 0px;
+  margin: 0px;
+  border-right: dashed;
+  border-width: 1px;
+}
+
+
+/* Side navigation links */
+.sidenav-element {
+  padding: 3px 10px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  letter-spacing: 0.1px;
+  text-decoration: none;
+  font-family: 'Verdana';
+}
+
+/* Change color on hover */
+.sidenav-element:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the content */
+.input {
         border: 1px solid darkgreen;
         padding: 0px;
         margin: 0px;
         min-width: 200px;
+        height: 100%;
+        width: 100%
     }
-
     .textarea {
         margin: 0px;
+        padding: 0px;
+        height: 100%;
+        width: 100%;
+    }
+    .content {
+        width: 100%;
     }
 </style>
 
-<div class="main">
-    <div class="name">Titel</div>
-    <div class="input"><textarea class="textarea" bind:value={task.title}></textarea></div>
-
-    <div class="name">Short Description</div>
-    <div class="input"><textarea class="textarea" bind:value={task.description.shortDescription}></textarea></div>
-
-    <div class="name">Long Description</div>
-    <div class="input"><textarea class="textarea" bind:value={task.description.longDescription}></textarea></div>
-
-    <div class="name">Additional notes</div>
-    <div class="input"><textarea class="textarea" bind:value={task.description.additionalNotes}></textarea></div>
-
-    <div class="name">Time period</div>   <!-- Give relative period, eg 6 weeks, calculate exakt date from the input -->
-    <div class="input">[(1-24][h]<br>[_] weeks<br>...</div>
+<div class="containers w3-light-grey">
+    <div class="sidenav">
+        <div class="sidenav-element" on:click={() => loadPage("title")}>Titel</div>
+        <div class="sidenav-element" on:click={() => loadPage("shortDescription")}>Short description</div>
+        <div class="sidenav-element" on:click={() => loadPage("longDescription")}>Long description</div>
+        <div class="sidenav-element" on:click={() => loadPage("additionalNotes")}>Additional notes</div>
+        <div class="sidenav-element" on:click={() => loadPage("timePeriod")}>Time period</div>
+        <div class="sidenav-element" on:click={() => loadPage("priority")}>Priority</div>
+        <div class="sidenav-element" on:click={() => loadPage("leadingTasks")}>Leading tasks</div>
+        <div class="sidenav-element" on:click={() => loadPage("followingTasks")}>Following Tasks</div>
+    </div>
     
-    <div class="name">Priority</div>
-    <div class="input" type="number"><textarea class="textarea" bind:value={task.priority}></textarea></div>
-
-    <div class="name">Leading tasks</div>
-    <div class="input"><textarea class="textarea" bind:value={task.preDependency}></textarea></div>
-
-    <div class="name">Following Tasks</div>
-    <div class="input"><textarea class="textarea" bind:value={task.postDependency}></textarea></div>
-    
-    <div>Add Task</div>
-    <div class=""><Button text="add" on:click={addTask} /></div>
+    <div class="content">
+        {#if selected.localeCompare("title") === 0}
+        <textarea class="textarea" bind:value={task.title}></textarea>
+        {:else if selected.localeCompare("shortDescription") === 0}
+        <textarea class="textarea" bind:value={task.description.shortDescription}></textarea>
+        {:else if selected.localeCompare("longDescription") === 0}
+        <textarea class="textarea" bind:value={task.description.longDescription}></textarea>
+        {:else if selected.localeCompare("additionalNotes") === 0}
+        <textarea class="textarea" bind:value={task.description.additionalNotes}></textarea>
+        {:else if selected.localeCompare("timePeriod") === 0}
+        [(1-24][h]<br>[_] weeks<br>...
+        {:else if selected.localeCompare("priority") === 0}
+        <textarea class="textarea" bind:value={task.priority}></textarea>
+        {:else if selected.localeCompare("leadingTasks") === 0}
+        <textarea class="textarea" bind:value={task.preDependency}></textarea>
+        {:else if selected.localeCompare("followingTasks") === 0}
+        <textarea class="textarea" bind:value={task.postDependency}></textarea>
+        {:else}
+        <div class=""><Button text="add" on:click={addTask} /></div>
+        {/if}
+    </div>
 </div>
+
 
 
