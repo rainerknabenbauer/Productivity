@@ -4,7 +4,6 @@
 	import MoveableBlock from './MoveableBlock.svelte';
 	import Button from './Button.svelte';
 	import AddNote from './AddNote.svelte'
-	import Note from './Note.svelte';
 
 	let isAddNoteVisible = false;
 	let isModalVisible = false;
@@ -37,9 +36,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
-</style>
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
@@ -49,6 +46,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   <!-- Header -->
   <header id="portfolio" class="w3-light-grey">
     <div class="w3-section w3-bottombar w3-padding-16">
+	  <Button text="Add note" on:click={toggleAddNoteVisibility} />
       <span class="w3-margin-right w3-margin-left">Filter:</span> 
       <button class="w3-button w3-black">ALL</button>
       <button class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
@@ -56,11 +54,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
     </div>
   </header>
-  
-  <Button text="Add note" on:click={toggleAddNoteVisibility} />
 
   {#if isAddNoteVisible}
-	  <Note on:hideModal={event => {console.log("event HideModal received"); isAddNoteVisible =! isAddNoteVisible}} />
+	  <AddNote on:hideModal={event => {console.log("event HideModal received"); isAddNoteVisible =! isAddNoteVisible}} />
   {/if}
   
   {#await tasksPromise then tasks}
