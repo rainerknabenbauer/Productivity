@@ -2,14 +2,14 @@
 <script>
 	import { onMount } from 'svelte';
 	import MoveableBlock from './MoveableBlock.svelte';
-	import Button from './Button.svelte';
 	import AddNote from './AddNote.svelte'
 	import Filter from './Filter.svelte';
-import RotatingBlock from './RotatingBlock.svelte';
+	import RotatingBlock from './RotatingBlock.svelte';
+	import Task from './Task.js';
 
 	let isAddNoteVisible = false;
-	let isModalVisible = false;
 	let tasksPromise = [];
+	let task;
 
 	onMount(async () => {
 		tasksPromise = getTasks();
@@ -27,11 +27,18 @@ import RotatingBlock from './RotatingBlock.svelte';
 
 	function toggleAddNoteVisibility() {
 		isAddNoteVisible = !isAddNoteVisible;
+		task = new Task();
 	}
 
 	async function addNote() {
 		tasksPromise = getTasks();
 		isAddNoteVisible = !isAddNoteVisible;
+	}
+
+	function editTask(taskJson) {
+		console.log("task: "+taskJson);
+		toggleAddNoteVisibility();
+		task = JSON.parse(taskJson);
 	}
 </script>
 
@@ -51,12 +58,12 @@ import RotatingBlock from './RotatingBlock.svelte';
   </header>
 
   {#if isAddNoteVisible}
-	  <AddNote on:refresh={addNote} />
+	  <AddNote on:refresh={addNote} task={task}/>
   {/if}
   
   {#await tasksPromise then tasks}
 	  {#each tasks as task (task.id)}
-		  <MoveableBlock {task}/>
+		  <MoveableBlock {task} on:edit={e => editTask(e.detail.text)}/>
 	  {/each}
   {/await}
   

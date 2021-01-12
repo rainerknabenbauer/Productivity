@@ -1,12 +1,21 @@
 <script>
     import Button from './Button.svelte';
-    import Task from './Task.js';
-    import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher, onMount } from 'svelte';
+    import Task from './Task';
 
     $: selected = "title";
 
+    export let task;
+
+    onMount(async () => {
+        if(task === undefined) {
+            task = new Task();
+        }
+    });
+
     function loadPage(name) {
         selected = name;
+        console.log(task)
     }
 
     const dispatch = createEventDispatcher();
@@ -16,8 +25,6 @@
 			text: 'refresh'
 		});
 	}
-
-    let task = new Task();
 
     async function addTask() {
         console.log(JSON.stringify(task));

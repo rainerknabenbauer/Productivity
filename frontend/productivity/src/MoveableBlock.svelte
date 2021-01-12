@@ -1,8 +1,9 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
     import EditTask from './EditTask.svelte'
 
+    const dispatch = createEventDispatcher();
     export let task;
-    console.log(task);
 
     let isMoving = false;
     let isVisible = true;
@@ -34,6 +35,12 @@
             console.log(data)
         });
     }
+
+    function editTask() {
+		dispatch('edit', {
+			text: JSON.stringify(task)
+        });
+	}
         
     //send to server
     async function updateTask() {
@@ -143,7 +150,7 @@
             <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
                 <div class="title w3-flat-wet-asphalt rainbow w3-serif">{task.title}</div>
                 <div class="shortDescription">{task.description.shortDescription}
-                    <div class="options"><EditTask /></div>
+                    <div class="options"><EditTask on:click={editTask} /></div>
                 </div>
             </div>
         </div>
