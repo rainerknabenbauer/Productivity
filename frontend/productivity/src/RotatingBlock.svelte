@@ -1,5 +1,5 @@
 <script>
-
+  export let symbol;
 </script>
 
 <style>
@@ -59,5 +59,5 @@
 
 
 
-<a href="#" class="btn-flip w3-margin-left" data-front="Add note" data-back="&#x2794;" on:click></a>
+<a href="#" class="btn-flip w3-margin-left" data-front="Add note" data-back={symbol} on:click></a>
 

@@ -42,6 +42,13 @@
 
         refresh();
     }
+
+    function getLength(node) {
+        if (node === undefined) {
+            return 0;
+        }
+        return node.length;
+    }
 </script>
 
 <style>
@@ -64,7 +71,7 @@
 
 .sidenav {
   height: 100%;
-  min-width: 190px;
+  min-width: 200px;
   position: relative;
   top: 0;
   left: 0;
@@ -114,18 +121,21 @@
         margin-top: 7px;
     }
 
+    .characters {
+        float: right;
+    }
 </style>
 
 <div class="containers w3-light-grey">
     <div class="sidenav">
-        <div class="sidenavelement" on:click={() => loadPage("title")}>Titel</div>
-        <div class="sidenavelement" on:click={() => loadPage("shortDescription")}>Short description</div>
-        <div class="sidenavelement" on:click={() => loadPage("longDescription")}>Long description</div>
-        <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes</div>
-        <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Time period</div>
-        <div class="sidenavelement" on:click={() => loadPage("priority")}>Priority</div>
-        <div class="sidenavelement" on:click={() => loadPage("leadingTasks")}>Leading tasks</div>
-        <div class="sidenavelement" on:click={() => loadPage("followingTasks")}>Following Tasks</div>
+        <div class="sidenavelement" on:click={() => loadPage("title")}>Titel <div class="characters">{getLength(task.title)}</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("shortDescription")}>Short description <div class="characters">{getLength(task.description.shortDescription)}</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("longDescription")}>Long description <div class="characters">{getLength(task.description.longDescription)}</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes <div class="characters">{getLength(task.description.additionalNotes)}</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Time period <div class="characters">x</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("priority")}>Priority <div class="characters">{task.priority}</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("leadingTasks")}>Leading tasks <div class="characters">{getLength(task.preDependency)}</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("followingTasks")}>Following Tasks <div class="characters">{getLength(task.postDependency)}</div></div>
         <div class="sidenavelement save" on:click={addTask}>SAVE</div>
     </div>
     

@@ -16,7 +16,7 @@
 </style>
 
 
-    <button class="w3-button w3-white w3-hide-small filter w3-margin-right"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
-    <button class="w3-button w3-white w3-hide-small filter"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
-    <button class="w3-button w3-white filter"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
+    <button class="w3-button w3-white w3-hide-small filter w3-margin-right"><i class="fa fa-map-pin w3-margin-right"></i>Recommended tasks</button>
+    <button class="w3-button w3-white w3-hide-small filter"><i class="fa fa-photo w3-margin-right"></i>Dont Know Yet</button>
+    <button class="w3-button w3-white filter"><i class="fa fa-diamond w3-margin-right"></i>History</button>
     <button class="w3-button filter">ALL</button>

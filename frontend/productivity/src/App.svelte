@@ -10,6 +10,7 @@
 	let isAddNoteVisible = false;
 	let tasksPromise = [];
 	let task;
+	let symbol = "&#x2794;";
 
 	onMount(async () => {
 		tasksPromise = getTasks();
@@ -28,6 +29,11 @@
 	function toggleAddNoteVisibility() {
 		isAddNoteVisible = !isAddNoteVisible;
 		task = new Task();
+		if(isAddNoteVisible) {
+			symbol = "★";
+		} else {
+			symbol = "☆";
+		}
 	}
 
 	async function addNote() {
@@ -52,7 +58,7 @@
   <!-- Header -->
   <header class="w3-light-grey">
     <div class="w3-section w3-bottombar w3-padding-16">
-	  <RotatingBlock data-back="Add note" on:click={toggleAddNoteVisibility} />
+	  <RotatingBlock {symbol} on:click={toggleAddNoteVisibility} />
       <Filter/>
     </div>
   </header>
