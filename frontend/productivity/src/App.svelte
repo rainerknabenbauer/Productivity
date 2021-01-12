@@ -33,17 +33,22 @@
 		isAddNoteVisible = !isAddNoteVisible;
 	}
 </script>
-
-<style>
 	
+<style>
+	.headline {
+		background:-webkit-linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
+    background:-o-linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
+    background:-moz-linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
+    background:linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
+	}
 </style>
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main">
 
   <!-- Header -->
-  <header class="w3-light-grey">
-    <div class="w3-section w3-bottombar w3-padding-16">
+  <header class="headline">
+    <div class="w3-section w3-padding-16">
 	  <Button text="Add note" on:click={toggleAddNoteVisibility} />
       <Filter/>
     </div>

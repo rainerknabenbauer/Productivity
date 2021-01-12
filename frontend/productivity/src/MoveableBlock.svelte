@@ -67,11 +67,16 @@
     .task {
         cursor: -webkit-grab; 
         cursor: grab;
-        border: 1px solid darkgreen;
+        border: 1px solid rgb(71, 71, 71);
         min-width: 250px;
         max-width: 325px;
         background-color: #efefef;
         border-radius: 3px;
+
+    box-shadow: 4px 3px 8px 1px #555050;
+  	-webkit-box-shadow: 4px 3px 8px 1px  #2e2e2e;
+
+
     }
 
     .options {
@@ -98,7 +103,7 @@
     .rainbow {
 	margin: 0;
 	color: #fff;
-	background: linear-gradient(-45deg, #888888, #49343c, #575050, #343837 );
+	background: linear-gradient(-45deg, #494949, #49343c, #575050, #343837 );
 	background-size: 400% 400%;
 	-webkit-animation: gradientBG 10s ease infinite;
 	        animation: gradientBG 10s ease infinite;

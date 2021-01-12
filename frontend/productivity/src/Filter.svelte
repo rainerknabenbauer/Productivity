@@ -7,6 +7,7 @@
 		float: right;
         color: #636363;
         background-color: lightgrey;
+        opacity: 0.3;
 	}
 </style>
 
