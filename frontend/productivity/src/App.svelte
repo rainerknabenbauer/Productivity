@@ -34,40 +34,9 @@
 </script>
 
 <style>
-    .rainbow {
-	margin: 0;
-	width: 100%;
-	height: 100vh;
-	font-family: "Exo", sans-serif;
-	color: #fff;
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab );
-	background-size: 400% 400%;
-	-webkit-animation: gradientBG 10s ease infinite;
-	        animation: gradientBG 10s ease infinite;
-}
-
-@-webkit-keyframes gradientBG {
-	0% {
-		background-position: 0% 50%;
+	.filter {
+		float: right;
 	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-@keyframes gradientBG {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
 </style>
 
 <!-- !PAGE CONTENT! -->
@@ -77,11 +46,10 @@
   <header id="portfolio" class="w3-light-grey">
     <div class="w3-section w3-bottombar w3-padding-16">
 	  <Button text="Add note" on:click={toggleAddNoteVisibility} />
-      <span class="w3-margin-right w3-margin-left">Filter:</span> 
-      <button class="w3-button w3-black">ALL</button>
-      <button class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
-      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
-      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
+      <button class="w3-button w3-white w3-hide-small filter"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
+	  <button class="w3-button w3-white w3-hide-small filter"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
+      <button class="w3-button w3-white filter"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
+	  <button class="w3-button w3-black filter">ALL</button>
     </div>
   </header>
 

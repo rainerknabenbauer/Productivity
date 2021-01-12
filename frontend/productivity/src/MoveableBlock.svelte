@@ -78,11 +78,11 @@
         float: right;
         font-size: 12pt;
         padding-right: 5px;
-        color: darkgrey;
+        color: white;
     }
 
     .options:hover {
-        color: lightgrey;
+        color: darkgrey;
         cursor: default;
     }
 
@@ -97,9 +97,8 @@
 
     .rainbow {
 	margin: 0;
-	font-family: "Exo", sans-serif;
 	color: #fff;
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab );
+	background: linear-gradient(-45deg, #888888, #49343c, #575050, #343837 );
 	background-size: 400% 400%;
 	-webkit-animation: gradientBG 10s ease infinite;
 	        animation: gradientBG 10s ease infinite;
