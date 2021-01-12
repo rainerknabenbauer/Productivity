@@ -37,9 +37,9 @@
 <style>
 	.headline {
 		background:-webkit-linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
-    background:-o-linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
-    background:-moz-linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
-    background:linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
+    	background:-o-linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
+    	background:-moz-linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
+    	background:linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
 	}
 </style>
 

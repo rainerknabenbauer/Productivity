@@ -72,11 +72,15 @@
         max-width: 325px;
         background-color: #efefef;
         border-radius: 3px;
+        box-shadow: 4px 3px 8px 1px #555050;
+  	    -webkit-box-shadow: 4px 3px 8px 1px  #2e2e2e;
 
-    box-shadow: 4px 3px 8px 1px #555050;
-  	-webkit-box-shadow: 4px 3px 8px 1px  #2e2e2e;
-
-
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
     .options {
