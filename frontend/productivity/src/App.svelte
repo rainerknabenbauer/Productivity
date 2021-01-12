@@ -7,7 +7,6 @@
 	import Filter from './Filter.svelte';
 
 	let isAddNoteVisible = false;
-	let isModalVisible = false;
 	let tasksPromise = [];
 
 	onMount(async () => {
@@ -41,6 +40,7 @@
     	background:-moz-linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
     	background:linear-gradient(90deg, rgb(38, 38, 38) 0%, rgba(0, 255, 0, 0) 80%);
 	}
+
 </style>
 
 <!-- !PAGE CONTENT! -->

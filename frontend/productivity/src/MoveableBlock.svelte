@@ -51,8 +51,8 @@
                     console.log(data)
                 });
         }
-    }
-
+    };
+    
     // Calculate relative position of DIV
     document.addEventListener('mousemove', (event) => {
         if (isMoving) {
