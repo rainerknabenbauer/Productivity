@@ -37,7 +37,7 @@
 
 	function editTask(taskJson) {
 		console.log("task: "+taskJson);
-		toggleAddNoteVisibility();
+		isAddNoteVisible = true;
 		task = JSON.parse(taskJson);
 	}
 </script>
