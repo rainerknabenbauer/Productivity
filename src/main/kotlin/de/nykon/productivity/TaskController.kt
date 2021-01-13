@@ -21,18 +21,23 @@ class TaskController(private val taskService: TaskService) {
 
     @CrossOrigin(origins = ["http://localhost:5000"])
     @PostMapping(path = ["/tasks"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun saveTask(@RequestBody task: Task): Task {
+    fun saveTask(@RequestBody task: Task): ResponseEntity<Task> {
         val savedTask = taskService.save(task)
         println("saved task: $savedTask")
-        return savedTask
+        return ResponseEntity.ok(savedTask)
     }
 
     @PostMapping(path = ["/ui/{id}"])  //TODO probably change to PUT
-    fun setPosition(@PathVariable id: String, @RequestBody ui: UI): Task {
+    fun setPosition(@PathVariable id: String, @RequestBody ui: UI): ResponseEntity<Task> {
         println("set UI of $id to x=${ui.xposition} | y=${ui.yposition}")
-        return taskService.save(Task(id, null,false, "updated task",
-            TaskDescription("","",""),
-            LocalDate.now(), 0, listOf(), ui))
+        val savedTask = taskService.save(
+            Task(
+                id, null, false, "updated task",
+                TaskDescription("", "", ""),
+                LocalDate.now(), 0, listOf(), ui
+            )
+        )
+        return ResponseEntity.ok(savedTask)
     }
 
     @CrossOrigin(origins = ["http://localhost:5000"])
@@ -45,7 +50,7 @@ class TaskController(private val taskService: TaskService) {
 
 
     @GetMapping(path = ["/sample"])
-    fun getSample(): ArrayList<Task> {
+    fun getSample(): ResponseEntity<ArrayList<Task>> {
         val tasks = ArrayList<Task>()
         val task1 = Task(UUID.randomUUID().toString(), null,false,"First Sample",
             TaskDescription("...", "...", "..."),
@@ -67,7 +72,7 @@ class TaskController(private val taskService: TaskService) {
         taskService.save(task2)
         taskService.save(task3)
 
-        return tasks
+        return ResponseEntity.ok(tasks)
     }
 
 }
