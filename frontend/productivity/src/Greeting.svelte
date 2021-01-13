@@ -1,4 +1,16 @@
 <script>
+    import { onMount } from "svelte";
+
+    let url = window.location.href;
+
+    onMount(async () => {
+		new QRCode(document.getElementById("qrcode"), {
+            text: url,
+            width: 100,
+            height: 100,
+            // QRCode.CorrectLevel.L | QRCode.CorrectLevel.M | QRCode.CorrectLevel.H
+            correctLevel : QRCode.CorrectLevel.H
+    })});
 
 </script>
 
@@ -10,8 +22,8 @@
         position: fixed;
         bottom: 0;
         font-size: 8pt;
-        opacity: 0.5;
+        opacity: 0.6;
     }
 </style>
 
-<div class="lowerleft w3-cursive">Nykon.</div>
+<div id="qrcode" class="lowerleft w3-cursive"></div>
