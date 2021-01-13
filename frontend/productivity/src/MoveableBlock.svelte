@@ -140,6 +140,10 @@
 		background-position: 0% 50%;
 	}
 }
+
+.dark {
+    color: darkslategrey;
+}
 </style>
 
 {#if isVisible}
@@ -150,7 +154,7 @@
             <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
                 <div class="title w3-flat-wet-asphalt rainbow w3-serif">{task.title}</div>
                 <div class="shortDescription">{task.description.shortDescription}
-                    <div class="options"><EditTask on:click={editTask} /></div>
+                    <div class="options dark"><EditTask on:click={editTask} /></div>
                 </div>
             </div>
         </div>
