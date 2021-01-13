@@ -17,7 +17,7 @@
 <style>
     .lowerleft
     {
-        margin-bottom: 13px;
+        margin-bottom: 20px;
         margin-left : 5px;
         position: fixed;
         bottom: 0;
