@@ -7,19 +7,17 @@ import java.util.*
 
 /**
  * A single task.
- *
- * @param preDependency Tasks, that need to be completed before
- * @param postDependency Following tasks
  */
 @Document(collection = "tasks")
 data class Task(
     @Id val id: String = UUID.randomUUID().toString(),
+    val projectId: String?,
     val isBeingWorkedOn: Boolean = false,
     val title: String,
     val description: TaskDescription,
     val endDate: LocalDate?,
     val priority: Int,
-    val preDependency: List<UUID>?,
-    val postDependency: List<UUID>?,
+    val followUps: List<String>?,
     val ui: UI
+
 )

@@ -1,6 +1,7 @@
 class Task {
 	constructor() {
 		this.id = undefined;
+		this.projectId = undefined;
 		this.isBeingWorkedOn = undefined;
 		this.title = "";
 		this.description = {
@@ -10,8 +11,7 @@ class Task {
 		};
         this.endDate = undefined;
         this.priority = 0;
-        this.preDependency = undefined;
-		this.postDependency = undefined;
+        this.followUps = undefined;
 		this.ui = {
 			xposition: 5,
 			yposition: 45

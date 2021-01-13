@@ -30,9 +30,9 @@ class TaskController(private val taskService: TaskService) {
     @PostMapping(path = ["/ui/{id}"])  //TODO probably change to PUT
     fun setPosition(@PathVariable id: String, @RequestBody ui: UI): Task {
         println("set UI of $id to x=${ui.xposition} | y=${ui.yposition}")
-        return taskService.save(Task(id, false, "updated task",
+        return taskService.save(Task(id, null,false, "updated task",
             TaskDescription("","",""),
-            LocalDate.now(), 0, listOf(), listOf(), ui))
+            LocalDate.now(), 0, listOf(), ui))
     }
 
     @CrossOrigin(origins = ["http://localhost:5000"])
@@ -47,17 +47,17 @@ class TaskController(private val taskService: TaskService) {
     @GetMapping(path = ["/sample"])
     fun getSample(): ArrayList<Task> {
         val tasks = ArrayList<Task>()
-        val task1 = Task(UUID.randomUUID().toString(), false,"First Sample",
+        val task1 = Task(UUID.randomUUID().toString(), null,false,"First Sample",
             TaskDescription("...", "...", "..."),
-            LocalDate.now(), 0, null, null, UI(0, 0)
+            LocalDate.now(), 0, null, UI(0, 0)
         )
-        val task2 = Task(UUID.randomUUID().toString(), false, "First Sample",
+        val task2 = Task(UUID.randomUUID().toString(), null, false, "First Sample",
             TaskDescription("...", "...", "..."),
-            LocalDate.now(), 0, null, null, UI(0, 0))
+            LocalDate.now(), 0, null, UI(0, 0))
 
-        val task3 = Task(UUID.randomUUID().toString(), false,"First Sample",
+        val task3 = Task(UUID.randomUUID().toString(), null, false,"First Sample",
             TaskDescription("...", "...", "..."),
-            LocalDate.now(), 0, null, null, UI(0, 0))
+            LocalDate.now(), 0, null, UI(0, 0))
 
         tasks.add(task1)
         tasks.add(task2)

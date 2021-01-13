@@ -135,8 +135,7 @@
         <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes <div class="characters">{getLength(task.description.additionalNotes)}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Time period <div class="characters">x</div></div>
         <div class="sidenavelement" on:click={() => loadPage("priority")}>Priority <div class="characters">{task.priority}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("leadingTasks")}>Leading tasks <div class="characters">{getLength(task.preDependency)}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("followingTasks")}>Following Tasks <div class="characters">{getLength(task.postDependency)}</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("followup")}>Follow up <div class="characters">{getLength(task.followUps)}</div></div>
         <div class="sidenavelement save" on:click={addTask}>SAVE</div>
     </div>
     
@@ -153,10 +152,8 @@
         [(1-24][h]<br>[_] weeks<br>...
         {:else if selected.localeCompare("priority") === 0}
         <textarea class="textarea" bind:value={task.priority}></textarea>
-        {:else if selected.localeCompare("leadingTasks") === 0}
-        <textarea class="textarea" bind:value={task.preDependency}></textarea>
-        {:else if selected.localeCompare("followingTasks") === 0}
-        <textarea class="textarea" bind:value={task.postDependency}></textarea>
+        {:else if selected.localeCompare("followup") === 0}
+        <textarea class="textarea" bind:value={task.followUps}></textarea>
         {:else}
         <div class=""><Button text="add" on:click={addTask} /></div>
         {/if}
