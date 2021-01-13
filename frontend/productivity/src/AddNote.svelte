@@ -6,9 +6,9 @@
     $: selected = "title";
 
     export let task;
-    export let project;
+    export let projectId;
 
-    task.projectId = project;
+    task.projectId = projectId;
 
     onMount(async () => {
         if(task === undefined) {

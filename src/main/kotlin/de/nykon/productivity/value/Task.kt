@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.TextIndexed
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 
 /**
@@ -19,6 +20,7 @@ data class Task(
     val endDate: LocalDate?,
     val priority: Int,
     val followUps: List<String>?,
-    val ui: UI
+    val ui: UI,
+    val createTime: LocalDateTime = LocalDateTime.now()
 
 )

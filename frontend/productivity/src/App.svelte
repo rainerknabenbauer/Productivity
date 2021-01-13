@@ -8,7 +8,6 @@
 	import Task from './Task.js';
 	import Greeting from './Greeting.svelte';
 	import Reminder from './Reminder.svelte';
-	import Project from './Project.js';
 
 	let isAddNoteVisible = false;
 	let isReminderVisible = false;
@@ -45,6 +44,7 @@
 	}
 
 	async function getTasks() {
+		let projectId = window.location.search.substr(1);
 		let result = [];
 		if (!(projectId === undefined || projectId === "")) {
 			await fetch(uri + '/tasks/' + projectId)
@@ -97,7 +97,7 @@
   </header>
 
   {#if isAddNoteVisible}
-	  <AddNote on:refresh={addNote} {task} projectId={projectId}/>
+	  <AddNote on:refresh={addNote} {task} {projectId}/>
   {/if}
   
   {#await tasksPromise then tasks}
@@ -108,7 +108,7 @@
 
   {#if isReminderVisible}
 		{#await projectPromise then project}
-			<Reminder projectId={project.projectId} email={project.email} on:showReminder={showReminder}/>
+			<Reminder {projectId} email={project.email} on:showReminder={showReminder}/>
 		{/await}
   {/if}
   

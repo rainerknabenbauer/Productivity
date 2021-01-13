@@ -2,6 +2,7 @@ package de.nykon.productivity.value
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
+import java.time.LocalDateTime
 import java.util.*
 
 /**
@@ -14,5 +15,6 @@ data class Project(
     val description: String? = null,
     val email: String? = null,
     val userIds: List<String> = emptyList(),
-    val taskIds: List<String> = emptyList()
+    val taskIds: List<String> = emptyList(),
+    val createTime: LocalDateTime = LocalDateTime.now()
 )

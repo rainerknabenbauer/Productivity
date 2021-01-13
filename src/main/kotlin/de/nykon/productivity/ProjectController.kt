@@ -37,7 +37,8 @@ class ProjectController(
     @CrossOrigin
     @GetMapping(path = ["/projects/new"])
     fun createProject(): ResponseEntity<Project> {
-        return ResponseEntity.ok(Project())
+        println("create project")
+        return ResponseEntity.ok(projectService.save(Project()))
     }
 
 }
