@@ -66,6 +66,7 @@
     justify-content: center;
     border-style: solid;
     border-width: 1px;
+    border-color: lightslategray;
     width: 45%;
 }
 
