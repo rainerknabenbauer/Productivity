@@ -1,7 +1,14 @@
 <script>
-    import Project from "./Project";
+    import Project from './Project';
+    import Button from './Button.svelte';
 
-
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+    
+    function showReminder() {
+        dispatch('showReminder');
+        console.log("showReminder")
+	}
 
     export let email;
     export let projectId;
@@ -23,10 +30,6 @@
         }
     }
 
-    async function closeWindow() {
-        isVisible = false;
-    }
-
     function bindEmail() {
         let project = new Project();
         project.projectId = projectId;
@@ -43,6 +46,7 @@
         }).then(data => {
             console.log(data)
         });
+        showReminder();
 	}
 
     // Calculate relative position of DIV
@@ -138,13 +142,13 @@
     <!-- The block gets attached to the mouse when you hold down left mouse button-->
     <div id="reminder" class="container" style="position: absolute; top: {yposition}px; left: {xposition}px">
         <div class="header w3-light-grey">
-            <div class="options" on:click={closeWindow}>&#10008;</div>
+            <div class="options" on:click={showReminder}>&#10008;</div>
             <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
-                <div class="title w3-flat-wet-asphalt rainbow w3-serif">Reminder</div>
-                <div class="shortDescription">Did you know you could attach your eMail to your projects?</div>
-                <div class="shortDescription">Never lose your projects because you forgot the link.</div>
+                <div class="title w3-flat-wet-asphalt rainbow w3-serif">Link your project to your eMail account</div>
+                <div class="shortDescription">Did you know you could link your eMail to your projects?</div>
+                <div class="shortDescription">Never again lose your projects because you forgot the link.</div>
                 <textarea class="email" bind:value={email}></textarea>
-                <button on:click={bindEmail} />
+                <Button on:click={bindEmail} text="Set reminder"></Button>
             </div>
         </div>
     </div>

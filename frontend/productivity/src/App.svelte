@@ -58,7 +58,7 @@
 		}
 	}
 
-	function toggleReminder() {
+	function showReminder() {
 		isReminderVisible = !isReminderVisible;
 	}
 
@@ -68,7 +68,6 @@
 	}
 
 	function editTask(taskJson) {
-		console.log("task: "+taskJson);
 		isAddNoteVisible = true;
 		task = JSON.parse(taskJson);
 	}
@@ -85,7 +84,7 @@
   <header class="w3-light-grey">
     <div class="w3-section w3-bottombar w3-padding-16">
 	  <RotatingBlock {symbol} on:click={toggleAddNoteVisibility} />
-      <Filter on:showReminder={toggleReminder}/>
+      <Filter on:showReminder={showReminder}/>
     </div>
   </header>
 
@@ -101,7 +100,7 @@
 
   {#if isReminderVisible}
 		{#await projectPromise then project}
-			<Reminder projectId={project.projectId} email={project.email}/>
+			<Reminder projectId={project.projectId} email={project.email} on:showReminder={showReminder}/>
 		{/await}
   {/if}
   
