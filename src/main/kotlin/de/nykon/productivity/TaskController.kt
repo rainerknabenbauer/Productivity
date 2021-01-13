@@ -13,6 +13,12 @@ import kotlin.collections.ArrayList
 @RestController
 class TaskController(private val taskService: TaskService) {
 
+    @CrossOrigin(origins = ["http://localhost:5000"])
+    @GetMapping(path = ["/tasks/{projectId}"])
+    fun getProject(@PathVariable projectId: String): ResponseEntity<List<Task>> {
+        return ResponseEntity.ok(taskService.getByProject(projectId))
+    }
+
     @GetMapping(path = ["/tasks"])
     fun getTasks(): ResponseEntity<MutableList<Task>> {
         println("called getTasks")

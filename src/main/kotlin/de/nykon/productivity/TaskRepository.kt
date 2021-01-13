@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface TaskRepository : MongoRepository<Task, String> {
 
+    fun findByProjectId(projectId: String): List<Task>
+
 
 }

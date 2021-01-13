@@ -9,6 +9,7 @@ class TaskService(private val taskRepository: TaskRepository) {
 
     fun save(task: Task): Task {
         return taskRepository.save(task)
+
     }
 
     fun get(id: String): Optional<Task> {
@@ -21,6 +22,10 @@ class TaskService(private val taskRepository: TaskRepository) {
 
     fun delete(task: Task) {
         return taskRepository.delete(task)
+    }
+
+    fun getByProject(projectId: String): List<Task> {
+        return taskRepository.findByProjectId(projectId);
     }
 
 }

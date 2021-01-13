@@ -6,24 +6,32 @@
 	import Filter from './Filter.svelte';
 	import RotatingBlock from './RotatingBlock.svelte';
 	import Task from './Task.js';
-import Greeting from './Greeting.svelte';
+	import Greeting from './Greeting.svelte';
 
 	let isAddNoteVisible = false;
 	let tasksPromise = [];
 	let task;
 	let symbol = "☆";
+	const uri = "http://localhost:8080";
+	let project;
 
 	onMount(async () => {
+		project = window.location.search.substr(1);
 		tasksPromise = getTasks();
 	});
 
 	async function getTasks() {
 		let result = [];
-		
-		await fetch('http://localhost:8080/tasks')
+		if (project === undefined || project === "") {
+			await fetch(uri + '/tasks')
 							.then(response => result = response.json())
 							.catch(error => alert(error));
-
+		} else {
+			await fetch(uri + '/tasks/' + project)
+							.then(response => result = response.json())
+							.catch(error => alert(error));
+			
+		}
 		return result;
 	}
 
@@ -65,7 +73,7 @@ import Greeting from './Greeting.svelte';
   </header>
 
   {#if isAddNoteVisible}
-	  <AddNote on:refresh={addNote} task={task}/>
+	  <AddNote on:refresh={addNote} {task} {project}/>
   {/if}
   
   {#await tasksPromise then tasks}
