@@ -12,12 +12,6 @@ class ProjectController(
     private val projectService: ProjectService) {
 
     @CrossOrigin(origins = ["http://localhost:5000"])
-    @GetMapping(path = ["/projects"])
-    fun getProjects(): ResponseEntity<MutableList<Project>> {
-        return ResponseEntity.ok(projectService.getProjects())
-    }
-
-    @CrossOrigin(origins = ["http://localhost:5000"])
     @GetMapping(path = ["/projects/samples"])
     fun sampleProjects(): ArrayList<Project> {
         val projects: ArrayList<Project> = ArrayList()
@@ -38,6 +32,12 @@ class ProjectController(
     fun setProject(@RequestBody project: Project): ResponseEntity<Project> {
         println("called setProject")
         return ResponseEntity.ok(projectService.save(project));
+    }
+
+    @CrossOrigin
+    @GetMapping(path = ["/projects/new"])
+    fun createProject(): ResponseEntity<Project> {
+        return ResponseEntity.ok(Project())
     }
 
 }

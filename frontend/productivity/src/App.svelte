@@ -16,7 +16,9 @@
 	let task;
 	let symbol = "☆";
 	const uri = "http://localhost:8080";
-	let projectPromise = getProject();
+	const self = "http://localhost:5000";
+
+	let projectPromise;
 	let projectId = window.location.search.substr(1);
 
 	onMount(async () => {
@@ -26,25 +28,29 @@
 
 	async function getProject() {
 		let result = [];
-		await fetch(uri + '/projects/' + projectId)
+		let projectId = window.location.search.substr(1);
+		if (projectId === undefined || projectId === "") {
+			let blabla = await fetch(uri + '/projects/new')
 							.then(response => result = response.json())
-							.catch(e => {result = "{}"});
+							.catch(error => alert(error));
+			console.log("getProject: "+blabla)
+			location.assign(self + "/?" + blabla.projectId)
+		} else {
+			await fetch(uri + '/projects/' + projectId)
+							.then(response => result = response.json())
+							.catch(error => alert(error));
+		}
 		return result;
 
 	}
 
 	async function getTasks() {
 		let result = [];
-		if (projectId === undefined || projectId === "") {
-			await fetch(uri + '/tasks')
-							.then(response => result = response.json())
-							.catch(error => alert(error));
-		} else {
+		if (!(projectId === undefined || projectId === "")) {
 			await fetch(uri + '/tasks/' + projectId)
 							.then(response => result = response.json())
 							.catch(error => alert(error));
-			
-		}
+		} 
 		return result;
 	}
 
