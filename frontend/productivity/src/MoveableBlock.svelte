@@ -77,6 +77,7 @@
         border: 1px solid darkgreen;
         min-width: 250px;
         max-width: 325px;
+        z-index: 1;
 
         background-color: rgb(206, 206, 206);
         border-radius: 3px;

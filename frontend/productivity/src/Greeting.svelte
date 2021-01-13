@@ -22,7 +22,12 @@
         position: fixed;
         bottom: 0;
         font-size: 8pt;
-        opacity: 0.6;
+        opacity: 0.2;
+        z-index: 0;
+    }
+
+    .lowerleft:hover {
+        opacity: 0.8;
     }
 </style>
 
