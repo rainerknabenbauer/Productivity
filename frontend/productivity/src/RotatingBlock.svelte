@@ -36,7 +36,7 @@
   display: block;
   transition: 0.5s;
   position: absolute;
-  background:#e0fcad;
+  background:#f1f1f1;
   content: attr(data-back);
   transform: translateY(-50%) rotateX(90deg);
 }
@@ -50,7 +50,7 @@
   line-height: 40px;
   transition: 0.5s;
   position: relative;
-  background: #b6d679;
+  background: #999999;
   content: attr(data-front);
   transform: translateY(0) rotateX(0);
 }

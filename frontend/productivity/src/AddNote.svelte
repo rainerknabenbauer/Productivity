@@ -84,6 +84,7 @@
   margin: 0px;
   border-right: dashed;
   border-width: 1px;
+  background-color: #dddddd;
 }
 
 
@@ -100,7 +101,7 @@
 
 /* Change color on hover */
 .sidenavelement:hover {
-  background-color: #ddd;
+  background-color: rgb(206, 206, 206);
   color: black;
 }
 
