@@ -17,6 +17,7 @@
 	let symbol = "☆";
 	const uri = "http://localhost:8080";
 	let projectPromise = getProject();
+	let projectId = window.location.search.substr(1);
 
 	onMount(async () => {
 		tasksPromise = getTasks();
@@ -24,7 +25,6 @@
 	});
 
 	async function getProject() {
-		let projectId = window.location.search.substr(1);
 		let result = [];
 		await fetch(uri + '/projects/' + projectId)
 							.then(response => result = response.json())
@@ -35,12 +35,12 @@
 
 	async function getTasks() {
 		let result = [];
-		if (projectPromise.projectId === undefined || projectPromise.projectId === "") {
+		if (projectId === undefined || projectId === "") {
 			await fetch(uri + '/tasks')
 							.then(response => result = response.json())
 							.catch(error => alert(error));
 		} else {
-			await fetch(uri + '/tasks/' + projectPromise.projectId)
+			await fetch(uri + '/tasks/' + projectId)
 							.then(response => result = response.json())
 							.catch(error => alert(error));
 			
@@ -75,7 +75,7 @@
 
 <style>
 	.grey {
-		background-color: #95a390;
+		background-color: #dddddd;
 	}
 </style>
 
@@ -91,7 +91,7 @@
   </header>
 
   {#if isAddNoteVisible}
-	  <AddNote on:refresh={addNote} {task} projectId={projectPromise.projectId}/>
+	  <AddNote on:refresh={addNote} {task} projectId={projectId}/>
   {/if}
   
   {#await tasksPromise then tasks}

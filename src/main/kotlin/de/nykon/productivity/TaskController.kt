@@ -1,5 +1,6 @@
 package de.nykon.productivity
 
+import de.nykon.productivity.value.Project
 import de.nykon.productivity.value.Task
 import de.nykon.productivity.value.TaskDescription
 import de.nykon.productivity.value.UI
@@ -17,12 +18,6 @@ class TaskController(private val taskService: TaskService) {
     @GetMapping(path = ["/tasks/{projectId}"])
     fun getProject(@PathVariable projectId: String): ResponseEntity<List<Task>> {
         return ResponseEntity.ok(taskService.getByProject(projectId))
-    }
-
-    @GetMapping(path = ["/tasks"])
-    fun getTasks(): ResponseEntity<MutableList<Task>> {
-        println("called getTasks")
-        return ResponseEntity.ok(taskService.findAll())
     }
 
     @CrossOrigin(origins = ["http://localhost:5000"])

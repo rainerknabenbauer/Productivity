@@ -36,7 +36,7 @@
   display: block;
   transition: 0.5s;
   position: absolute;
-  background: #d3d3d3;
+  background:#e0fcad;
   content: attr(data-back);
   transform: translateY(-50%) rotateX(90deg);
 }
@@ -50,7 +50,7 @@
   line-height: 40px;
   transition: 0.5s;
   position: relative;
-  background: #adadaf;
+  background: #b6d679;
   content: attr(data-front);
   transform: translateY(0) rotateX(0);
 }
@@ -59,5 +59,5 @@
 
 
 
-<a href="#" class="btn-flip w3-margin-left" data-front="Add note" data-back={symbol} on:click></a>
+<a href="#" class="btn-flip w3-margin-left" data-front="add note" data-back={symbol} on:click></a>
 

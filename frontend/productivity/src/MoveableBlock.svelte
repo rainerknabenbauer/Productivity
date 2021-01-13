@@ -78,7 +78,7 @@
         min-width: 250px;
         max-width: 325px;
 
-        background-color: rgb(206, 206, 206);;
+        background-color: rgb(206, 206, 206);
         border-radius: 3px;
 
         -webkit-touch-callout: none;
