@@ -16,6 +16,10 @@ class ProjectService(
         projects.forEach(projectRepository::save)
     }
 
+    fun save(project: Project): Project {
+        return projectRepository.save(project)
+    }
+
     fun findById(id: String): Project {
         return projectRepository.findById(id).orElse(Project())
     }

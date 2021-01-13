@@ -7,7 +7,8 @@
 	import RotatingBlock from './RotatingBlock.svelte';
 	import Task from './Task.js';
 	import Greeting from './Greeting.svelte';
-import Reminder from './Reminder.svelte';
+	import Reminder from './Reminder.svelte';
+	import Project from './Project.js';
 
 	let isAddNoteVisible = false;
 	let isReminderVisible = false;
@@ -15,21 +16,31 @@ import Reminder from './Reminder.svelte';
 	let task;
 	let symbol = "☆";
 	const uri = "http://localhost:8080";
-	let project;
+	let projectPromise = getProject();
 
 	onMount(async () => {
-		project = window.location.search.substr(1);
 		tasksPromise = getTasks();
+		projectPromise = getProject();
 	});
+
+	async function getProject() {
+		let projectId = window.location.search.substr(1);
+		let result = [];
+		await fetch(uri + '/projects/' + projectId)
+							.then(response => result = response.json())
+							.catch(e => {result = "{}"});
+		return result;
+
+	}
 
 	async function getTasks() {
 		let result = [];
-		if (project === undefined || project === "") {
+		if (projectPromise.projectId === undefined || projectPromise.projectId === "") {
 			await fetch(uri + '/tasks')
 							.then(response => result = response.json())
 							.catch(error => alert(error));
 		} else {
-			await fetch(uri + '/tasks/' + project)
+			await fetch(uri + '/tasks/' + projectPromise.projectId)
 							.then(response => result = response.json())
 							.catch(error => alert(error));
 			
@@ -49,7 +60,6 @@ import Reminder from './Reminder.svelte';
 
 	function toggleReminder() {
 		isReminderVisible = !isReminderVisible;
-		console.log("toggle Reminder: " + isReminderVisible);
 	}
 
 	async function addNote() {
@@ -80,7 +90,7 @@ import Reminder from './Reminder.svelte';
   </header>
 
   {#if isAddNoteVisible}
-	  <AddNote on:refresh={addNote} {task} {project}/>
+	  <AddNote on:refresh={addNote} {task} projectId={projectPromise.projectId}/>
   {/if}
   
   {#await tasksPromise then tasks}
@@ -90,7 +100,9 @@ import Reminder from './Reminder.svelte';
   {/await}
 
   {#if isReminderVisible}
-			<Reminder />
+		{#await projectPromise then project}
+			<Reminder projectId={project.projectId} email={project.email}/>
+		{/await}
   {/if}
   
   

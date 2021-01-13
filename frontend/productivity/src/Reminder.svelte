@@ -1,4 +1,10 @@
 <script>
+    import Project from "./Project";
+
+
+
+    export let email;
+    export let projectId;
 
     let xposition = 350;
     let yposition = 125;
@@ -20,6 +26,24 @@
     async function closeWindow() {
         isVisible = false;
     }
+
+    function bindEmail() {
+        let project = new Project();
+        project.projectId = projectId;
+        project.email = email;
+        console.log(project)
+		fetch('http://localhost:8080/projects/', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Media-Type': "MediaType.APPLICATION_JSON"
+            },
+            body: JSON.stringify(project)
+        }).then(data => {
+            console.log(data)
+        });
+	}
 
     // Calculate relative position of DIV
     document.addEventListener('mousemove', (event) => {
@@ -101,6 +125,13 @@
 		background-position: 0% 50%;
 	}
 }
+    .email {
+        width: 100%;
+        resize: none;
+    }
+    .email:focus {
+        outline: none;
+    }
 </style>
 
 {#if isVisible}
@@ -111,7 +142,9 @@
             <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
                 <div class="title w3-flat-wet-asphalt rainbow w3-serif">Reminder</div>
                 <div class="shortDescription">Did you know you could attach your eMail to your projects?</div>
-                <div class="shortDescription">And never lose any of your projects to data corruption.</div>
+                <div class="shortDescription">Never lose your projects because you forgot the link.</div>
+                <textarea class="email" bind:value={email}></textarea>
+                <button on:click={bindEmail} />
             </div>
         </div>
     </div>
