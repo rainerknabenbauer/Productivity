@@ -7,8 +7,10 @@
 	import RotatingBlock from './RotatingBlock.svelte';
 	import Task from './Task.js';
 	import Greeting from './Greeting.svelte';
+import Reminder from './Reminder.svelte';
 
 	let isAddNoteVisible = false;
+	let isReminderVisible = false;
 	let tasksPromise = [];
 	let task;
 	let symbol = "☆";
@@ -45,6 +47,11 @@
 		}
 	}
 
+	function toggleReminder() {
+		isReminderVisible = !isReminderVisible;
+		console.log("toggle Reminder: " + isReminderVisible);
+	}
+
 	async function addNote() {
 		tasksPromise = getTasks();
 		isAddNoteVisible = !isAddNoteVisible;
@@ -68,7 +75,7 @@
   <header class="w3-light-grey">
     <div class="w3-section w3-bottombar w3-padding-16">
 	  <RotatingBlock {symbol} on:click={toggleAddNoteVisibility} />
-      <Filter/>
+      <Filter on:showReminder={toggleReminder}/>
     </div>
   </header>
 
@@ -81,6 +88,10 @@
 		  <MoveableBlock {task} on:edit={e => editTask(e.detail.text)}/>
 	  {/each}
   {/await}
+
+  {#if isReminderVisible}
+			<Reminder />
+  {/if}
   
   
 
