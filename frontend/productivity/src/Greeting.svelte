@@ -24,6 +24,7 @@
         font-size: 8pt;
         opacity: 0.2;
         z-index: 0;
+        text-align: center;
     }
 
     .lowerleft:hover {
@@ -31,4 +32,5 @@
     }
 </style>
 
-<div id="qrcode" class="lowerleft w3-cursive"></div>
+<a href="https://play.google.com/store/apps/details?id=la.droid.qr.priva&hl=en_US&gl=US" target="_blank">
+<div id="qrcode" class="lowerleft">Share on mobile</div></a>
