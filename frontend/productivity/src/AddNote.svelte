@@ -101,7 +101,7 @@
 
 /* Change color on hover */
 .sidenavelement:hover {
-  background-color: rgb(206, 206, 206);
+  background-color: #e9e9e9;
   color: black;
 }
 

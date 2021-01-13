@@ -17,14 +17,15 @@
 <style>
     .lowerleft
     {
-        margin-bottom: 7px;
-        margin-left : 0px;
+        margin-bottom: 13px;
+        margin-left : 5px;
         position: fixed;
         bottom: 0;
         font-size: 8pt;
         opacity: 0.2;
         z-index: 0;
         text-align: center;
+        color: darkslategray;
     }
 
     .lowerleft:hover {
