@@ -1,15 +1,20 @@
 package de.nykon.productivity
 
 import de.nykon.productivity.value.Project
+import de.nykon.productivity.value.Task
+import de.nykon.productivity.value.TaskDescription
+import de.nykon.productivity.value.UI
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
 @RestController
 class ProjectController(
-    private val projectService: ProjectService) {
+    private val projectService: ProjectService,
+    private val taskService: TaskService) {
 
     @CrossOrigin(origins = ["http://localhost:5000"])
     @GetMapping(path = ["/projects/samples"])
@@ -38,7 +43,34 @@ class ProjectController(
     @GetMapping(path = ["/projects/new"])
     fun createProject(): ResponseEntity<Project> {
         println("create project")
-        return ResponseEntity.ok(projectService.save(Project()))
+        val project = Project()
+        val task = Task(UUID.randomUUID().toString(), project.projectId, true, "First steps",
+            TaskDescription(
+                """
+                    Click the pen in the lower right corner to see details.
+                    
+                    You can edit the details as you wish.
+                """.trimIndent(),
+                """
+                    Hello and welcome. 
+                    
+                    If you are new here, consider these next steps:
+                    
+                    1. Save the project link to your favorites
+                    2. Set a reminder so you can access your projects even if you lose the link
+                    3. Add a new task
+                    4. Start to organize
+                """.trimIndent(),
+                """
+                    You can edit this task, save it and view the changes again.
+                    
+                    You can also use the 'X' in the upper right corner to delete this task.
+                """.trimIndent()
+            ),
+            null, 0, emptyList(), UI(350, 200), LocalDateTime.now())
+        println("save welcome task")
+        taskService.save(task)
+        return ResponseEntity.ok(projectService.save(project))
     }
 
 }

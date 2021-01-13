@@ -120,10 +120,14 @@
         width: 100%;
     }
     .save {
-        background-color: rgb(190, 154, 160);
+        background-color: #999999;
         display: flex;
         justify-content: center;
         margin-top: 7px;
+    }
+
+    .save:hover {
+        background-color: #f1f1f1;
     }
 
     .characters {
