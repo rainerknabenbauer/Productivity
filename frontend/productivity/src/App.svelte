@@ -74,14 +74,16 @@
 </script>
 
 <style>
-	
+	.grey {
+		background-color: #95a390;
+	}
 </style>
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main">
 
   <!-- Header -->
-  <header class="w3-light-grey">
+  <header class="grey">
     <div class="w3-section w3-bottombar w3-padding-16">
 	  <RotatingBlock {symbol} on:click={toggleAddNoteVisibility} />
       <Filter on:showReminder={showReminder}/>

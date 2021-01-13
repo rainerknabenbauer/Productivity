@@ -77,7 +77,8 @@
         border: 1px solid darkgreen;
         min-width: 250px;
         max-width: 325px;
-        background-color: #efefef;
+
+        background-color: rgb(206, 206, 206);;
         border-radius: 3px;
 
         -webkit-touch-callout: none;
@@ -149,7 +150,7 @@
 {#if isVisible}
     <!-- The block gets attached to the mouse when you hold down left mouse button-->
     <div class="task" id={task.id} style="position: absolute; top: {task.ui.yposition}px; left: {task.ui.xposition}px">
-        <div class="header w3-light-grey">
+        <div class="header">
             <div class="options" on:click={deleteTask(task)}>&#10008;</div>
             <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
                 <div class="title w3-flat-wet-asphalt rainbow w3-serif">{task.title}</div>
