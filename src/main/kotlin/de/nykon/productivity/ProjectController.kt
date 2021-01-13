@@ -4,6 +4,7 @@ import de.nykon.productivity.value.Project
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
 import kotlin.collections.ArrayList
@@ -26,6 +27,12 @@ class ProjectController(
         projects.add(Project(UUID.randomUUID().toString(), "test 2", "eine beschreibung", listOf(), listOf()))
         projectService.save(projects)
         return projects
+    }
+
+    @CrossOrigin(origins = ["http://localhost:5000"])
+    @GetMapping(path = ["/projects/{id}"])
+    fun getProject(@PathVariable id: String): ResponseEntity<Project> {
+        return ResponseEntity.ok(projectService.findById(id));
     }
 
 }

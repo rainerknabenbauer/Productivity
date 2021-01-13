@@ -11,7 +11,7 @@ class Task {
 		};
         this.endDate = undefined;
         this.priority = 0;
-        this.followUps = undefined;
+        this.followups = undefined;
 		this.ui = {
 			xposition: 5,
 			yposition: 45
