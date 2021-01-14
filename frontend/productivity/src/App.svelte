@@ -87,10 +87,13 @@
 
 	async function drawLines(tasks) {
 		console.log(tasks)
+
+		var wrapper = document.getElementById("canvas-wrapper");
+		var canvas = document.getElementById("canvas");
+		var context = canvas.getContext("2d");
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		
 		tasks.forEach(task => {
-			var wrapper = document.getElementById("canvas-wrapper");
-			var canvas = document.getElementById("canvas");
-			var context = canvas.getContext("2d");
 			context.beginPath();
 			context.moveTo(0, 0);
 			context.lineTo(task.ui.xposition-wrapper.offsetLeft+175, task.ui.yposition-wrapper.offsetTop+25);
@@ -139,7 +142,7 @@
 	  {#each tasks as task (task.id)}
 			  <MoveableBlock {task} 
 				  on:edit={e => editTask(e.detail.text)} 
-				  on:move={e => drawLines([JSON.parse(e.detail.text)])}/>
+				  on:move={e => drawLines(tasks)}/>
 	  {/each}
   {/await}
 
