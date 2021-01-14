@@ -57,13 +57,14 @@
 <style>
 * {
     position: relative;
-  box-sizing: border-box;
-  z-index: 5;
+    box-sizing: border-box;
+    z-index: 5;
 }
 
 /* Style the side navigation */
 
 .containers { 
+    position: absolute;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -92,7 +93,6 @@
 .sidenavelement {
   padding: 3px 10px;
   text-decoration: none;
-  display: block;
   width: 100%;
   letter-spacing: 0.1px;
   text-decoration: none;

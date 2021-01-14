@@ -157,7 +157,7 @@
             <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
                 <div class="title w3-flat-wet-asphalt rainbow w3-serif">{task.title}</div>
                 <div class="shortDescription">{task.description.shortDescription}
-                    <div class="options dark"><EditTask on:click={editTask} /></div>
+                    <div class="options dark" on:click={editTask}><EditTask /></div>
                 </div>
             </div>
         </div>
