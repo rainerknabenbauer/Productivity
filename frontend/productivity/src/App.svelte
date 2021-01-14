@@ -94,8 +94,9 @@
 		
 		tasks.forEach(task => {
 			context.beginPath();
-			context.moveTo(0, 0);
+			context.moveTo(window.innerWidth/2, window.innerHeight/2-wrapper.offsetTop, 0);
 			context.lineTo(task.ui.xposition-wrapper.offsetLeft+175, task.ui.yposition-wrapper.offsetTop+25);
+			context.strokeStyle = '#dddddd';
 			context.stroke();
 			context.closePath();
 		})
