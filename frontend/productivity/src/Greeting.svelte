@@ -22,7 +22,7 @@
         position: fixed;
         bottom: 0;
         font-size: 8pt;
-        opacity: 0.2;
+        opacity: 0.1;
         z-index: 0;
         text-align: center;
         color: darkslategray;

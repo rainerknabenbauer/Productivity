@@ -68,6 +68,7 @@
         max-width: 500px;
         background-color: #efefef;
         border-radius: 3px;
+        z-index: 5;
 
         -webkit-touch-callout: none;
         -webkit-user-select: none;
@@ -144,7 +145,7 @@
         <div class="header w3-light-grey">
             <div class="options" on:click={showReminder}>&#10008;</div>
             <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
-                <div class="title w3-flat-wet-asphalt rainbow w3-serif">Link your project to your eMail account</div>
+                <div class="title w3-flat-wet-asphalt rainbow w3-serif">Link your eMail account to your project</div>
                 <div class="shortDescription">Did you know you could link your eMail to your projects?</div>
                 <div class="shortDescription">Never again lose your projects because you forgot the link.</div>
                 <textarea class="email" bind:value={email}></textarea>
