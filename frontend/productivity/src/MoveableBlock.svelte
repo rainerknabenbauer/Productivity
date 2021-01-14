@@ -66,6 +66,9 @@
             var block = document.getElementById(task.id);
             task.ui.xposition = event.clientX-(block.offsetWidth/2);
             task.ui.yposition = event.clientY-(block.offsetHeight/2);
+            dispatch('move', {
+			    text: JSON.stringify(task)
+            });
         }
     });
 </script>

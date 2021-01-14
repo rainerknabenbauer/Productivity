@@ -8,7 +8,6 @@
 	import Task from './Task.js';
 	import Greeting from './Greeting.svelte';
 	import Reminder from './Reminder.svelte';
-import PaperCanvas from './PaperCanvas.svelte';
 
 	let isAddNoteVisible = false;
 	let isReminderVisible = false;
@@ -19,17 +18,17 @@ import PaperCanvas from './PaperCanvas.svelte';
 	const self = "http://localhost:5000";
 
 	let projectPromise;
+	let project;
 	let projectId = window.location.search.substr(1);
 
 	onMount(async () => {
 		tasksPromise = getTasks();
 		projectPromise = getProject();
 
-
 		var wrapper = document.getElementById("canvas-wrapper");
         var canvas = document.getElementById("canvas");
         canvas.width = wrapper.clientWidth;
-        canvas.height = wrapper.clientHeight;
+		canvas.height = wrapper.clientHeight;
 	});
 
 	async function getProject() {
@@ -39,12 +38,12 @@ import PaperCanvas from './PaperCanvas.svelte';
 			let blabla = await fetch(uri + '/projects/new')
 							.then(response => result = response.json())
 							.catch(error => alert(error));
-			console.log("getProject: "+blabla)
 			location.assign(self + "/?" + blabla.projectId)
 		} else {
 			await fetch(uri + '/projects/' + projectId)
 							.then(response => result = response.json())
 							.catch(error => alert(error));
+			
 		}
 		return result;
 
@@ -54,9 +53,10 @@ import PaperCanvas from './PaperCanvas.svelte';
 		let projectId = window.location.search.substr(1);
 		let result = [];
 		if (!(projectId === undefined || projectId === "")) {
-			await fetch(uri + '/tasks/' + projectId)
+			let response = await fetch(uri + '/tasks/' + projectId)
 							.then(response => result = response.json())
 							.catch(error => alert(error));
+			drawLines(await response);
 		} 
 		return result;
 	}
@@ -83,6 +83,23 @@ import PaperCanvas from './PaperCanvas.svelte';
 	function editTask(taskJson) {
 		isAddNoteVisible = true;
 		task = JSON.parse(taskJson);
+	}
+
+	async function drawLines(tasks) {
+		console.log(tasks)
+		tasks.forEach(task => {
+			var wrapper = document.getElementById("canvas-wrapper");
+			var canvas = document.getElementById("canvas");
+			var context = canvas.getContext("2d");
+			context.beginPath();
+			context.moveTo(0, 0);
+			context.lineTo(task.ui.xposition-wrapper.offsetLeft+175, task.ui.yposition-wrapper.offsetTop+25);
+			context.stroke();
+			context.closePath();
+			console.log("from "+ task.ui.xposition +" to " + (task.ui.yposition-100))
+			console.log("line drawn for " + task.title)
+		})
+
 	}
 </script>
 
@@ -119,10 +136,10 @@ import PaperCanvas from './PaperCanvas.svelte';
   {/if}
   
   {#await tasksPromise then tasks}
-
 	  {#each tasks as task (task.id)}
-		  	<MoveableBlock {task} on:edit={e => editTask(e.detail.text)}/>
-			<PaperCanvas {task} />
+			  <MoveableBlock {task} 
+				  on:edit={e => editTask(e.detail.text)} 
+				  on:move={e => drawLines([JSON.parse(e.detail.text)])}/>
 	  {/each}
   {/await}
 
@@ -131,8 +148,6 @@ import PaperCanvas from './PaperCanvas.svelte';
 			<Reminder {projectId} email={project.email} on:showReminder={showReminder}/>
 		{/await}
   {/if}
-  
-  
 
 <!-- End page content -->
 </div>
