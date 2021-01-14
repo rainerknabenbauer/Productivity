@@ -64,7 +64,7 @@ class ProjectController(
                 """
                     You can edit this task, save it and view the changes again.
                     
-                    You can also use the 'X' in the upper right corner to delete this task.
+                    You can also use the 'X' in the upper right corner of the task to delete it.
                 """.trimIndent()
             ),
             null, 0, emptyList(), UI(350, 200), LocalDateTime.now())
