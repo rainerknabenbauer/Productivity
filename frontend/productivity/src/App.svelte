@@ -8,6 +8,7 @@
 	import Task from './Task.js';
 	import Greeting from './Greeting.svelte';
 	import Reminder from './Reminder.svelte';
+import PaperCanvas from './PaperCanvas.svelte';
 
 	let isAddNoteVisible = false;
 	let isReminderVisible = false;
@@ -23,6 +24,12 @@
 	onMount(async () => {
 		tasksPromise = getTasks();
 		projectPromise = getProject();
+
+
+		var wrapper = document.getElementById("canvas-wrapper");
+        var canvas = document.getElementById("canvas");
+        canvas.width = wrapper.clientWidth;
+        canvas.height = wrapper.clientHeight;
 	});
 
 	async function getProject() {
@@ -83,11 +90,22 @@
 	.grey {
 		background-color: #dddddd;
 	}
+	/* Scale canvas with resize attribute to full size */
+    canvas {
+        background-color: transparent;
+        z-index: 0;
+		float: left;
+        width: 1900;
+        height: 1400;
+    }
+	#canvas-wrapper {
+		width: 100%;
+		height: 100%;
+	}
 </style>
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main">
-
   <!-- Header -->
   <header class="grey">
     <div class="w3-section w3-bottombar w3-padding-16">
@@ -101,8 +119,10 @@
   {/if}
   
   {#await tasksPromise then tasks}
+
 	  {#each tasks as task (task.id)}
-		  <MoveableBlock {task} on:edit={e => editTask(e.detail.text)}/>
+		  	<MoveableBlock {task} on:edit={e => editTask(e.detail.text)}/>
+			<PaperCanvas {task} />
 	  {/each}
   {/await}
 
@@ -116,6 +136,11 @@
 
 <!-- End page content -->
 </div>
+
+<div id="canvas-wrapper">
+	<canvas id="canvas"/>
+</div>
+
 
 <Greeting />
 
