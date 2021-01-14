@@ -18,7 +18,6 @@
 	const self = "http://localhost:5000";
 
 	let projectPromise;
-	let project;
 	let projectId = window.location.search.substr(1);
 
 	onMount(async () => {
@@ -99,8 +98,6 @@
 			context.lineTo(task.ui.xposition-wrapper.offsetLeft+175, task.ui.yposition-wrapper.offsetTop+25);
 			context.stroke();
 			context.closePath();
-			console.log("from "+ task.ui.xposition +" to " + (task.ui.yposition-100))
-			console.log("line drawn for " + task.title)
 		})
 
 	}
