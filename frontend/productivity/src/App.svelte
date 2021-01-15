@@ -85,8 +85,6 @@
 	}
 
 	async function drawLines(tasks) {
-		console.log(tasks)
-
 		var wrapper = document.getElementById("canvas-wrapper");
 		var canvas = document.getElementById("canvas");
 		var context = canvas.getContext("2d");

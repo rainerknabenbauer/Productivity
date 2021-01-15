@@ -147,7 +147,7 @@
             <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
                 <div class="title w3-flat-wet-asphalt rainbow w3-serif">Link your eMail account to your project</div>
                 <div class="shortDescription">Did you know you could link your eMail to your projects?</div>
-                <div class="shortDescription">Never again lose your projects because you forgot the link.</div>
+                <div class="shortDescription">Never again lose your notes because you forgot the link.</div>
                 <textarea class="email" bind:value={email}></textarea>
                 <Button on:click={bindEmail} text="Set reminder"></Button>
             </div>
