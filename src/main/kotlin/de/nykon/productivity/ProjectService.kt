@@ -24,4 +24,10 @@ class ProjectService(
         return projectRepository.findById(id).orElse(Project())
     }
 
+    fun recoverProjects(email: String): List<Project> {
+        val findByEmail = projectRepository.findByEmail(email)
+        println(findByEmail)
+        return findByEmail
+    }
+
 }

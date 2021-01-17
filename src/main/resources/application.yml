@@ -6,3 +6,8 @@ spring:
       uri: mongodb+srv://nykon:N8gwkLwNIjVZecO7@mongodb.wecon.mongodb.net/productivity?retryWrites=true&w=majority
 
 
+logging:
+  level:
+    org:
+      springframework:
+        data: debug

@@ -8,9 +8,11 @@
 	import Reminder from './Reminder.svelte';
 	import Canvas from './Canvas.svelte';
 	import ActionItems from './ActionItems.svelte';
+	import Faq from './FAQ.svelte';
 
 	let isTaskDetailsVisible = false;
 	let isReminderVisible = false;
+	let isFAQvisible = false;
 	let tasksPromise = [];
 	let task;
 	const uri = "http://localhost:8080";
@@ -60,6 +62,10 @@
 	function showReminder() {
 		isReminderVisible = !isReminderVisible;
 	}
+	
+	function showFAQ() {
+		isFAQvisible = !isFAQvisible;
+	}
 
 	async function addTask() {
 		tasksPromise = getTasks();
@@ -96,7 +102,7 @@
 <!-- !PAGE CONTENT! -->
 <div class="w3-main">
   <!-- Header -->
-  <ActionItems on:showTaskDetails={toggleTaskDetailsVisibility} on:showReminder={showReminder} />
+  <ActionItems on:showTaskDetails={toggleTaskDetailsVisibility} on:showReminder={showReminder} on:showFAQ={showFAQ} />
 
   {#if isTaskDetailsVisible}
 	  <TaskDetails on:refresh={addTask} {task} {projectId}/>
@@ -113,8 +119,14 @@
 
   {#if isReminderVisible}
 		{#await projectPromise then project}
-			<Reminder {project} on:showReminder={showReminder}/>
+			<Reminder {project} on:showReminder={showReminder} />
 		{/await}
+  {/if}
+
+  {#if isFAQvisible}
+  	{#await projectPromise then project}
+	  <Faq {project} on:showFAQ={showFAQ}/>
+  	{/await}
   {/if}
 
 <!-- End page content -->

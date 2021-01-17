@@ -14,7 +14,8 @@ import kotlin.collections.ArrayList
 @RestController
 class ProjectController(
     private val projectService: ProjectService,
-    private val taskService: TaskService) {
+    private val taskService: TaskService,
+    private val emailService: EmailService) {
 
     @CrossOrigin(origins = ["http://localhost:5000"])
     @GetMapping(path = ["/projects/samples"])
@@ -37,6 +38,13 @@ class ProjectController(
     fun setProject(@RequestBody project: Project): ResponseEntity<Project> {
         println("called setProject")
         return ResponseEntity.ok(projectService.save(project));
+    }
+
+    @CrossOrigin
+    @PostMapping(path = ["/email"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    fun sendEmail(@RequestBody email: String): ResponseEntity<List<Project>> {
+        println("called send Email $email")
+        return ResponseEntity.ok(emailService.recoverProjects(email.replace("\"", "")));
     }
 
     @CrossOrigin
@@ -72,5 +80,7 @@ class ProjectController(
         taskService.save(task)
         return ResponseEntity.ok(projectService.save(project))
     }
+
+
 
 }
