@@ -1,6 +1,5 @@
 <script>
-import { onMount } from "svelte";
-
+    import { onMount } from "svelte";
 
     onMount(async () => {
         var wrapper = document.getElementById("canvas-wrapper");
@@ -15,12 +14,10 @@ import { onMount } from "svelte";
         background-color: transparent;
         z-index: 0;
 		float: left;
-        width: 1900;
-        height: 1400;
     }
 	#canvas-wrapper {
 		width: 100%;
-		height: 100%;
+		height: 80%;
 	}
 </style>
 
