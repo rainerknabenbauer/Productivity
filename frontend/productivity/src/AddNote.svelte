@@ -3,10 +3,12 @@
     import { createEventDispatcher, onMount } from 'svelte';
     import Task from './Task';
 
-    $: selected = "title";
-
     export let task;
     export let projectId;
+
+    const dispatch = createEventDispatcher();
+
+    let selected = "title";
 
     task.projectId = projectId;
 
@@ -20,8 +22,6 @@
         selected = name;
         console.log(task)
     }
-
-    const dispatch = createEventDispatcher();
 
     function refresh() {
 		dispatch('refresh', {
