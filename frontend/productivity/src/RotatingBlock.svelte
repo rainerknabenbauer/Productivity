@@ -3,11 +3,11 @@
   const dispatch = createEventDispatcher();
   
   let symbol;
-  let isAddNoteVisible = false;
+  let isTaskDetailsVisible = false;
 
-  function showAddNote() {
+  function showTaskDetails() {
     updateSymbol();
-    dispatch("showAddNote");
+    dispatch("showTaskDetails");
   }
 
   onMount(() => {
@@ -15,12 +15,12 @@
   })
 
   function updateSymbol() {
-    if (isAddNoteVisible) {
+    if (isTaskDetailsVisible) {
       symbol = "★";
     } else {
       symbol = "☆";
     }
-    isAddNoteVisible = !isAddNoteVisible;
+    isTaskDetailsVisible = !isTaskDetailsVisible;
   }
 </script>
 
@@ -82,4 +82,4 @@
   class="btn-flip w3-margin-left"
   data-front="add note"
   data-back={symbol}
-  on:click={showAddNote} />
+  on:click={showTaskDetails} />

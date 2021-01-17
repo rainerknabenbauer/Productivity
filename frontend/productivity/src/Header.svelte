@@ -11,7 +11,7 @@
 
 <header class="grey">
     <div class="w3-section w3-bottombar w3-padding-16">
-	  <RotatingBlock on:showAddNote/>
+	  <RotatingBlock on:showTaskDetails/>
       <Filter on:showReminder />
     </div>
   </header>

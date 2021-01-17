@@ -2,14 +2,14 @@
 <script>
 	import { onMount } from 'svelte';
 	import MoveableBlock from './MoveableBlock.svelte';
-	import AddNote from './AddNote.svelte'
+	import TaskDetails from './TaskDetails.svelte'
 	import Task from './Task.js';
 	import Greeting from './Greeting.svelte';
 	import Reminder from './Reminder.svelte';
 	import Canvas from './Canvas.svelte';
 	import Header from './Header.svelte';
 
-	let isAddNoteVisible = false;
+	let isTaskDetailsVisible = false;
 	let isReminderVisible = false;
 	let tasksPromise = [];
 	let task;
@@ -54,8 +54,8 @@
 		return result;
 	}
 
-	function toggleAddNoteVisibility() {
-		isAddNoteVisible = !isAddNoteVisible;
+	function toggleTaskDetailsVisibility() {
+		isTaskDetailsVisible = !isTaskDetailsVisible;
 		task = new Task();
 	}
 
@@ -63,13 +63,13 @@
 		isReminderVisible = !isReminderVisible;
 	}
 
-	async function addNote() {
+	async function addTask() {
 		tasksPromise = getTasks();
-		isAddNoteVisible = !isAddNoteVisible;
+		isTaskDetailsVisible = !isTaskDetailsVisible;
 	}
 
 	function editTask(taskJson) {
-		isAddNoteVisible = true;
+		isTaskDetailsVisible = true;
 		task = JSON.parse(taskJson);
 	}
 
@@ -98,10 +98,10 @@
 <!-- !PAGE CONTENT! -->
 <div class="w3-main">
   <!-- Header -->
-  <Header on:showAddNote={toggleAddNoteVisibility} on:showReminder={showReminder} />
+  <Header on:showTaskDetails={toggleTaskDetailsVisibility} on:showReminder={showReminder} />
 
-  {#if isAddNoteVisible}
-	  <AddNote on:refresh={addNote} {task} {projectId}/>
+  {#if isTaskDetailsVisible}
+	  <TaskDetails on:refresh={addTask} {task} {projectId}/>
   {/if}
   
   {#await tasksPromise then tasks}
