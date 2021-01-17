@@ -22,8 +22,7 @@
 
     async function deleteTask(task) {
         isVisible = false;
-        console.log("Deleting Task");
-        const response = await fetch('http://localhost:8080/tasks', {
+        await fetch('http://localhost:8080/tasks', {
             method: 'DELETE',
             mode: 'cors',
             headers: {
@@ -31,9 +30,8 @@
                 'Media-Type': "MediaType.APPLICATION_JSON"
             },
             body: JSON.stringify(task)
-        }).then(data => {
-            console.log(data)
         });
+        dispatch('deleteTask')
     }
 
     function editTask() {
@@ -54,8 +52,6 @@
                         'Media-Type': "MediaType.APPLICATION_JSON"
                     },
                     body: JSON.stringify(task)
-                }).then(data => {
-                    console.log(data)
                 });
         }
     }

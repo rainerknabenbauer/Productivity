@@ -5,12 +5,10 @@
 
     export let task;
     export let projectId;
+    task.projectId = projectId;
 
     const dispatch = createEventDispatcher();
-
     let selected = "title";
-
-    task.projectId = projectId;
 
     onMount(async () => {
         if(task === undefined) {
@@ -20,7 +18,6 @@
 
     function loadPage(name) {
         selected = name;
-        console.log(task)
     }
 
     function refresh() {
@@ -39,8 +36,6 @@
                 'Media-Type': "MediaType.APPLICATION_JSON"
             },
             body: JSON.stringify(task)
-        }).then(data => {
-            console.log(data)
         });
 
         refresh();

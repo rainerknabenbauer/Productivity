@@ -106,7 +106,8 @@
 	  {#each tasks as task (task.id)}
 			  <MoveableBlock {task} 
 				  on:edit={e => editTask(e.detail.text)} 
-				  on:move={e => drawLines(tasks)}/>
+				  on:move={() => drawLines(tasks)}
+				  on:deleteTask={() => isTaskDetailsVisible = false} />
 	  {/each}
   {/await}
 
