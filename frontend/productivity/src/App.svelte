@@ -36,10 +36,8 @@
 			await fetch(uri + '/projects/' + projectId)
 							.then(response => result = response.json())
 							.catch(error => alert(error));
-			
 		}
 		return result;
-
 	}
 
 	async function getTasks() {

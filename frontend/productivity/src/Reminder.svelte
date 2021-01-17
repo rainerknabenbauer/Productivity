@@ -1,23 +1,22 @@
 <script>
     import Project from './Project';
     import Button from './Button.svelte';
-
     import { createEventDispatcher } from 'svelte';
+
     const dispatch = createEventDispatcher();
-    
-    function showReminder() {
-        dispatch('showReminder');
-        console.log("showReminder")
-	}
 
     export let email;
     export let projectId;
 
     let xposition = 350;
     let yposition = 125;
-
     let isMoving = false;
     let isVisible = true;
+    
+    function showReminder() {
+        dispatch('showReminder');
+        console.log("showReminder")
+	}
 
     function toggle() {
         var block = document.getElementById("reminder");
