@@ -28,10 +28,10 @@
 		let result = [];
 		let projectId = window.location.search.substr(1);
 		if (projectId === undefined || projectId === "") {
-			let blabla = await fetch(uri + '/projects/new')
+			let newProject = await fetch(uri + '/projects/new')
 							.then(response => result = response.json())
 							.catch(error => alert(error));
-			location.assign(self + "/?" + blabla.projectId)
+			location.assign(self + "/?" + newProject.projectId)
 		} else {
 			await fetch(uri + '/projects/' + projectId)
 							.then(response => result = response.json())
@@ -112,7 +112,7 @@
 
   {#if isReminderVisible}
 		{#await projectPromise then project}
-			<Reminder {projectId} email={project.email} on:showReminder={showReminder}/>
+			<Reminder {project} on:showReminder={showReminder}/>
 		{/await}
   {/if}
 

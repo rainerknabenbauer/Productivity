@@ -5,8 +5,9 @@
 
     const dispatch = createEventDispatcher();
 
-    export let email;
-    export let projectId;
+    export let project;
+    project = Object.assign(new Project(), project);
+    console.log("project: " + project)
 
     let xposition = 350;
     let yposition = 125;
@@ -30,9 +31,6 @@
     }
 
     function bindEmail() {
-        let project = new Project();
-        project.projectId = projectId;
-        project.email = email;
         console.log(project)
 		fetch('http://localhost:8080/projects/', {
             method: 'POST',
@@ -147,7 +145,7 @@
                 <div class="title w3-flat-wet-asphalt rainbow w3-serif">Link your eMail account to your project</div>
                 <div class="shortDescription">Did you know you could link your eMail to your projects?</div>
                 <div class="shortDescription">Never again lose your notes because you forgot the link.</div>
-                <textarea class="email" bind:value={email}></textarea>
+                <textarea class="email" bind:value={project.email}></textarea>
                 <Button on:click={bindEmail} text="Set reminder"></Button>
             </div>
         </div>
