@@ -17,7 +17,7 @@
     }
 	#canvas-wrapper {
 		width: 100%;
-		height: 80%;
+		height: 85%;
 	}
 </style>
 
