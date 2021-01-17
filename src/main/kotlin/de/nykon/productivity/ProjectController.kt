@@ -17,7 +17,6 @@ class ProjectController(
     private val taskService: TaskService,
     private val emailService: EmailService) {
 
-    @CrossOrigin(origins = ["http://localhost:5000"])
     @GetMapping(path = ["/projects/samples"])
     fun sampleProjects(): ArrayList<Project> {
         val projects: ArrayList<Project> = ArrayList()
@@ -27,27 +26,23 @@ class ProjectController(
         return projects
     }
 
-    @CrossOrigin(origins = ["http://localhost:5000"])
     @GetMapping(path = ["/projects/{id}"])
     fun getProject(@PathVariable id: String): ResponseEntity<Project> {
         return ResponseEntity.ok(projectService.findById(id));
     }
 
-    @CrossOrigin
     @PostMapping(path = ["/projects"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun setProject(@RequestBody project: Project): ResponseEntity<Project> {
         println("called setProject")
         return ResponseEntity.ok(projectService.save(project));
     }
 
-    @CrossOrigin
     @PostMapping(path = ["/email"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun sendEmail(@RequestBody email: String): ResponseEntity<List<Project>> {
         println("called send Email $email")
         return ResponseEntity.ok(emailService.recoverProjects(email.replace("\"", "")));
     }
 
-    @CrossOrigin
     @GetMapping(path = ["/projects/new"])
     fun createProject(): ResponseEntity<Project> {
         println("create project")
