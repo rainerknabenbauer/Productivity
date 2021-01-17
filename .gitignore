@@ -26,6 +26,9 @@ hs_err_pid*
 node_modules
 public/build/
 
+# Spring
+application.yml
+
 # Mac
 .DS_Store
 
