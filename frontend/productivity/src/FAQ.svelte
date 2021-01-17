@@ -44,7 +44,7 @@
     border-width: 1px;
     border-color: lightslategray;
     width: 45%;
-    right: 25px;
+    right: 8px;
 }
 
 .sidenav {
