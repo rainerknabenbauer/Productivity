@@ -36,7 +36,7 @@
 /* Style the side navigation */
 
 .containers { 
-    position: relative;
+    position: absolute;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -44,7 +44,7 @@
     border-width: 1px;
     border-color: lightslategray;
     width: 45%;
-    float: right;
+    right: 25px;
 }
 
 .sidenav {
@@ -91,21 +91,11 @@
     .content {
         width: 100%;
     }
-    .save {
-        background-color: #999999;
-        display: flex;
-        justify-content: center;
-        margin-top: 7px;
-    }
-
-    .save:hover {
-        background-color: #f1f1f1;
-    }
 </style>
 
 <div class="containers w3-light-grey">
     <div class="sidenav">
-        <div class="sidenavelement" on:click={() => loadPage("sendEmail")}>Lost projects?</div>
+        <div class="sidenavelement" on:click={() => loadPage("sendEmail")}>Recover projects</div>
         <div class="sidenavelement" on:click={() => loadPage("spacer")}>spacer</div>
         <div class="sidenavelement" on:click={() => loadPage("spacer")}>spacer</div>
     </div>
