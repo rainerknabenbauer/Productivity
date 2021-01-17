@@ -3,18 +3,16 @@
 	import { onMount } from 'svelte';
 	import MoveableBlock from './MoveableBlock.svelte';
 	import AddNote from './AddNote.svelte'
-	import Filter from './Filter.svelte';
-	import RotatingBlock from './RotatingBlock.svelte';
 	import Task from './Task.js';
 	import Greeting from './Greeting.svelte';
 	import Reminder from './Reminder.svelte';
 	import Canvas from './Canvas.svelte';
+	import Header from './Header.svelte';
 
 	let isAddNoteVisible = false;
 	let isReminderVisible = false;
 	let tasksPromise = [];
 	let task;
-	let symbol = "☆";
 	const uri = "http://localhost:8080";
 	const self = "http://localhost:5000";
 
@@ -59,11 +57,6 @@
 	function toggleAddNoteVisibility() {
 		isAddNoteVisible = !isAddNoteVisible;
 		task = new Task();
-		if(isAddNoteVisible) {
-			symbol = "★";
-		} else {
-			symbol = "☆";
-		}
 	}
 
 	function showReminder() {
@@ -99,20 +92,13 @@
 </script>
 
 <style>
-	.grey {
-		background-color: #dddddd;
-	}
+
 </style>
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main">
   <!-- Header -->
-  <header class="grey">
-    <div class="w3-section w3-bottombar w3-padding-16">
-	  <RotatingBlock {symbol} on:click={toggleAddNoteVisibility} />
-      <Filter on:showReminder={showReminder}/>
-    </div>
-  </header>
+  <Header on:showAddNote={toggleAddNoteVisibility} on:showReminder={showReminder} />
 
   {#if isAddNoteVisible}
 	  <AddNote on:refresh={addNote} {task} {projectId}/>
