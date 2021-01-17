@@ -63,7 +63,7 @@ class Mailer(private val config: MailerConfig) {
         msg.setFrom(InternetAddress("recovery@$URI", false))
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient))
-        msg.subject = "Recover all PRODUCTIVITY projects"
+        msg.subject = "Recover your PRODUCTIVITY projects"
         msg.setContent(message, "text/html; charset=UTF-8")
         msg.sentDate = Date()
 
