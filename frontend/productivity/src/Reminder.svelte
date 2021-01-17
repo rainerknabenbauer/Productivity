@@ -14,7 +14,6 @@
     
     function showReminder() {
         dispatch('showReminder');
-        console.log("showReminder")
 	}
 
     function toggle() {
@@ -29,7 +28,6 @@
     }
 
     function bindEmail() {
-        console.log(project)
 		fetch('http://localhost:8080/projects/', {
             method: 'POST',
             mode: 'cors',
@@ -38,8 +36,6 @@
                 'Media-Type': "MediaType.APPLICATION_JSON"
             },
             body: JSON.stringify(project)
-        }).then(data => {
-            console.log(data)
         });
         showReminder();
 	}
