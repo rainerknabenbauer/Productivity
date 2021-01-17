@@ -7,7 +7,7 @@
 	import Greeting from './Greeting.svelte';
 	import Reminder from './Reminder.svelte';
 	import Canvas from './Canvas.svelte';
-	import Header from './Header.svelte';
+	import ActionItems from './ActionItems.svelte';
 
 	let isTaskDetailsVisible = false;
 	let isReminderVisible = false;
@@ -96,7 +96,7 @@
 <!-- !PAGE CONTENT! -->
 <div class="w3-main">
   <!-- Header -->
-  <Header on:showTaskDetails={toggleTaskDetailsVisibility} on:showReminder={showReminder} />
+  <ActionItems on:showTaskDetails={toggleTaskDetailsVisibility} on:showReminder={showReminder} />
 
   {#if isTaskDetailsVisible}
 	  <TaskDetails on:refresh={addTask} {task} {projectId}/>
