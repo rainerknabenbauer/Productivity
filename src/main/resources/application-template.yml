@@ -1,0 +1,25 @@
+spring:
+  mail:
+    host: SERVER
+    username: USER
+    password: PASSWORD
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enabled: true
+  jackson:
+    default-property-inclusion: non_null
+  data:
+    mongodb:
+      uri: mongodb+srv://USERNAME:PASSWORD@mongodb.wecon.mongodb.net/DATABASE?retryWrites=true&w=majority
+
+
+logging:
+  level:
+    org:
+      springframework:
+        data: debug
+
+
