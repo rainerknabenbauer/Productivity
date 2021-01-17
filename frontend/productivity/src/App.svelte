@@ -8,6 +8,7 @@
 	import Task from './Task.js';
 	import Greeting from './Greeting.svelte';
 	import Reminder from './Reminder.svelte';
+	import Canvas from './Canvas.svelte';
 
 	let isAddNoteVisible = false;
 	let isReminderVisible = false;
@@ -23,11 +24,6 @@
 	onMount(async () => {
 		tasksPromise = getTasks();
 		projectPromise = getProject();
-
-		var wrapper = document.getElementById("canvas-wrapper");
-        var canvas = document.getElementById("canvas");
-        canvas.width = wrapper.clientWidth;
-		canvas.height = wrapper.clientHeight;
 	});
 
 	async function getProject() {
@@ -106,18 +102,6 @@
 	.grey {
 		background-color: #dddddd;
 	}
-	/* Scale canvas with resize attribute to full size */
-    canvas {
-        background-color: transparent;
-        z-index: 0;
-		float: left;
-        width: 1900;
-        height: 1400;
-    }
-	#canvas-wrapper {
-		width: 100%;
-		height: 100%;
-	}
 </style>
 
 <!-- !PAGE CONTENT! -->
@@ -151,9 +135,7 @@
 <!-- End page content -->
 </div>
 
-<div id="canvas-wrapper">
-	<canvas id="canvas"/>
-</div>
+<Canvas />
 
 
 <Greeting />
