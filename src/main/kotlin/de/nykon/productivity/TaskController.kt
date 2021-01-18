@@ -11,7 +11,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @RestController
-@CrossOrigin
 class TaskController(private val taskService: TaskService) {
 
     @GetMapping(path = ["/tasks/{projectId}"])
