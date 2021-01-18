@@ -15,8 +15,8 @@
 	let isFAQvisible = false;
 	let tasksPromise = [];
 	let task;
-	const uri = "http://188.34.198.168:8080";
-	const self = "http://188.34.198.168:5000";
+	const uri = "http://localhost:8080";
+	const self = "http://localhost:5000";
 
 	let projectPromise;
 	let projectId = window.location.search.substr(1);
