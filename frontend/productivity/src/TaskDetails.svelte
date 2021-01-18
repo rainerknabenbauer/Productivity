@@ -28,7 +28,7 @@
 
     async function addTask() {
         console.log(JSON.stringify(task));
-        const response = await fetch('http://localhost:8080/tasks', {
+        const response = await fetch('http://188.34.198.168:8080/tasks', {
             method: 'POST',
             mode: 'cors',
             headers: {

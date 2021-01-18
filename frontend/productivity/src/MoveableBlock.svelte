@@ -22,7 +22,7 @@
 
     async function deleteTask(task) {
         isVisible = false;
-        await fetch('http://localhost:8080/tasks', {
+        await fetch('http://188.34.198.168:8080/tasks', {
             method: 'DELETE',
             mode: 'cors',
             headers: {
@@ -44,7 +44,7 @@
     async function updateTask() {
         if (isVisible) {
             console.log("Updating Task");
-                const response = await fetch('http://localhost:8080/tasks', {
+                const response = await fetch('http://188.34.198.168:8080/tasks', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {

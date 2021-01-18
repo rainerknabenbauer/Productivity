@@ -28,7 +28,7 @@
     }
 
     function bindEmail() {
-		fetch('http://localhost:8080/projects/', {
+		fetch('http://188.34.198.168:8080/projects/', {
             method: 'POST',
             mode: 'cors',
             headers: {
