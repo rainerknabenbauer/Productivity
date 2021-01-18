@@ -15,8 +15,10 @@
 	let isFAQvisible = false;
 	let tasksPromise = [];
 	let task;
-	const uri = "http://localhost:8080";
-	const self = "http://localhost:5000";
+
+	const host = window.location.hostname;
+	const uri = "http://" + host + ":8080";
+	const self = "http://" + host + ":5000";
 
 	let projectPromise;
 	let projectId = window.location.search.substr(1);

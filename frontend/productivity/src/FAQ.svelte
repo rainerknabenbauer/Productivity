@@ -3,6 +3,7 @@
 
     let selected = "sendEmail";
     let email;
+    const host = window.location.hostname;
 
     function loadPage(name) {
         selected = name;
@@ -11,7 +12,7 @@
     async function sendEmail() {
         if (!(email === undefined)) {
             console.log("sending email: " + email)
-            const response = await fetch('http://localhost:8080/email', {
+            const response = await fetch("http://" + host + ":8080/email", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

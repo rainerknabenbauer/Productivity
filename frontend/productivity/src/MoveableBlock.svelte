@@ -7,6 +7,7 @@
 
     let isMoving = false;
     let isVisible = true;
+    const host = window.location.hostname;
 
     function toggle() {
         var block = document.getElementById(task.id);
@@ -22,7 +23,7 @@
 
     async function deleteTask(task) {
         isVisible = false;
-        await fetch('http://localhost:8080/tasks', {
+        await fetch("http://" + host + ":8080/tasks", {
             method: 'DELETE',
             mode: 'cors',
             headers: {
@@ -44,7 +45,7 @@
     async function updateTask() {
         if (isVisible) {
             console.log("Updating Task");
-                const response = await fetch('http://localhost:8080/tasks', {
+                const response = await fetch("http://" + host + ":8080/tasks", {
                     method: 'POST',
                     mode: 'cors',
                     headers: {

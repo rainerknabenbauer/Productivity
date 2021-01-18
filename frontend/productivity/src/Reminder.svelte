@@ -11,7 +11,8 @@
     let yposition = 125;
     let isMoving = false;
     let isVisible = true;
-    
+    const host = window.location.hostname;
+
     function showReminder() {
         dispatch('showReminder');
 	}
@@ -28,7 +29,7 @@
     }
 
     function bindEmail() {
-		fetch('http://localhost:8080/projects/', {
+		fetch("http://" + host + ":8080/projects/", {
             method: 'POST',
             mode: 'cors',
             headers: {

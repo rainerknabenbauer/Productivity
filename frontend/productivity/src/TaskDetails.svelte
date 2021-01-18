@@ -6,6 +6,7 @@
     export let task;
     export let projectId;
     task.projectId = projectId;
+    const host = window.location.hostname;
 
     const dispatch = createEventDispatcher();
     let selected = "title";
@@ -28,7 +29,7 @@
 
     async function addTask() {
         console.log(JSON.stringify(task));
-        const response = await fetch('http://localhost:8080/tasks', {
+        const response = await fetch("http://" + host + ":8080/tasks", {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -135,10 +136,10 @@
         <div class="sidenavelement" on:click={() => loadPage("title")}>Titel <div class="characters">{getLength(task.title)}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("shortDescription")}>Short description <div class="characters">{getLength(task.description.shortDescription)}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("longDescription")}>Long description <div class="characters">{getLength(task.description.longDescription)}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes <div class="characters">{getLength(task.description.additionalNotes)}</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes <div class="characters">{task.description.additionalNotes === null ? "" : getLength(task.description.additionalNotes)}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Time period <div class="characters">x</div></div>
         <div class="sidenavelement" on:click={() => loadPage("priority")}>Priority <div class="characters">{task.priority}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("followup")}>Follow up <div class="characters">{getLength(task.followUps)}</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("followup")}>Follow up <div class="characters">{task.followUps === null ? "" : getLength(task.followUps)}</div></div>
         <div class="sidenavelement save" on:click={addTask}>SAVE</div>
     </div>
     
