@@ -12,6 +12,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @RestController
+@CrossOrigin
 class ProjectController(
     private val projectService: ProjectService,
     private val taskService: TaskService,

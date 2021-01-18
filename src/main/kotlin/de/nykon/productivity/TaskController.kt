@@ -1,6 +1,5 @@
 package de.nykon.productivity
 
-import de.nykon.productivity.value.Project
 import de.nykon.productivity.value.Task
 import de.nykon.productivity.value.TaskDescription
 import de.nykon.productivity.value.UI
@@ -12,6 +11,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @RestController
+@CrossOrigin
 class TaskController(private val taskService: TaskService) {
 
     @GetMapping(path = ["/tasks/{projectId}"])
