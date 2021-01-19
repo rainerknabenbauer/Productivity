@@ -155,9 +155,9 @@
         {:else if selected.localeCompare("timePeriod") === 0}
         [(1-24][h]<br>[_] weeks<br>...
         {:else if selected.localeCompare("priority") === 0}
-        <textarea class="textarea" bind:value={task.priority}></textarea>
+        <textarea class="textarea" disabled="true" bind:value={task.priority}></textarea>
         {:else if selected.localeCompare("followup") === 0}
-        <textarea class="textarea" bind:value={task.followUps}></textarea>
+        <textarea class="textarea" disabled="true" bind:value={task.followUps}></textarea>
         {:else}
         <div class=""><Button text="add" on:click={addTask} /></div>
         {/if}
