@@ -166,13 +166,13 @@ import NotImplementedView from "./NotImplementedView.svelte";
 
 	{#if isReminderVisible}
 		{#await projectPromise then project}
-			<Reminder {project} />
+			<Reminder {project} on:showReminder={showReminder} />
 		{/await}
 	{/if}
 
 	{#if isFAQvisible}
 		{#await projectPromise then project}
-			<Faq {project} />
+			<Faq {project} on:undoDelete={undoDelete} />
 		{/await}
 	{/if}
 
