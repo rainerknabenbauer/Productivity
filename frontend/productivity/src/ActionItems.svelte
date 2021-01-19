@@ -15,6 +15,14 @@
     function showTrashbin() {
       dispatch('showTrashbin')
     }
+
+    function showHistory() {
+      dispatch('showHistory')
+    }
+
+    function showStatistics() {
+      dispatch('showStatistics')
+    }
 </script>
 
 <style>
@@ -39,8 +47,8 @@
     <button class="w3-button w3-white w3-hide-small actionItems w3-margin-right" on:click={showTrashbin}><i class="fa fa-trash-o"></i></button>
     <!-- Lost link? next line with ? -->
     <button class="w3-button w3-white w3-hide-small actionItems" on:click={showFAQ}><i class="fa fa-question-circle-o"></i></button>
-    <button class="w3-button w3-white w3-hide-small actionItems"><i class="fa   fa-ils w3-margin-right"></i>Statistics</button>
-    <button class="w3-button w3-white actionItems"><i class="fa fa-heartbeat w3-margin-right"></i>History</button>
+    <button class="w3-button w3-white w3-hide-small actionItems" on:click={showStatistics}><i class="fa   fa-ils w3-margin-right"></i>Statistics</button>
+    <button class="w3-button w3-white actionItems" on:click={showHistory}><i class="fa fa-heartbeat w3-margin-right"></i>History</button>
     <button class="w3-button w3-white actionItems" on:click={showReminder}><i class="fa  fa-envelope-o w3-margin-right"></i>Reminder</button>
     <button class="w3-button actionItems">Pinboard</button>
   </div>

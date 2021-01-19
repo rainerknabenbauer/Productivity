@@ -9,11 +9,14 @@
 	import ActionItems from "./ActionItems.svelte";
 	import Faq from "./FAQ.svelte";
 	import Trashbin from "./Trashbin.svelte";
+import NotImplementedView from "./NotImplementedView.svelte";
 
 	let isTaskDetailsVisible = false;
 	let isReminderVisible = false;
 	let isFAQvisible = false;
 	let isTrashbinVisible = false;
+	let isHistoryVisible = false;
+	let isStatisticsVisible = false;
 	let tasksPromise = [];
 	let task;
 
@@ -78,6 +81,14 @@
 		isTrashbinVisible = !isTrashbinVisible;
 	}
 
+	function showHistory() {
+		isHistoryVisible = !isHistoryVisible;
+	}
+
+	function showStatistics() {
+		isStatisticsVisible = !isStatisticsVisible;
+	}
+
 	async function addTask() {
 		tasksPromise = getTasks();
 		isTaskDetailsVisible = !isTaskDetailsVisible;
@@ -126,6 +137,8 @@
 		on:showReminder={showReminder}
 		on:showFAQ={showFAQ}
 		on:showTrashbin={showTrashbin}
+		on:showHistory={showHistory}
+		on:showStatistics={showStatistics}
 	/>
 
 	{#if isTaskDetailsVisible}
@@ -166,6 +179,19 @@
 			<Trashbin {tasks} on:undoDelete={undoDelete} />
 		{/await}
 	{/if}
+
+	{#if isHistoryVisible}
+		{#await tasksPromise then tasks}
+			<NotImplementedView />
+		{/await}
+	{/if}
+
+	{#if isStatisticsVisible}
+		{#await tasksPromise then tasks}
+			<NotImplementedView />
+		{/await}
+	{/if}
+
 
 	<!-- End page content -->
 </div>
