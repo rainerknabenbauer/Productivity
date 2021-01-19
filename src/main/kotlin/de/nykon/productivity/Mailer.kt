@@ -36,7 +36,7 @@ class Mailer(private val config: MailerConfig) {
         projects.forEach { project ->
             run {
                 projectLinks += getProjectLine()
-                    .replace("{{link}}", "http://localhost:8080/${project.projectId}")
+                    .replace("{{link}}", "http://188.34.198.168:8080/${project.projectId}")
                     .replace("{{text}}", project.name) + "<br>"
             }
         }
