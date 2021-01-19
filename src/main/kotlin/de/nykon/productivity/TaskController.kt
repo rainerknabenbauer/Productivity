@@ -30,7 +30,7 @@ class TaskController(private val taskService: TaskService) {
         println("set UI of $id to x=${ui.xposition} | y=${ui.yposition}")
         val savedTask = taskService.save(
             Task(
-                id, null, false, "updated task",
+                id, null, isBeingWorkedOn = false, isDeleted = false,"updated task",
                 TaskDescription("", "", ""),
                 LocalDate.now(), 0, listOf(), ui
             )
@@ -49,15 +49,15 @@ class TaskController(private val taskService: TaskService) {
     @GetMapping(path = ["/sample"])
     fun getSample(): ResponseEntity<ArrayList<Task>> {
         val tasks = ArrayList<Task>()
-        val task1 = Task(UUID.randomUUID().toString(), null,false,"First Sample",
+        val task1 = Task(UUID.randomUUID().toString(), null, isBeingWorkedOn = false, isDeleted = false, "First Sample",
             TaskDescription("...", "...", "..."),
             LocalDate.now(), 0, null, UI(0, 0)
         )
-        val task2 = Task(UUID.randomUUID().toString(), null, false, "First Sample",
+        val task2 = Task(UUID.randomUUID().toString(), null, isBeingWorkedOn = false, isDeleted = false, "First Sample",
             TaskDescription("...", "...", "..."),
             LocalDate.now(), 0, null, UI(0, 0))
 
-        val task3 = Task(UUID.randomUUID().toString(), null, false,"First Sample",
+        val task3 = Task(UUID.randomUUID().toString(), null, isBeingWorkedOn = false, isDeleted = false,"First Sample",
             TaskDescription("...", "...", "..."),
             LocalDate.now(), 0, null, UI(0, 0))
 

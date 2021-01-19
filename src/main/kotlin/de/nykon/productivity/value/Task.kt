@@ -15,6 +15,7 @@ data class Task(
     @Id val id: String = UUID.randomUUID().toString(),
     @TextIndexed val projectId: String?,
     val isBeingWorkedOn: Boolean = false,
+    val isDeleted: Boolean = false,
     val title: String,
     val description: TaskDescription,
     val endDate: LocalDate?,

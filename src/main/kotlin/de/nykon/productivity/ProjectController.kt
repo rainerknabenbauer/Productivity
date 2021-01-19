@@ -47,7 +47,7 @@ class ProjectController(
     fun createProject(): ResponseEntity<Project> {
         println("create project")
         val project = Project()
-        val task = Task(UUID.randomUUID().toString(), project.projectId, true, "First steps",
+        val task = Task(UUID.randomUUID().toString(), project.projectId, isBeingWorkedOn = true, isDeleted = false,"First steps",
             TaskDescription(
                 """
                     Click the pen in the lower right corner to see details.
