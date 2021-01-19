@@ -82,10 +82,12 @@ import NotImplementedView from "./NotImplementedView.svelte";
 	}
 
 	function showHistory() {
+		isStatisticsVisible = false;
 		isHistoryVisible = !isHistoryVisible;
 	}
 
 	function showStatistics() {
+		isHistoryVisible = false;
 		isStatisticsVisible = !isStatisticsVisible;
 	}
 
