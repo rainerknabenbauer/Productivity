@@ -1,14 +1,13 @@
-
 <script>
-	import { onMount } from 'svelte';
-	import MoveableBlock from './MoveableBlock.svelte';
-	import TaskDetails from './TaskDetails.svelte'
-	import Task from './Task.js';
-	import Greeting from './Greeting.svelte';
-	import Reminder from './Reminder.svelte';
-	import Canvas from './Canvas.svelte';
-	import ActionItems from './ActionItems.svelte';
-	import Faq from './FAQ.svelte';
+	import { onMount } from "svelte";
+	import MoveableBlock from "./MoveableBlock.svelte";
+	import TaskDetails from "./TaskDetails.svelte";
+	import Task from "./Task.js";
+	import Greeting from "./Greeting.svelte";
+	import Reminder from "./Reminder.svelte";
+	import Canvas from "./Canvas.svelte";
+	import ActionItems from "./ActionItems.svelte";
+	import Faq from "./FAQ.svelte";
 
 	let isTaskDetailsVisible = false;
 	let isReminderVisible = false;
@@ -32,14 +31,14 @@
 		let result = [];
 		let projectId = window.location.search.substr(1);
 		if (projectId === undefined || projectId === "") {
-			let newProject = await fetch(uri + '/projects/new')
-							.then(response => result = response.json())
-							.catch(error => alert(error));
-			location.assign(self + "/?" + newProject.projectId)
+			let newProject = await fetch(uri + "/projects/new")
+				.then((response) => (result = response.json()))
+				.catch((error) => alert(error));
+			location.assign(self + "/?" + newProject.projectId);
 		} else {
-			await fetch(uri + '/projects/' + projectId)
-							.then(response => result = response.json())
-							.catch(error => alert(error));
+			await fetch(uri + "/projects/" + projectId)
+				.then((response) => (result = response.json()))
+				.catch((error) => alert(error));
 		}
 		return result;
 	}
@@ -48,11 +47,11 @@
 		let projectId = window.location.search.substr(1);
 		let result = [];
 		if (!(projectId === undefined || projectId === "")) {
-			let response = await fetch(uri + '/tasks/' + projectId)
-							.then(response => result = response.json())
-							.catch(error => alert(error));
+			let response = await fetch(uri + "/tasks/" + projectId)
+				.then((response) => (result = response.json()))
+				.catch((error) => alert(error));
 			drawLines(await response);
-		} 
+		}
 		return result;
 	}
 
@@ -64,7 +63,7 @@
 	function showReminder() {
 		isReminderVisible = !isReminderVisible;
 	}
-	
+
 	function showFAQ() {
 		isFAQvisible = !isFAQvisible;
 	}
@@ -84,59 +83,71 @@
 		var canvas = document.getElementById("canvas");
 		var context = canvas.getContext("2d");
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		
-		tasks.forEach(task => {
-			context.beginPath();
-			context.moveTo(window.outerWidth/2, window.outerHeight/2-wrapper.offsetTop, 0);
-			context.lineTo(task.ui.xposition-wrapper.offsetLeft+175, task.ui.yposition-wrapper.offsetTop+25);
-			context.strokeStyle = '#dddddd';
-			context.stroke();
-			context.closePath();
-		})
 
+		tasks.forEach((task) => {
+			if(!task.isDeleted) {
+				context.beginPath();
+				context.moveTo(
+				window.outerWidth / 2,
+				window.outerHeight / 2 - wrapper.offsetTop,
+				0);
+
+				context.lineTo(
+					task.ui.xposition - wrapper.offsetLeft + 175,
+					task.ui.yposition - wrapper.offsetTop + 25);
+					
+				context.strokeStyle = "#dddddd";
+				context.stroke();
+				context.closePath();
+			}
+		});
 	}
 </script>
 
-<style>
-
-</style>
-
 <!-- !PAGE CONTENT! -->
 <div class="w3-main">
-  <!-- Header -->
-  <ActionItems on:showTaskDetails={toggleTaskDetailsVisibility} on:showReminder={showReminder} on:showFAQ={showFAQ} />
+	<!-- Header -->
+	<ActionItems
+		on:showTaskDetails={toggleTaskDetailsVisibility}
+		on:showReminder={showReminder}
+		on:showFAQ={showFAQ}
+	/>
 
-  {#if isTaskDetailsVisible}
-	  <TaskDetails on:refresh={addTask} {task} {projectId}/>
-  {/if}
-  
-  {#await tasksPromise then tasks}
-	  {#each tasks as task (task.id)}
-			  <MoveableBlock {task} 
-				  on:edit={e => editTask(e.detail.text)} 
-				  on:move={() => drawLines(tasks)}
-				  on:deleteTask={() => isTaskDetailsVisible = false} />
-	  {/each}
-  {/await}
+	{#if isTaskDetailsVisible}
+		<TaskDetails on:refresh={addTask} {task} {projectId} />
+	{/if}
 
-  {#if isReminderVisible}
+	{#await tasksPromise then tasks}
+		{#each tasks as task (task.id)}
+			{#if !task.isDeleted}
+				<MoveableBlock
+					{task}
+					on:edit={(e) => editTask(e.detail.text)}
+					on:move={() => drawLines(tasks)}
+					on:deleteTask={() => (isTaskDetailsVisible = false)}
+				/>
+			{/if}
+		{/each}
+	{/await}
+
+	{#if isReminderVisible}
 		{#await projectPromise then project}
 			<Reminder {project} on:showReminder={showReminder} />
 		{/await}
-  {/if}
+	{/if}
 
-  {#if isFAQvisible}
-  	{#await projectPromise then project}
-	  <Faq {project} on:showFAQ={showFAQ}/>
-  	{/await}
-  {/if}
+	{#if isFAQvisible}
+		{#await projectPromise then project}
+			<Faq {project} on:showFAQ={showFAQ} />
+		{/await}
+	{/if}
 
-<!-- End page content -->
+	<!-- End page content -->
 </div>
 
 <Canvas />
 
-
 <Greeting />
 
-
+<style>
+</style>

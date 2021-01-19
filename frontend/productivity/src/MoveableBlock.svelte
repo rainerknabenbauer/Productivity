@@ -21,17 +21,11 @@
         }
     }
 
-    async function deleteTask(task) {
+    async function markDeleted() {
         isVisible = false;
-        await fetch("http://" + host + ":8080/tasks", {
-            method: 'DELETE',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Media-Type': "MediaType.APPLICATION_JSON"
-            },
-            body: JSON.stringify(task)
-        });
+        task.isDeleted = true;
+        console.log("marked task as deleted: " + task)
+        updateTask();
         dispatch('deleteTask')
     }
 
@@ -43,7 +37,7 @@
         
     //send to server
     async function updateTask() {
-        if (isVisible) {
+
             console.log("Updating Task");
                 const response = await fetch("http://" + host + ":8080/tasks", {
                     method: 'POST',
@@ -54,7 +48,7 @@
                     },
                     body: JSON.stringify(task)
                 });
-        }
+
     }
 
     // Calculate relative position of DIV
@@ -152,7 +146,7 @@
     <!-- The block gets attached to the mouse when you hold down left mouse button-->
     <div class="task" id={task.id} style="position: absolute; top: {task.ui.yposition}px; left: {task.ui.xposition}px">
         <div class="header">
-            <div class="options" on:click={deleteTask(task)}>&#10008;</div>
+            <div class="options" on:click={markDeleted}>&#10008;</div>
             <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
                 <div class="title w3-flat-wet-asphalt rainbow w3-serif">{task.title}</div>
                 <div class="shortDescription">{task.description.shortDescription}
