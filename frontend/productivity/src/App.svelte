@@ -95,7 +95,7 @@
 				context.lineTo(
 					task.ui.xposition - wrapper.offsetLeft + 175,
 					task.ui.yposition - wrapper.offsetTop + 25);
-					
+
 				context.strokeStyle = "#dddddd";
 				context.stroke();
 				context.closePath();
@@ -124,7 +124,11 @@
 					{task}
 					on:edit={(e) => editTask(e.detail.text)}
 					on:move={() => drawLines(tasks)}
-					on:deleteTask={() => (isTaskDetailsVisible = false)}
+					on:deleteTask={() => {
+						isTaskDetailsVisible = false;
+						drawLines(tasks)
+						}
+					}
 				/>
 			{/if}
 		{/each}
