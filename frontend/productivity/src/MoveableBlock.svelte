@@ -1,6 +1,6 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
-    import EditTask from './EditTask.svelte'
+    import { createEventDispatcher } from "svelte";
+    import EditTask from "./EditTask.svelte";
 
     const dispatch = createEventDispatcher();
     export let task;
@@ -24,49 +24,72 @@
     async function markDeleted() {
         isVisible = false;
         task.isDeleted = true;
-        console.log("marked task as deleted: " + task)
+        console.log("marked task as deleted: " + task);
         updateTask();
-        dispatch('deleteTask')
+        dispatch("deleteTask");
     }
 
     function editTask() {
-		dispatch('edit', {
-			text: JSON.stringify(task)
+        dispatch("edit", {
+            text: JSON.stringify(task),
         });
-	}
-        
+    }
+
     //send to server
     async function updateTask() {
-
-            console.log("Updating Task");
-                const response = await fetch("http://" + host + ":8080/tasks", {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Media-Type': "MediaType.APPLICATION_JSON"
-                    },
-                    body: JSON.stringify(task)
-                });
-
+        console.log("Updating Task");
+        const response = await fetch("http://" + host + ":8080/tasks", {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Media-Type": "MediaType.APPLICATION_JSON",
+            },
+            body: JSON.stringify(task),
+        });
     }
 
     // Calculate relative position of DIV
-    document.addEventListener('mousemove', (event) => {
+    document.addEventListener("mousemove", (event) => {
         if (isMoving) {
             var block = document.getElementById(task.id);
-            task.ui.xposition = event.clientX-(block.offsetWidth/2);
-            task.ui.yposition = event.clientY-(block.offsetHeight/2);
+            task.ui.xposition = event.clientX - block.offsetWidth / 2;
+            task.ui.yposition = event.clientY - block.offsetHeight / 2;
             // task.ui.xposition = event.clientX - (task.ui.xposition - event.clientX)
             // task.ui.yposition = event.clientY - (task.ui.yposition - event.clientX)
-            dispatch('move');
+            dispatch("move");
         }
     });
 </script>
 
+{#if isVisible}
+    <!-- The block gets attached to the mouse when you hold down left mouse button-->
+    <div
+        class="task"
+        id={task.id}
+        style="position: absolute; top: {task.ui.yposition}px; left: {task.ui
+            .xposition}px"
+    >
+        <div class="header">
+            <div class="options" on:click={markDeleted}>&#10008;</div>
+            <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
+                <div class="title w3-flat-wet-asphalt rainbow w3-serif">
+                    {task.title}
+                </div>
+                <div class="shortDescription">
+                    {task.description.shortDescription}
+                    <div class="options dark" on:click={editTask}>
+                        <EditTask />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/if}
+
 <style>
     .task {
-        cursor: -webkit-grab; 
+        cursor: -webkit-grab;
         cursor: grab;
         border: 1px solid darkgreen;
         min-width: 250px;
@@ -106,53 +129,38 @@
     }
 
     .rainbow {
-	margin: 0;
-	color: #fff;
-	background: linear-gradient(-45deg, #888888, #49343c, #575050, #343837 );
-	background-size: 400% 400%;
-	-webkit-animation: gradientBG 10s ease infinite;
-	        animation: gradientBG 10s ease infinite;
-}
+        margin: 0;
+        color: #fff;
+        background: linear-gradient(-45deg, #888888, #49343c, #575050, #343837);
+        background-size: 400% 400%;
+        -webkit-animation: gradientBG 10s ease infinite;
+        animation: gradientBG 10s ease infinite;
+    }
 
-@-webkit-keyframes gradientBG {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-@keyframes gradientBG {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
+    @-webkit-keyframes gradientBG {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    @keyframes gradientBG {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
 
-.dark {
-    color: darkslategrey;
-}
+    .dark {
+        color: darkslategrey;
+    }
 </style>
-
-{#if isVisible}
-    <!-- The block gets attached to the mouse when you hold down left mouse button-->
-    <div class="task" id={task.id} style="position: absolute; top: {task.ui.yposition}px; left: {task.ui.xposition}px">
-        <div class="header">
-            <div class="options" on:click={markDeleted}>&#10008;</div>
-            <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
-                <div class="title w3-flat-wet-asphalt rainbow w3-serif">{task.title}</div>
-                <div class="shortDescription">{task.description.shortDescription}
-                    <div class="options dark" on:click={editTask}><EditTask /></div>
-                </div>
-            </div>
-        </div>
-    </div>
-{/if}

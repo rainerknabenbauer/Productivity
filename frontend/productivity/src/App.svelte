@@ -8,10 +8,12 @@
 	import Canvas from "./Canvas.svelte";
 	import ActionItems from "./ActionItems.svelte";
 	import Faq from "./FAQ.svelte";
+	import Trashbin from "./Trashbin.svelte";
 
 	let isTaskDetailsVisible = false;
 	let isReminderVisible = false;
 	let isFAQvisible = false;
+	let isTrashbinVisible = false;
 	let tasksPromise = [];
 	let task;
 
@@ -34,7 +36,7 @@
 			let newProject = await fetch(uri + "/projects/new")
 				.then((response) => (result = response.json()))
 				.catch((error) => alert(error));
-			location.assign(self + "/?" + newProject.projectId);
+			reloadPage(newProject.projectId);
 		} else {
 			await fetch(uri + "/projects/" + projectId)
 				.then((response) => (result = response.json()))
@@ -55,6 +57,10 @@
 		return result;
 	}
 
+	function reloadPage(projectReference) {
+		location.assign(self + "/?" + projectReference);
+	}
+
 	function toggleTaskDetailsVisibility() {
 		isTaskDetailsVisible = !isTaskDetailsVisible;
 		task = new Task();
@@ -68,6 +74,10 @@
 		isFAQvisible = !isFAQvisible;
 	}
 
+	function showTrashbin() {
+		isTrashbinVisible = !isTrashbinVisible;
+	}
+
 	async function addTask() {
 		tasksPromise = getTasks();
 		isTaskDetailsVisible = !isTaskDetailsVisible;
@@ -76,6 +86,10 @@
 	function editTask(taskJson) {
 		isTaskDetailsVisible = true;
 		task = JSON.parse(taskJson);
+	}
+
+	function undoDelete() {
+		reloadPage(projectId);
 	}
 
 	async function drawLines(tasks) {
@@ -111,6 +125,7 @@
 		on:showTaskDetails={toggleTaskDetailsVisibility}
 		on:showReminder={showReminder}
 		on:showFAQ={showFAQ}
+		on:showTrashbin={showTrashbin}
 	/>
 
 	{#if isTaskDetailsVisible}
@@ -136,13 +151,19 @@
 
 	{#if isReminderVisible}
 		{#await projectPromise then project}
-			<Reminder {project} on:showReminder={showReminder} />
+			<Reminder {project} />
 		{/await}
 	{/if}
 
 	{#if isFAQvisible}
 		{#await projectPromise then project}
-			<Faq {project} on:showFAQ={showFAQ} />
+			<Faq {project} />
+		{/await}
+	{/if}
+
+	{#if isTrashbinVisible}
+		{#await tasksPromise then tasks}
+			<Trashbin {tasks} on:undoDelete={undoDelete} />
 		{/await}
 	{/if}
 

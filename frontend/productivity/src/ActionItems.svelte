@@ -12,6 +12,9 @@
       dispatch('showFAQ')
     }
 
+    function showTrashbin() {
+      dispatch('showTrashbin')
+    }
 </script>
 
 <style>
@@ -33,7 +36,7 @@
 <header class="grey">
   <div class="w3-section w3-bottombar w3-padding-16">
     <RotatingBlock on:showTaskDetails/>
-    <button class="w3-button w3-white w3-hide-small actionItems w3-margin-right"><i class="fa fa-trash-o"></i></button>
+    <button class="w3-button w3-white w3-hide-small actionItems w3-margin-right" on:click={showTrashbin}><i class="fa fa-trash-o"></i></button>
     <!-- Lost link? next line with ? -->
     <button class="w3-button w3-white w3-hide-small actionItems" on:click={showFAQ}><i class="fa fa-question-circle-o"></i></button>
     <button class="w3-button w3-white w3-hide-small actionItems"><i class="fa   fa-ils w3-margin-right"></i>Statistics</button>
