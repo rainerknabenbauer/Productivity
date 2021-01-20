@@ -123,7 +123,7 @@
     .task {
         cursor: -webkit-grab;
         cursor: grab;
-        border: 1px solid darkgreen;
+        border: 1px solid rgb(156, 156, 156);
         min-width: 250px;
         max-width: 325px;
         z-index: 1;
