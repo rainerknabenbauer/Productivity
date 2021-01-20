@@ -16,8 +16,8 @@
     async function holdOn(event) {
         var block = document.getElementById(task.id);
 
-        startPositionX = event.clientX;
-        startPositionY = event.clientY;
+        startPositionX = event.pageX;
+        startPositionY = event.pageY;
         isClicked = true;
 
         block.style.cursor = "grabbing";
@@ -68,25 +68,25 @@
 
         if (isMoving) {
             var block = document.getElementById(task.id);
-            task.ui.xposition = event.clientX - block.offsetWidth / 2;
-            task.ui.yposition = event.clientY - block.offsetHeight / 2;
+            task.ui.xposition = event.pageX - block.offsetWidth / 2;
+            task.ui.yposition = event.pageY - block.offsetHeight / 2;
             dispatch("move");
         }
     });
 
     function jitterproof(event) {
-        if (xThreshold(event) && yThreshold(event)) {
+        if (xThreshold(event) || yThreshold(event)) {
             return true;
         }
         return false;
     }
 
     function xThreshold(event) {
-        return Math.abs(startPositionX - event.clientX) > minMove
+        return Math.abs(startPositionX - event.pageX) > minMove
     }
 
     function yThreshold(event) {
-        return Math.abs(startPositionY - event.clientY) > minMove
+        return Math.abs(startPositionY - event.pageY) > minMove
     }
 </script>
 
@@ -142,8 +142,9 @@
     .options {
         float: right;
         font-size: 12pt;
-        padding-right: 5px;
+        min-width: 25px;
         color: white;
+        text-align: center;
     }
 
     .options:hover {
