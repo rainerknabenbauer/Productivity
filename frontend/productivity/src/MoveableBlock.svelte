@@ -5,31 +5,20 @@
     const dispatch = createEventDispatcher();
     export let task;
 
-    let isClicked = false;
     let isMoving = false;
     let isVisible = true;
     const host = window.location.hostname;
-    let minMove = 2;
-    let startPositionX = 0;
-    let startPositionY = 0;
 
-    async function holdOn(event) {
+    function toggle() {
         var block = document.getElementById(task.id);
+        isMoving = !isMoving;
 
-        startPositionX = event.clientX;
-        startPositionY = event.clientY;
-        isClicked = true;
-
-        block.style.cursor = "grabbing";
-    }
-
-    async function letGo() {
-        var block = document.getElementById(task.id);
-        isMoving = false;
-        isClicked = false;
-
-        block.style.cursor = "grab";
-        updateTask();
+        if (isMoving) {
+            block.style.cursor = "grabbing";
+        } else {
+            block.style.cursor = "grab";
+            updateTask();
+        }
     }
 
     async function markDeleted() {
@@ -62,32 +51,15 @@
 
     // Calculate relative position of DIV
     document.addEventListener("mousemove", (event) => {
-        if (isClicked && jitterproof(event)) {
-            isMoving = true;
-        }
-
         if (isMoving) {
             var block = document.getElementById(task.id);
             task.ui.xposition = event.clientX - block.offsetWidth / 2;
             task.ui.yposition = event.clientY - block.offsetHeight / 2;
+            // task.ui.xposition = event.clientX - (task.ui.xposition - event.clientX)
+            // task.ui.yposition = event.clientY - (task.ui.yposition - event.clientX)
             dispatch("move");
         }
     });
-
-    function jitterproof(event) {
-        if (xThreshold(event) && yThreshold(event)) {
-            return true;
-        }
-        return false;
-    }
-
-    function xThreshold(event) {
-        return Math.abs(startPositionX - event.clientX) > minMove
-    }
-
-    function yThreshold(event) {
-        return Math.abs(startPositionY - event.clientY) > minMove
-    }
 </script>
 
 {#if isVisible}
@@ -100,11 +72,7 @@
     >
         <div class="header">
             <div class="options" on:click={markDeleted}>&#10008;</div>
-            <div
-                class="details"
-                on:mousedown={(event) => holdOn(event)}
-                on:mouseup={letGo}
-            >
+            <div class="details" on:mousedown={toggle} on:mouseup={toggle}>
                 <div class="title w3-flat-wet-asphalt rainbow w3-serif">
                     {task.title}
                 </div>
