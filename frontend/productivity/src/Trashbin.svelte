@@ -3,7 +3,6 @@
     const dispatch = createEventDispatcher();
 
     export let tasks;
-    console.log(tasks);
     const host = window.location.hostname;
 
     async function recover(task) {

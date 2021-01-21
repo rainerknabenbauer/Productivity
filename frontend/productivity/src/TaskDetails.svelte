@@ -28,7 +28,6 @@
 	}
 
     async function addTask() {
-        console.log(JSON.stringify(task));
         const response = await fetch("http://" + host + ":8080/tasks", {
             method: 'POST',
             mode: 'cors',

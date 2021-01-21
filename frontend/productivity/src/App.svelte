@@ -63,7 +63,6 @@
 	}
 
 	function saveProject(project) {
-		console.log(project)
 		fetch("http://" + host + ":8080/projects/", {
             method: 'POST',
             mode: 'cors',

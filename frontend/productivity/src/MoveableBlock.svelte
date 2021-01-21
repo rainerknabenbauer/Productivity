@@ -35,7 +35,6 @@
     async function markDeleted() {
         isVisible = false;
         task.isDeleted = true;
-        console.log("marked task as deleted: " + task);
         updateTask();
         dispatch("deleteTask");
     }
@@ -48,7 +47,6 @@
 
     //send to server
     async function updateTask() {
-        console.log("Updating Task");
         const response = await fetch("http://" + host + ":8080/tasks", {
             method: "POST",
             mode: "cors",
