@@ -29,7 +29,7 @@
     opacity: 1;
     outline: 0;
     color: #fff;
-    line-height: 40px;
+    line-height: 38px;
     position: relative;
     text-align: center;
     letter-spacing: 1px;
@@ -38,7 +38,7 @@
     font-family: "Open Sans";
     text-transform: uppercase;
     min-width: 132pt;
-    border: 2px solid transparent;
+    border: 0px solid transparent;
     border-radius: 25px;
   }
   .btn-flip:hover:after {
@@ -69,7 +69,7 @@
     color: #323237;
     display: block;
     padding: 0 30px;
-    line-height: 40px;
+    line-height: 38px;
     transition: 0.5s;
     position: relative;
     background: #999999;
