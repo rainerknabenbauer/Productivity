@@ -27,6 +27,10 @@
     dispatch("showFirstSteps");
   }
 
+  function showPinboard() {
+    dispatch("showPinboard");
+  }
+
   function editTitle() {
     isTitleBeingEdited = !isTitleBeingEdited;
   }
@@ -61,7 +65,7 @@
       <i class="fa fa-heartbeat w3-margin-right" />History</button>
     <button class="w3-button w3-white w3-hide-small actionItems" on:click={showReminder}>
       <i class="fa  fa-envelope-o w3-margin-right" />Reminder</button>
-    <button class="w3-button w3-hide-small actionItems">Pinboard</button>
+    <button class="w3-button w3-hide-small actionItems" on:click={showPinboard}>Pinboard</button>
     <button
       class="w3-button w3-white w3-hide-small actionItems" on:click={showFirstSteps}>
       <i class="fa fa-vimeo-square w3-margin-right" />First steps</button>

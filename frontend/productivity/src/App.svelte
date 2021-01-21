@@ -78,6 +78,15 @@
 		location.assign(self + "/?" + projectReference);
 	}
 
+	function closeAllViews() {
+		isTaskDetailsVisible = false;
+		isReminderVisible = false;
+		isFAQvisible = false;
+		isTrashbinVisible = false;
+		isHistoryVisible = false;
+		isFirstStepsVisible = false;
+	}
+
 	function toggleTaskDetailsVisibility() {
 		isTaskDetailsVisible = !isTaskDetailsVisible;
 		task = new Task();
@@ -159,6 +168,7 @@
 		on:showHistory={showHistory}
 		on:showFirstSteps={showFirstSteps}
 		on:saveProject={(event) => saveProject(event.detail.text)}
+		on:showPinboard={closeAllViews}
 		/>
 	{/await}
 
