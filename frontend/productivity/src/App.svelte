@@ -25,7 +25,7 @@
 	const uri = "http://" + host + ":8080";
 	const self = "http://" + host + ":5000";
 
-	let projectPromise;
+	let projectPromise = [];
 	let projectId = window.location.search.substr(1);
 
 	onMount(async () => {
@@ -42,10 +42,11 @@
 				.catch((error) => alert(error));
 			reloadPage(newProject.projectId);
 		} else {
-			await fetch(uri + "/projects/" + projectId)
+			result = await fetch(uri + "/projects/" + projectId)
 				.then((response) => (result = response.json()))
 				.catch((error) => alert(error));
 		}
+
 		return result;
 	}
 
@@ -59,6 +60,19 @@
 			drawLines(await response);
 		}
 		return result;
+	}
+
+	function saveProject(project) {
+		console.log(project)
+		fetch("http://" + host + ":8080/projects/", {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Media-Type': "MediaType.APPLICATION_JSON"
+            },
+            body: project
+        });
 	}
 
 	function reloadPage(projectReference) {
@@ -135,14 +149,19 @@
 <!-- !PAGE CONTENT! -->
 <div class="w3-main">
 	<!-- Header -->
-	<ActionItems
+
+	{#await projectPromise then project}
+		<ActionItems
+		{project}
 		on:showTaskDetails={toggleTaskDetailsVisibility}
 		on:showReminder={showReminder}
 		on:showFAQ={showFAQ}
 		on:showTrashbin={showTrashbin}
 		on:showHistory={showHistory}
 		on:showFirstSteps={showFirstSteps}
-	/>
+		on:saveProject={(event) => saveProject(event.detail.text)}
+		/>
+	{/await}
 
 	{#if isTaskDetailsVisible}
 		<TaskDetails on:refresh={addTask} {task} {projectId} />
