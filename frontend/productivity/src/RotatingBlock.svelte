@@ -76,10 +76,15 @@
     content: attr(data-front);
     transform: translateY(0) rotateX(0);
   }
+
+  .float {
+    float: left;
+    margin-right: 25px;
+  }
 </style>
 
 <a href="#"
-  class="btn-flip w3-margin-left"
+  class="btn-flip w3-margin-left float"
   data-front="add note"
   data-back={symbol}
   on:click={showTaskDetails} />

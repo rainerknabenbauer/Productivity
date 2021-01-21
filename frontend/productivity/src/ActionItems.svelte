@@ -39,15 +39,15 @@
   }
 </script>
 
+
 <header class="grey">
-  <div class="w3-section w3-bottombar w3-padding-16">
     <RotatingBlock on:showTaskDetails />
 
     {#if isTitleBeingEdited}
       <input class="editName" type="text" id="fname" name="fname" bind:value={project.name}/>
       <Button text="OK" on:click={saveProject}/>
     {:else}
-      <div class="slogan" on:click={editTitle}>{project.name}</div>
+      <div class="projectName" on:click={editTitle}>{project.name}</div>
     {/if}
     
     <button
@@ -57,16 +57,16 @@
     <button
       class="w3-button w3-white w3-hide-small actionItems" on:click={showFAQ}>
       <i class="fa fa-question-circle-o" /></button>
-    <button class="w3-button w3-white actionItems" on:click={showHistory}>
+    <button class="w3-button w3-white w3-hide-small actionItems" on:click={showHistory}>
       <i class="fa fa-heartbeat w3-margin-right" />History</button>
-    <button class="w3-button w3-white actionItems" on:click={showReminder}>
+    <button class="w3-button w3-white w3-hide-small actionItems" on:click={showReminder}>
       <i class="fa  fa-envelope-o w3-margin-right" />Reminder</button>
-    <button class="w3-button actionItems">Pinboard</button>
+    <button class="w3-button w3-hide-small actionItems">Pinboard</button>
     <button
       class="w3-button w3-white w3-hide-small actionItems" on:click={showFirstSteps}>
       <i class="fa fa-vimeo-square w3-margin-right" />First steps</button>
-  </div>
-</header>
+  </header>
+
 
 <style>
   .actionItems {
@@ -79,19 +79,22 @@
     text-decoration: none;
     font-family: "Open Sans";
   }
-  .grey {
-    background-color: #dddddd;
-  }
-  .slogan {
+
+  .projectName {
     font-family: 'Tangerine', cursive;
     font-size: 2em;
     display: inline;
+    float: left;
     color: grey;
-    position: relative;
-    top: 7px;
-    left: 12px;
+    float: left;
   }
   .editName {
     height: 40px;
+  }
+  .grey {
+    background-color: #dddddd;
+    height: 50px;
+    padding-top: 5px;
+
   }
 </style>
