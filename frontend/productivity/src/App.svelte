@@ -9,14 +9,15 @@
 	import ActionItems from "./ActionItems.svelte";
 	import Faq from "./FAQ.svelte";
 	import Trashbin from "./Trashbin.svelte";
-import NotImplementedView from "./NotImplementedView.svelte";
+	import NotImplementedView from "./NotImplementedView.svelte";
+	import FirstSteps from "./FirstSteps.svelte";
 
 	let isTaskDetailsVisible = false;
 	let isReminderVisible = false;
 	let isFAQvisible = false;
 	let isTrashbinVisible = false;
 	let isHistoryVisible = false;
-	let isStatisticsVisible = false;
+	let isFirstStepsVisible = false;
 	let tasksPromise = [];
 	let task;
 
@@ -82,13 +83,13 @@ import NotImplementedView from "./NotImplementedView.svelte";
 	}
 
 	function showHistory() {
-		isStatisticsVisible = false;
+		isFirstStepsVisible = false;
 		isHistoryVisible = !isHistoryVisible;
 	}
 
-	function showStatistics() {
+	function showFirstSteps() {
 		isHistoryVisible = false;
-		isStatisticsVisible = !isStatisticsVisible;
+		isFirstStepsVisible = !isFirstStepsVisible;
 	}
 
 	async function addTask() {
@@ -140,7 +141,7 @@ import NotImplementedView from "./NotImplementedView.svelte";
 		on:showFAQ={showFAQ}
 		on:showTrashbin={showTrashbin}
 		on:showHistory={showHistory}
-		on:showStatistics={showStatistics}
+		on:showFirstSteps={showFirstSteps}
 	/>
 
 	{#if isTaskDetailsVisible}
@@ -188,10 +189,8 @@ import NotImplementedView from "./NotImplementedView.svelte";
 		{/await}
 	{/if}
 
-	{#if isStatisticsVisible}
-		{#await tasksPromise then tasks}
-			<NotImplementedView />
-		{/await}
+	{#if isFirstStepsVisible}
+		<FirstSteps />
 	{/if}
 
 
