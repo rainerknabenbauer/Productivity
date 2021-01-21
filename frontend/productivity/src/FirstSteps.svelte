@@ -27,13 +27,13 @@
     border-style: solid;
     border-width: 1px;
     border-color: lightslategray;
-    width: 45%;
+    width: 50%;
     right: 8px;
 }
 
 .sidenav {
   height: 315px;
-  width: 50%;
+  width: 55%;
   position: relative;
   top: 0;
   left: 0;
@@ -52,6 +52,10 @@
   letter-spacing: 0.1px;
   text-decoration: none;
   font-family: 'Verdana';
+}
+
+.general {
+    width: 100%;
 }
 
 .topic {
@@ -77,7 +81,7 @@
 }
 
 /* Change color on hover */
-.description:hover {
+.description:hover, .general:hover{
   background-color: #e9e9e9;
   color: black;
 }
@@ -101,18 +105,18 @@
 
 <div class="containers w3-light-grey">
     <div class="sidenav">
-        <div class="sidenavelement inline" on:click={() => loadPage("theidea")}>The idea behind it</div>
-        <div class="navigationWrapper">
-            <div class="sidenavelement topic task" on:click={() => loadPage("spacer")}>Task</div>
-            <div class="sidenavelement description" on:click={() => loadPage("spacer")}>Create</div>
+        <div class="sidenavelement general" on:click={() => loadPage("theidea")}>The idea behind it</div>
+        <div class="navigationWrapper" on:click={() => loadPage("create")}>
+            <div class="sidenavelement topic task">Task</div>
+            <div class="sidenavelement description">Create</div>
         </div>
-        <div class="navigationWrapper">
-            <div class="sidenavelement topic task" on:click={() => loadPage("spacer")}>Task</div>
-            <div class="sidenavelement description" on:click={() => loadPage("spacer")}>Modify</div>
+        <div class="navigationWrapper" on:click={() => loadPage("edit")}>
+            <div class="sidenavelement topic task">Task</div>
+            <div class="sidenavelement description">Edit</div>
         </div>
-        <div class="navigationWrapper">
-            <div class="sidenavelement topic task" on:click={() => loadPage("spacer")}>Task</div>
-            <div class="sidenavelement description" on:click={() => loadPage("spacer")}>Delete</div>
+        <div class="navigationWrapper" on:click={() => loadPage("deleteAndRecover")}>
+            <div class="sidenavelement topic task">Task</div>
+            <div class="sidenavelement description">Delete and recover</div>
         </div>
         <div class="navigationWrapper">
             <div class="sidenavelement topic project" on:click={() => loadPage("spacer")}>Project</div>
@@ -126,11 +130,15 @@
     
     <div class="content">
         {#if selected.localeCompare("theidea") === 0}
-        <iframe src="https://player.vimeo.com/video/3873878" class="video" title="tut" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-        {:else if selected.localeCompare("spacer") === 0}
-        spacer
+        <div class="">in progress</div>
+        {:else if selected.localeCompare("create") === 0}
+        <iframe src="https://player.vimeo.com/video/503035883" class="video" title="Create a task" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        {:else if selected.localeCompare("edit") === 0}
+        <iframe src="https://player.vimeo.com/video/503031847" class="video" title="Edit a task" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        {:else if selected.localeCompare("deleteAndRecover") === 0}
+        <iframe src="https://player.vimeo.com/video/503038887" class="video" title="Delete and recover a task" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         {:else}
-        <div class="">nothing specified yet</div>
+        <div class="">nothing specified yet</div> 
         {/if}
     </div>
 </div>
