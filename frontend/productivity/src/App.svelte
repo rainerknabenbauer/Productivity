@@ -155,7 +155,7 @@
 </script>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main">
+
 	<!-- Header -->
 
 	{#await projectPromise then project}
@@ -223,7 +223,6 @@
 
 
 	<!-- End page content -->
-</div>
 
 <Canvas />
 

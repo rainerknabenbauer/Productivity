@@ -97,7 +97,7 @@
   }
   .grey {
     background-color: #dddddd;
-    height: 50px;
+    height: 48px;
     padding-top: 5px;
 
   }
