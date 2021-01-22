@@ -89,10 +89,9 @@
   .projectName {
     font-family: 'Tangerine', cursive;
     font-size: 2em;
-    display: inline;
-    float: left;
     color: grey;
     float: left;
+    margin-top: -2px;
   }
   .editName {
     height: 40px;
