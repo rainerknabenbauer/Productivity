@@ -44,7 +44,7 @@
 </script>
 
 
-<header class="grey">
+<header class="header">
     <RotatingBlock on:showTaskDetails />
 
     {#if isTitleBeingEdited}
@@ -55,9 +55,8 @@
     {/if}
     
     <button
-      class="w3-button w3-white w3-hide-small actionItems right" on:click={showTrashbin}>
+      class="w3-button w3-white actionItems right" on:click={showTrashbin}>
       <i class="fa fa-trash-o" /></button>
-    <!-- Lost link? next line with ? -->
     <button
       class="w3-button w3-white w3-hide-small actionItems" on:click={showFAQ}>
       <i class="fa fa-question-circle-o" /></button>
@@ -98,10 +97,10 @@
   .editName {
     height: 40px;
   }
-  .grey {
+  .header {
     background-color: #dddddd;
     height: 48px;
     padding-top: 5px;
-
+    min-width: 500px;
   }
 </style>
