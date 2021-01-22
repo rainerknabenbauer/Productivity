@@ -1,5 +1,5 @@
 <script>
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
     import EditTask from "./EditTask.svelte";
 
     const dispatch = createEventDispatcher();
@@ -9,9 +9,26 @@
     let isMoving = false;
     let isVisible = true;
     const host = window.location.hostname;
-    let minMove = 2;
+    let minMove;
     let startPositionX = 0;
     let startPositionY = 0;
+
+    onMount(() => {
+        getThreshold();
+    });
+
+    function getThreshold() {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+        
+        if (urlParams.has('threshold')) {
+            minMove = urlParams.get('threshold');
+            console.log("threshold set to " + minMove);
+        } else {
+            minMove = 2;
+            console.log("threshold set to " + minMove);
+        }
+	}
 
     async function holdOn(event) {
         var block = document.getElementById(task.id);

@@ -26,16 +26,25 @@
 	const self = "http://" + host + ":5000";
 
 	let projectPromise = [];
-	let projectId = window.location.search.substr(1);
+	let projectId;
 
 	onMount(async () => {
+		setUrlParams();
 		tasksPromise = getTasks();
 		projectPromise = getProject();
 	});
 
+	function setUrlParams() {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+        
+        if (urlParams.has('id')) {
+            projectId = urlParams.get('id');
+        }
+	}
+
 	async function getProject() {
 		let result = [];
-		let projectId = window.location.search.substr(1);
 		if (projectId === undefined || projectId === "") {
 			let newProject = await fetch(uri + "/projects/new")
 				.then((response) => (result = response.json()))
@@ -51,7 +60,6 @@
 	}
 
 	async function getTasks() {
-		let projectId = window.location.search.substr(1);
 		let result = [];
 		if (!(projectId === undefined || projectId === "")) {
 			let response = await fetch(uri + "/tasks/" + projectId)
@@ -75,7 +83,7 @@
 	}
 
 	function reloadPage(projectReference) {
-		location.assign(self + "/?" + projectReference);
+		location.assign(self + "/?id=" + projectReference);
 	}
 
 	function closeAllViews() {
