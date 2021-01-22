@@ -55,7 +55,7 @@
     {/if}
     
     <button
-      class="w3-button w3-white w3-hide-small actionItems w3-margin-right" on:click={showTrashbin}>
+      class="w3-button w3-white w3-hide-small actionItems right" on:click={showTrashbin}>
       <i class="fa fa-trash-o" /></button>
     <!-- Lost link? next line with ? -->
     <button
@@ -73,6 +73,9 @@
 
 
 <style>
+  .right {
+    margin-right: 5px;
+  }
   .actionItems {
     float: right;
     color: #636363;

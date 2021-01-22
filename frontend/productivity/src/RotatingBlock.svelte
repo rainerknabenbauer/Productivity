@@ -81,10 +81,14 @@
     float: left;
     margin-right: 25px;
   }
+
+  .left {
+    margin-left: 5px;
+  }
 </style>
 
 <a href="#"
-  class="btn-flip w3-margin-left float"
+  class="btn-flip float left"
   data-front="add note"
   data-back={symbol}
   on:click={showTaskDetails} />
