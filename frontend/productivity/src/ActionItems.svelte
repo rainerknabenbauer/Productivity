@@ -98,8 +98,10 @@
   }
   .header {
     background-color: #dddddd;
-    height: 48px;
+    height: 50px;
     padding-top: 5px;
     min-width: 500px;
+    border: 1px solid transparent;
+    border-radius: 4px;
   }
 </style>
