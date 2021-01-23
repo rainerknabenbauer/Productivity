@@ -1,5 +1,6 @@
 <script>
     import { createEventDispatcher, onMount } from "svelte";
+import { set_style } from "svelte/internal";
     import EditTask from "./EditTask.svelte";
 
     const dispatch = createEventDispatcher();
@@ -15,6 +16,7 @@
 
     onMount(() => {
         getThreshold();
+        setStyle();
     });
 
     function getThreshold() {
@@ -54,6 +56,23 @@
         task.isDeleted = true;
         updateTask();
         dispatch("deleteTask");
+    }
+
+    async function toggleActive() {
+        task.isBeingWorkedOn = !task.isBeingWorkedOn;
+        updateTask();
+        setStyle();
+    }
+
+    async function setStyle() {
+        var div = document.getElementById(task.id+"title");
+        if (task.isBeingWorkedOn) {
+            div.classList.remove('inactive');
+            div.classList.add('active');
+        } else {
+            div.classList.remove('active');
+            div.classList.add('inactive');
+        }
     }
 
     function editTask() {
@@ -115,12 +134,19 @@
     >
         <div class="header">
             <div class="options" on:click={markDeleted}>&#10008;</div>
+            {#if task.isBeingWorkedOn}
+            <div class="options" on:click={toggleActive}><i class="fa  fa-star" /></div>
+            {:else}
+            <div class="options" on:click={toggleActive}><i class="fa fa-star-o " /></div>
+            {/if}
+            
             <div
                 class="details"
                 on:mousedown={(event) => holdOn(event)}
                 on:mouseup={letGo}
-            >
-                <div class="title w3-flat-wet-asphalt rainbow w3-serif">
+            >   
+                {#if task.isBeingWorkedOn}
+                <div id="{task.id}title" class="title w3-flat-wet-asphalt active w3-serif">
                     {task.title}
                 </div>
                 <div class="shortDescription">
@@ -129,6 +155,17 @@
                         <EditTask />
                     </div>
                 </div>
+                {:else}
+                <div id="{task.id}title" class="title w3-flat-wet-asphalt inactive w3-serif">
+                    {task.title}
+                </div>
+                <div class="shortDescription">
+                    {task.description.shortDescription}
+                    <div class="options dark" on:click={editTask}>
+                        <EditTask />
+                    </div>
+                </div>
+                {/if}
             </div>
         </div>
     </div>
@@ -176,10 +213,19 @@
         margin-left: 5px;
     }
 
-    .rainbow {
+    .inactive {
         margin: 0;
         color: #fff;
         background: linear-gradient(-45deg, #888888, #49343c, #575050, #343837);
+        background-size: 400% 400%;
+        -webkit-animation: gradientBG 10s ease infinite;
+        animation: gradientBG 10s ease infinite;
+    }
+
+    .active {
+        margin: 0;
+        color: #fff;
+        background: linear-gradient(-45deg, #888888, #9e935e, #b1a279, #8d8d54);
         background-size: 400% 400%;
         -webkit-animation: gradientBG 10s ease infinite;
         animation: gradientBG 10s ease infinite;

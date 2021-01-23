@@ -2,7 +2,7 @@ class Task {
 	constructor() {
 		this.id = undefined;
 		this.projectId = undefined;
-		this.isBeingWorkedOn = undefined;
+		this.isBeingWorkedOn = false;
 		this.isDeleted = false;
 		this.title = "";
 		this.description = {
