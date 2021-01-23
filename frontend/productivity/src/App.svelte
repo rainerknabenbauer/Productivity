@@ -49,7 +49,7 @@
 			let newProject = await fetch(uri + "/projects/new")
 				.then((response) => (result = response.json()))
 				.catch((error) => alert(error));
-			reloadPage(newProject.projectId);
+			reloadPage();
 		} else {
 			result = await fetch(uri + "/projects/" + projectId)
 				.then((response) => (result = response.json()))
@@ -82,12 +82,11 @@
         });
 	}
 
-	function reloadPage(projectReference) {
-		location.assign(self + "/?id=" + projectReference);
+	function reloadPage() {
+		window.location.reload();
 	}
 
 	function closeAllViews() {
-		isTaskDetailsVisible = false;
 		isReminderVisible = false;
 		isFAQvisible = false;
 		isTrashbinVisible = false;
@@ -143,7 +142,7 @@
 	}
 
 	function undoDelete() {
-		reloadPage(projectId);
+		reloadPage();
 	}
 
 	async function drawLines(tasks) {
