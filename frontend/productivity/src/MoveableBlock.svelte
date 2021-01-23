@@ -146,7 +146,7 @@ import { set_style } from "svelte/internal";
                 on:mouseup={letGo}
             >   
                 {#if task.isBeingWorkedOn}
-                <div id="{task.id}title" class="title w3-flat-wet-asphalt active w3-serif">
+                <div id="{task.id}title" class="title active w3-serif">
                     {task.title}
                 </div>
                 <div class="shortDescription">
@@ -156,7 +156,7 @@ import { set_style } from "svelte/internal";
                     </div>
                 </div>
                 {:else}
-                <div id="{task.id}title" class="title w3-flat-wet-asphalt inactive w3-serif">
+                <div id="{task.id}title" class="title inactive w3-serif">
                     {task.title}
                 </div>
                 <div class="shortDescription">
