@@ -225,7 +225,7 @@ import { set_style } from "svelte/internal";
     .active {
         margin: 0;
         color: #fff;
-        background: linear-gradient(-45deg, #888888, #9e935e, #b1a279, #8d8d54);
+        background: linear-gradient(-45deg, #5f5f5f, #857c4e, #b1a279, #747444);
         background-size: 400% 400%;
         -webkit-animation: gradientBG 10s ease infinite;
         animation: gradientBG 10s ease infinite;
