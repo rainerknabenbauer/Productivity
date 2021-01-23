@@ -49,7 +49,7 @@
 
     {#if isTitleBeingEdited}
       <input class="editName" type="text" id="fname" name="fname" bind:value={project.name}/>
-      <Button text="OK" on:click={saveProject}/>
+      <button on:click={saveProject}>OK</button>
     {:else}
       <div class="projectName" on:click={editTitle}>{project.name}</div>
     {/if}
