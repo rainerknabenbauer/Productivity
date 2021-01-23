@@ -96,30 +96,40 @@
 	}
 
 	function toggleTaskDetailsVisibility() {
-		isTaskDetailsVisible = !isTaskDetailsVisible;
+		let state = isTaskDetailsVisible;
+		closeAllViews();
+		isTaskDetailsVisible = !state;
 		task = new Task();
 	}
 
 	function showReminder() {
-		isReminderVisible = !isReminderVisible;
+		let state = isReminderVisible;
+		closeAllViews();
+		isReminderVisible = !state;
 	}
 
 	function showFAQ() {
-		isFAQvisible = !isFAQvisible;
+		let state = isFAQvisible;
+		closeAllViews();
+		isFAQvisible = !state;
 	}
 
 	function showTrashbin() {
-		isTrashbinVisible = !isTrashbinVisible;
+		let state = isTrashbinVisible;
+		closeAllViews();
+		isTrashbinVisible = !state;
 	}
 
 	function showHistory() {
-		isFirstStepsVisible = false;
-		isHistoryVisible = !isHistoryVisible;
+		let state = isHistoryVisible;
+		closeAllViews();
+		isHistoryVisible = !state;
 	}
 
 	function showFirstSteps() {
-		isHistoryVisible = false;
-		isFirstStepsVisible = !isFirstStepsVisible;
+		let state = isFirstStepsVisible;
+		closeAllViews();
+		isFirstStepsVisible = !state;
 	}
 
 	async function addTask() {
