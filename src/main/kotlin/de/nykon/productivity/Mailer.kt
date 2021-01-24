@@ -28,8 +28,6 @@ class Mailer(private val config: MailerConfig) {
     /**
      * Sends a recovery eMail to the user containing all linked projects.
      */
-    @Scheduled(cron = "0 0 5 * * *")
-    @Async
     fun sendRecoveryEmail(recipient: String, projects: List<Project>) {
 
         var projectLinks = ""
