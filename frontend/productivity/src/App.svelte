@@ -49,7 +49,7 @@
 			let newProject = await fetch(uri + "/projects/new")
 				.then((response) => (result = response.json()))
 				.catch((error) => alert(error));
-			reloadPage();
+			reloadPage(newProject.projectId);
 		} else {
 			result = await fetch(uri + "/projects/" + projectId)
 				.then((response) => (result = response.json()))
@@ -82,8 +82,8 @@
         });
 	}
 
-	function reloadPage() {
-		window.location.reload();
+	function reloadPage(projectReference) {
+		location.assign(self + "/?id=" + projectReference);
 	}
 
 	function closeAllViews() {
@@ -142,7 +142,7 @@
 	}
 
 	function undoDelete() {
-		reloadPage();
+		reloadPage(projectId);
 	}
 
 	async function drawLines(tasks) {
