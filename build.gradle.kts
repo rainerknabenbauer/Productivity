@@ -27,6 +27,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation ("org.springframework.boot:spring-boot-starter-data-mongodb")
+	implementation("org.springframework.data:spring-data-mongodb")
 	implementation("javax.mail:mail:1.5.0-b01")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")

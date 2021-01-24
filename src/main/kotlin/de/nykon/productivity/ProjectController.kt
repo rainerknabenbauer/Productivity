@@ -15,7 +15,8 @@ import kotlin.collections.ArrayList
 class ProjectController(
     private val projectService: ProjectService,
     private val taskService: TaskService,
-    private val emailService: EmailService) {
+    private val emailService: EmailService
+    ) {
 
     @GetMapping(path = ["/projects/samples"])
     fun sampleProjects(): ArrayList<Project> {

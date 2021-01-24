@@ -3,6 +3,11 @@ package de.nykon.productivity
 import de.nykon.productivity.value.Project
 import org.springframework.stereotype.Service
 import java.util.ArrayList
+import org.springframework.data.domain.Example
+import org.springframework.data.domain.ExampleMatcher
+import java.time.LocalDate
+import java.time.Period
+
 
 @Service
 class ProjectService(
