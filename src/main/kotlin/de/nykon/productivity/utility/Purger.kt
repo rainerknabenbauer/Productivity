@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 @Component
 class Purger(private val purgeService: PurgeService) {
 
-    @Scheduled(cron ="* 5 4 * * *")
+    @Scheduled(cron ="0 5 4 * * *")
     fun purge() {
         val deletedProjects = purgeService.purgeUnusedProjects()
         println("$deletedProjects got purged.")
