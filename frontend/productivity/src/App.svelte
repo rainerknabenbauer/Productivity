@@ -3,7 +3,7 @@
 	import MoveableBlock from "./MoveableBlock.svelte";
 	import TaskDetails from "./TaskDetails.svelte";
 	import Task from "./Task.js";
-	import Greeting from "./Greeting.svelte";
+	import QRcode from "./QRcode.svelte";
 	import Reminder from "./Reminder.svelte";
 	import Canvas from "./Canvas.svelte";
 	import ActionItems from "./ActionItems.svelte";
@@ -229,9 +229,7 @@
 	{/if}
 
 	{#if isHistoryVisible}
-		{#await tasksPromise then tasks}
 			<NotImplementedView />
-		{/await}
 	{/if}
 
 	{#if isFirstStepsVisible}
@@ -243,7 +241,7 @@
 
 <Canvas />
 
-<Greeting />
+<QRcode />
 
 <style>
 </style>
