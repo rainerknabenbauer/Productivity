@@ -26,16 +26,15 @@ class PurgeService(
 
                 when {
                     tasks.isEmpty() -> {
-                        purge(project, null)
+                        purge(project, emptyList())
                         numberOfDeletedProjects.incrementAndGet()
                     }
                     containsOnlyStarterTask(tasks) -> {
-                        purge(project, tasks[0])
+                        purge(project, listOf(tasks[0]))
                     }
                     containsOnlyDeleted(tasks) -> {
                         numberOfDeletedProjects.incrementAndGet()
-                        println("purge ${project.projectId} with ${tasks.size} tasks")
-                        // purge(project, tasks)
+                        purge(project, tasks)
                     }
                 }
             }
@@ -45,23 +44,17 @@ class PurgeService(
     }
 
     private fun containsOnlyDeleted(tasks: List<Task>): Boolean {
-        return tasks.stream().map { task -> !task.isDeleted }.count() > 0
+        return tasks.stream().map { task -> !task.isDeleted }.count() == 0L
     }
 
     private fun containsOnlyStarterTask(tasks: List<Task>) =
         tasks.size == 1 && tasks[0].title.toLowerCase() == "first steps"
 
-    private fun purge(project: Project, task: Task?) {
+    private fun purge(project: Project, tasks: List<Task>) {
         projectRepository.delete(project)
-        if (task != null) taskRepository.delete(task)
+        taskRepository.deleteAll(tasks)
     }
-
-    /**
-     *  Find projects that match the default project.
-     *   - Project title == New Project
-     *   - eMail == null
-     *   - createdTime is older than 1 day
-     */
+    
     fun getPurgableProjects(): MutableList<Project> {
         val matcher: ExampleMatcher = ExampleMatcher.matching()
             .withIgnorePaths("projectId")
