@@ -79,10 +79,6 @@
 		isTaskDetailsVisible = !isTaskDetailsVisible;
 	}
 
-    function undoDelete() {
-        reloadPage(projectId);
-    }
-
     async function drawLines() {
         var wrapper = document.getElementById("canvas-wrapper");
         var canvas = document.getElementById("canvas");
@@ -146,11 +142,11 @@
 {/if}
 
 {#if isFAQvisible}
-    <Faq {project} on:undoDelete={undoDelete} />
+    <Faq {project} />
 {/if}
 
 {#if isTrashbinVisible}
-    <Trashbin {tasks} on:undoDelete={undoDelete} />
+    <Trashbin {tasks} on:undoDelete />
 {/if}
 
 {#if isHistoryVisible}
@@ -160,8 +156,6 @@
 {#if isFirstStepsVisible}
     <FirstSteps />
 {/if}
-
-<!-- End page content -->
 
 <Canvas />
 

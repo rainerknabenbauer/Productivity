@@ -7,7 +7,9 @@
 
     async function recover(task) {
         task.isDeleted = false;
-        dispatch("undoDelete");
+        dispatch('undoDelete', {
+			text: task.projectId
+		});
         const response = await fetch("http://" + host + ":8080/tasks", {
             method: 'POST',
             mode: 'cors',

@@ -75,6 +75,7 @@
 		{#await tasksPromise then tasks}
 			<MainContent {project} {tasks} 
 				on:saveProject={(event) => saveProject(event.detail.text)}
+				on:undoDelete={(event) => reloadPage(event.detail.text)}
 			/>
 		{/await}
 	{/await}
