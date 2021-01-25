@@ -79,11 +79,6 @@
 		isTaskDetailsVisible = !isTaskDetailsVisible;
 	}
 
-    function editTask(taskJson) {
-        isTaskDetailsVisible = true;
-        task = JSON.parse(taskJson);
-    }
-
     function undoDelete() {
         reloadPage(projectId);
     }
@@ -137,10 +132,10 @@
         <MoveableBlock
             {task}
             on:edit={(e) => toggleTaskDetailsVisibility(e.detail.text)}
-            on:move={() => drawLines(tasks)}
+            on:move={() => drawLines()}
             on:deleteTask={() => {
                 isTaskDetailsVisible = false;
-                drawLines(tasks);
+                drawLines();
             }}
         />
     {/if}
