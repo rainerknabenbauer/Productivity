@@ -9,7 +9,8 @@
         task.isDeleted = false;
         dispatch('undoDelete', {
 			text: task.projectId
-		});
+        });
+        
         const response = await fetch("http://" + host + ":8080/tasks", {
             method: 'POST',
             mode: 'cors',

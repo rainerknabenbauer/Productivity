@@ -88,11 +88,16 @@
         tasks.forEach((task) => {
             if (!task.isDeleted) {
                 context.beginPath();
-                context.moveTo(
-                    window.outerWidth / 2,
-                    window.outerHeight / 2 - wrapper.offsetTop,
-                    0
-                );
+
+                if (task.followups === undefined) {
+                    context.moveTo(
+                        window.outerWidth / 2,
+                        window.outerHeight / 2 - wrapper.offsetTop,
+                        0
+                    );
+                } else {
+                    // move context pointer to center of parent task
+                }
 
                 context.lineTo(
                     task.ui.xposition - wrapper.offsetLeft + 175,

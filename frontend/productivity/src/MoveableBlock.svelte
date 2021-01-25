@@ -1,7 +1,5 @@
 <script>
     import { createEventDispatcher, onMount } from "svelte";
-import { set_style } from "svelte/internal";
-    import EditTask from "./EditTask.svelte";
 
     const dispatch = createEventDispatcher();
     export let task;
@@ -152,7 +150,7 @@ import { set_style } from "svelte/internal";
                 <div class="shortDescription">
                     {task.description.shortDescription}
                     <div class="options dark" on:click={editTask}>
-                        <EditTask />
+                        &#9998;
                     </div>
                 </div>
                 {:else}
@@ -162,7 +160,7 @@ import { set_style } from "svelte/internal";
                 <div class="shortDescription">
                     {task.description.shortDescription}
                     <div class="options dark" on:click={editTask}>
-                        <EditTask />
+                        &#9998;
                     </div>
                 </div>
                 {/if}
