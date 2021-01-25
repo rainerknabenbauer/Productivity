@@ -37,11 +37,11 @@
         isFirstStepsVisible = false;
     }
 
-    function toggleTaskDetailsVisibility() {
+    function toggleTaskDetailsVisibility(taskJson) {
         let state = isTaskDetailsVisible;
         closeAllViews();
         isTaskDetailsVisible = !state;
-        task = new Task();
+        task = taskJson === null ? new Task() : JSON.parse(taskJson);
     }
 
     function showReminder() {
@@ -118,7 +118,7 @@
 
 <ActionItems
     {project}
-    on:showTaskDetails={toggleTaskDetailsVisibility}
+    on:showTaskDetails={() => toggleTaskDetailsVisibility(null)}
     on:showReminder={showReminder}
     on:showFAQ={showFAQ}
     on:showTrashbin={showTrashbin}
@@ -136,7 +136,7 @@
     {#if !task.isDeleted}
         <MoveableBlock
             {task}
-            on:edit={(e) => editTask(e.detail.text)}
+            on:edit={(e) => toggleTaskDetailsVisibility(e.detail.text)}
             on:move={() => drawLines(tasks)}
             on:deleteTask={() => {
                 isTaskDetailsVisible = false;
