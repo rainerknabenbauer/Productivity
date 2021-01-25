@@ -4,12 +4,10 @@
     import Task from './Task';
 
     export let task;
-    export let projectId;
-    task.projectId = projectId;
-    const host = window.location.hostname;
 
     const dispatch = createEventDispatcher();
     let selected = "title";
+    const host = window.location.hostname;
 
     onMount(async () => {
         if(task === undefined) {
