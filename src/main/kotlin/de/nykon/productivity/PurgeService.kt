@@ -18,26 +18,38 @@ class PurgeService(
     fun purgeUnusedProjects(): Int {
 
         val purgableProjects = getPurgableProjects()
-        var numberOfDeletedProjects = AtomicInteger(0)
+        val numberOfDeletedProjects = AtomicInteger(0)
 
         purgableProjects.forEach { project ->
             run {
                 val tasks = taskRepository.findByProjectId(project.projectId)
 
-                if (tasks.isEmpty()) {
-                    purge(project, null)
-                    numberOfDeletedProjects.incrementAndGet()
-                }
-                if (tasks.size == 1 &&
-                    tasks[0].title.toLowerCase() == "first steps"
-                ) {
-                    purge(project, tasks[0])
+                when {
+                    tasks.isEmpty() -> {
+                        purge(project, null)
+                        numberOfDeletedProjects.incrementAndGet()
+                    }
+                    containsOnlyStarterTask(tasks) -> {
+                        purge(project, tasks[0])
+                    }
+                    containsOnlyDeleted(tasks) -> {
+                        numberOfDeletedProjects.incrementAndGet()
+                        println("purge ${project.projectId} with ${tasks.size} tasks")
+                        // purge(project, tasks)
+                    }
                 }
             }
         }
 
         return numberOfDeletedProjects.get()
     }
+
+    private fun containsOnlyDeleted(tasks: List<Task>): Boolean {
+        return tasks.stream().map { task -> !task.isDeleted }.count() > 0
+    }
+
+    private fun containsOnlyStarterTask(tasks: List<Task>) =
+        tasks.size == 1 && tasks[0].title.toLowerCase() == "first steps"
 
     private fun purge(project: Project, task: Task?) {
         projectRepository.delete(project)
@@ -59,8 +71,8 @@ class PurgeService(
 
         val candidates = projectRepository.findAll(example)
 
-        var deleteMe = mutableListOf<Project>()
-        candidates.forEach{
+        val deleteMe = mutableListOf<Project>()
+        candidates.forEach {
                 candidate -> if(olderThanOneDay(candidate)) deleteMe.add(candidate)
         }
 
