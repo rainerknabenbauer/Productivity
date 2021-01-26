@@ -7,7 +7,10 @@
     let selection = []
 
     function createSuggestion() {
-        suggestions = tasks.filter(task => task.title.toLowerCase().includes(search.toLowerCase()))
+        suggestions = tasks.filter(task => 
+            task.title.toLowerCase().includes(search.toLowerCase()) &&
+            !task.isDeleted
+        )
     }
 
     function saveTask() {

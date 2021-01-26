@@ -97,11 +97,18 @@
                         let connections = tasks.filter(task => task.id == parent);
 
                         for (const connection of connections) {
+                            
+                            if (connection.isDeleted) {
                                 context.moveTo(
-                                connection.ui.xposition - wrapper.offsetLeft + 175,
-                                connection.ui.yposition - wrapper.offsetTop + 25,
-                                0
-                            );
+                                window.outerWidth / 2,
+                                window.outerHeight / 2 - wrapper.offsetTop,
+                                0);
+                            } else {
+                                context.moveTo(
+                                    connection.ui.xposition - wrapper.offsetLeft + 175,
+                                    connection.ui.yposition - wrapper.offsetTop + 25,
+                                    0);
+                            }
 
                             context.lineTo(
                                 task.ui.xposition - wrapper.offsetLeft + 175,
