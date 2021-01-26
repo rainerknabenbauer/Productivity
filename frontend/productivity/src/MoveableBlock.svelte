@@ -187,6 +187,8 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+
+        box-shadow: 0 3px 5px 0 rgba(0,0,0,.1);
     }
 
     .options {

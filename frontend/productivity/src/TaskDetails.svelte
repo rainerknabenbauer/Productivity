@@ -68,6 +68,7 @@
     border-width: 1px;
     border-color: lightslategray;
     width: 45%;
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,.1);
 }
 
 .sidenav {
