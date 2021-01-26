@@ -103,5 +103,6 @@
     min-width: 500px;
     border: 1px solid transparent;
     border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.03) 0px 2px 5px 0px;
   }
 </style>

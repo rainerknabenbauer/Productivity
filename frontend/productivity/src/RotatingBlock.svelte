@@ -40,6 +40,7 @@
     min-width: 132pt;
     border: 0px solid transparent;
     border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px 0px;
   }
   .btn-flip:hover:after {
     opacity: 1;
