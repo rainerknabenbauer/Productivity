@@ -3,6 +3,8 @@ package de.nykon.productivity
 import de.nykon.productivity.value.Task
 import de.nykon.productivity.value.TaskDescription
 import de.nykon.productivity.value.UI
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -13,6 +15,8 @@ import kotlin.collections.ArrayList
 @RestController
 class TaskController(private val taskService: TaskService) {
 
+    private val log: Logger = LoggerFactory.getLogger(this::class.java)
+
     @GetMapping(path = ["/tasks/{projectId}"])
     fun getProject(@PathVariable projectId: String): ResponseEntity<List<Task>> {
         return ResponseEntity.ok(taskService.getByProject(projectId))
@@ -21,13 +25,13 @@ class TaskController(private val taskService: TaskService) {
     @PostMapping(path = ["/tasks"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun saveTask(@RequestBody task: Task): ResponseEntity<Task> {
         val savedTask = taskService.save(task)
-        println("saved task: $savedTask")
+        log.info("saved task: $savedTask")
         return ResponseEntity.ok(savedTask)
     }
 
     @PostMapping(path = ["/ui/{id}"])  //TODO probably change to PUT
     fun setPosition(@PathVariable id: String, @RequestBody ui: UI): ResponseEntity<Task> {
-        println("set UI of $id to x=${ui.xposition} | y=${ui.yposition}")
+        log.info("set UI of $id to x=${ui.xposition} | y=${ui.yposition}")
         val savedTask = taskService.save(
             Task(
                 id, null, isBeingWorkedOn = false, isDeleted = false,"updated task",
@@ -40,7 +44,7 @@ class TaskController(private val taskService: TaskService) {
 
     @DeleteMapping(path = ["/tasks"])
     fun deleteTask(@RequestBody task: Task) {
-        println("delete task: $task")
+        log.info("delete task: $task")
         taskService.delete(task)
     }
 

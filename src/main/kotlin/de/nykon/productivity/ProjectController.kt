@@ -4,6 +4,8 @@ import de.nykon.productivity.value.Project
 import de.nykon.productivity.value.Task
 import de.nykon.productivity.value.TaskDescription
 import de.nykon.productivity.value.UI
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -18,6 +20,8 @@ class ProjectController(
     private val emailService: EmailService
     ) {
 
+    private val log: Logger = LoggerFactory.getLogger(this::class.java)
+
     @GetMapping(path = ["/projects/samples"])
     fun sampleProjects(): ArrayList<Project> {
         val projects: ArrayList<Project> = ArrayList()
@@ -29,25 +33,25 @@ class ProjectController(
 
     @GetMapping(path = ["/projects/{id}"])
     fun getProject(@PathVariable id: String): ResponseEntity<Project> {
-        println("called getProject with $id")
+        log.info("called getProject with $id")
         return ResponseEntity.ok(projectService.findById(id));
     }
 
     @PostMapping(path = ["/projects"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun setProject(@RequestBody project: Project): ResponseEntity<Project> {
-        println("called setProject")
+        log.info("called setProject")
         return ResponseEntity.ok(projectService.save(project));
     }
 
     @PostMapping(path = ["/email"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun sendEmail(@RequestBody email: String): ResponseEntity<List<Project>> {
-        println("called send Email $email")
+        log.info("called send Email $email")
         return ResponseEntity.ok(emailService.recoverProjects(email.replace("\"", "")));
     }
 
     @GetMapping(path = ["/projects/new"])
     fun createProject(): ResponseEntity<Project> {
-        println("create project")
+        log.info("create project")
         val project = Project()
         val task = Task(UUID.randomUUID().toString(), project.projectId, isBeingWorkedOn = true, isDeleted = false,"First steps",
             TaskDescription(
@@ -73,7 +77,6 @@ class ProjectController(
                 """.trimIndent()
             ),
             null, 0, emptyList(), UI(350, 200), LocalDateTime.now())
-        println("save welcome task")
         taskService.save(task)
         return ResponseEntity.ok(projectService.save(project))
     }

@@ -22,7 +22,6 @@ import java.util.Properties
 @Component
 class Mailer(private val config: MailerConfig) {
 
-    private val log: Logger = LoggerFactory.getLogger(this::class.java)
     private val URI: String = "sirsmokealot.de"
 
     /**
