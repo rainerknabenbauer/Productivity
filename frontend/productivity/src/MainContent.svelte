@@ -91,24 +91,46 @@
             if (!task.isDeleted) {
                 context.beginPath();
 
-                if (task.parentTasks === undefined) {
+                if (task.parentTasks != null && task.parentTasks.length > 0) {
+
+                    task.parentTasks.forEach(parent => {
+                        let connections = tasks.filter(task => task.id == parent);
+
+                        console.log(connections)
+
+                        for (const connection of connections) {
+                                context.moveTo(
+                                connection.ui.xposition - wrapper.offsetLeft + 175,
+                                connection.ui.yposition - wrapper.offsetTop + 25,
+                                0
+                            );
+
+                            context.lineTo(
+                                task.ui.xposition - wrapper.offsetLeft + 175,
+                                task.ui.yposition - wrapper.offsetTop + 25
+                            );
+
+                            context.strokeStyle = "#dddddd";
+                            context.stroke();
+                            context.closePath();
+                        };
+                    });
+                } else {
                     context.moveTo(
                         window.outerWidth / 2,
                         window.outerHeight / 2 - wrapper.offsetTop,
                         0
                     );
-                } else {
-                    // move context pointer to center of parent task
-                }
 
-                context.lineTo(
+                    context.lineTo(
                     task.ui.xposition - wrapper.offsetLeft + 175,
                     task.ui.yposition - wrapper.offsetTop + 25
-                );
+                    );
 
-                context.strokeStyle = "#dddddd";
-                context.stroke();
-                context.closePath();
+                    context.strokeStyle = "#dddddd";
+                    context.stroke();
+                    context.closePath();
+                }
             }
         });
     }
