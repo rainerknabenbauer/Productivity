@@ -4,14 +4,14 @@
 
     let search;
     let suggestions = [];
-    let selection = [];
+    let selection = []
 
     function createSuggestion() {
         suggestions = tasks.filter(task => task.title.includes(search))
     }
 
     function saveTask() {
-        console.log(selection)
+        task.parentTasks = selection;
     }
 </script>
 

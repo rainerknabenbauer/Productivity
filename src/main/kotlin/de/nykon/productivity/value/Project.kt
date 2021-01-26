@@ -16,6 +16,5 @@ data class Project(
     val description: String? = null,
     @Indexed val email: String? = null,
     val userIds: List<String> = emptyList(),
-    val taskIds: List<String> = emptyList(),
     val createTime: LocalDateTime = LocalDateTime.now()
 )

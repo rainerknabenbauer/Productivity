@@ -21,14 +21,15 @@ class ProjectController(
     @GetMapping(path = ["/projects/samples"])
     fun sampleProjects(): ArrayList<Project> {
         val projects: ArrayList<Project> = ArrayList()
-        projects.add(Project(UUID.randomUUID().toString(), "test 1", "keine beschreibung", null, listOf(), listOf()))
-        projects.add(Project(UUID.randomUUID().toString(), "test 2", "eine beschreibung", null, listOf(), listOf()))
+        projects.add(Project(UUID.randomUUID().toString(), "test 1", "keine beschreibung", null, listOf()))
+        projects.add(Project(UUID.randomUUID().toString(), "test 2", "eine beschreibung", null, listOf()))
         projectService.save(projects)
         return projects
     }
 
     @GetMapping(path = ["/projects/{id}"])
     fun getProject(@PathVariable id: String): ResponseEntity<Project> {
+        println("called getProject with $id")
         return ResponseEntity.ok(projectService.findById(id));
     }
 

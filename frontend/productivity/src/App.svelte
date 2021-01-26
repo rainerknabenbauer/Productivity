@@ -12,12 +12,12 @@
 	let projectId;
 
 	onMount(async () => {
-		setUrlParams();
+		getUrlParams();
 		tasksPromise = getTasks();
 		projectPromise = getProject();
 	});
 
-	function setUrlParams() {
+	function getUrlParams() {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
         
@@ -38,14 +38,13 @@
 				.then((response) => (result = response.json()))
 				.catch((error) => alert(error));
 		}
-
 		return result;
 	}
 
 	async function getTasks() {
 		let result = [];
 		if (!(projectId === undefined || projectId === "")) {
-			let response = await fetch(uri + "/tasks/" + projectId)
+			result = await fetch(uri + "/tasks/" + projectId)
 				.then((response) => (result = response.json()))
 				.catch((error) => alert(error));
 		}
@@ -76,6 +75,7 @@
 			<MainContent {project} {tasks} 
 				on:saveProject={(event) => saveProject(event.detail.text)}
 				on:undoDelete={(event) => reloadPage(event.detail.text)}
+				on:saveTask={() => tasksPromise = getTasks()}
 			/>
 		{/await}
 	{/await}

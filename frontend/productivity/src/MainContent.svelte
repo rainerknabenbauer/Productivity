@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from "svelte";
+    import { createEventDispatcher, onMount } from 'svelte';
     import MoveableBlock from "./MoveableBlock.svelte";
     import TaskDetails from "./TaskDetails.svelte";
     import Task from "./Task.js";
@@ -11,6 +11,8 @@
     import Trashbin from "./Trashbin.svelte";
     import NotImplementedView from "./NotImplementedView.svelte";
     import FirstSteps from "./FirstSteps.svelte";
+
+    const dispatch = createEventDispatcher();
 
     export let project;
     export let tasks;
@@ -26,8 +28,7 @@
 
 
     onMount(async () => {
-        console.log(tasks)
-		drawLines();
+        drawLines();
     });
 
     function closeAllViews() {
@@ -76,7 +77,7 @@
     }
 
     async function addTask() {
-		tasksPromise = getTasks();
+		dispatch("saveTask")
 		isTaskDetailsVisible = !isTaskDetailsVisible;
 	}
 
@@ -126,7 +127,7 @@
 />
 
 {#if isTaskDetailsVisible}
-    <TaskDetails on:refresh={addTask} {tasks} {task} />
+    <TaskDetails {project} {tasks} {task} on:refresh={addTask} />
 {/if}
 
 {#each tasks as task (task.id)}

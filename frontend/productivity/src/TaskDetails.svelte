@@ -4,6 +4,7 @@
     import Task from './Task';
     import LinkTask from './LinkTask.svelte';
 
+    export let project;
     export let tasks;
     export let task;
 
@@ -12,9 +13,8 @@
     const host = window.location.hostname;
 
     onMount(async () => {
-        console.log(tasks)
-        if(task === undefined) {
-            task = new Task();
+        if(task.projectId === undefined) {
+            task.projectId = project.projectId;
         }
     });
 
