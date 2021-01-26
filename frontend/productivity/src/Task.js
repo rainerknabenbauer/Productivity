@@ -12,7 +12,7 @@ class Task {
 		};
         this.endDate = undefined;
         this.priority = 0;
-        this.followups = undefined;
+        this.parentTasks = undefined;
 		this.ui = {
 			xposition: 5,
 			yposition: 45

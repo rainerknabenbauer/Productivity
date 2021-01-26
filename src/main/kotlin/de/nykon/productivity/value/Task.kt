@@ -20,7 +20,7 @@ data class Task(
     val description: TaskDescription,
     val endDate: LocalDate?,
     val priority: Int,
-    val followUps: List<String>?,
+    val parentTasks: List<String>?,
     val ui: UI,
     val createTime: LocalDateTime = LocalDateTime.now()
 

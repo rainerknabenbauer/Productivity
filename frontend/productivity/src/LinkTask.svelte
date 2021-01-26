@@ -1,6 +1,6 @@
 <script>
     export let tasks;
-    export let task
+    export let task;
 
     let search;
     let suggestions = [];

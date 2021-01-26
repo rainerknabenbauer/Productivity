@@ -139,7 +139,7 @@
         <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes <div class="characters">{task.description.additionalNotes === null ? "" : getLength(task.description.additionalNotes)}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Time period <div class="characters">x</div></div>
         <div class="sidenavelement" on:click={() => loadPage("priority")}>Priority <div class="characters">{task.priority}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("followup")}>Link to task </div>
+        <div class="sidenavelement" on:click={() => loadPage("parentTasks")}>Link to task </div>
         <div class="sidenavelement save" on:click={addTask}>SAVE</div>
     </div>
     
@@ -156,7 +156,7 @@
         [(1-24][h]<br>[_] weeks<br>...
         {:else if selected.localeCompare("priority") === 0}
         <textarea class="textarea" disabled="true" bind:value={task.priority}></textarea>
-        {:else if selected.localeCompare("followup") === 0}
+        {:else if selected.localeCompare("parentTasks") === 0}
         <LinkTask {tasks} {task} />
         {:else}
         <div class=""><Button text="add" on:click={addTask} /></div>

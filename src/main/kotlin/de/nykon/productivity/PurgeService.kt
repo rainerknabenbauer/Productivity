@@ -54,7 +54,7 @@ class PurgeService(
         projectRepository.delete(project)
         taskRepository.deleteAll(tasks)
     }
-    
+
     fun getPurgableProjects(): MutableList<Project> {
         val matcher: ExampleMatcher = ExampleMatcher.matching()
             .withIgnorePaths("projectId")

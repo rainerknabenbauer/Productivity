@@ -90,7 +90,7 @@
             if (!task.isDeleted) {
                 context.beginPath();
 
-                if (task.followups === undefined) {
+                if (task.parentTasks === undefined) {
                     context.moveTo(
                         window.outerWidth / 2,
                         window.outerHeight / 2 - wrapper.offsetTop,
