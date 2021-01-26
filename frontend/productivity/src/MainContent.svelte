@@ -96,8 +96,6 @@
                     task.parentTasks.forEach(parent => {
                         let connections = tasks.filter(task => task.id == parent);
 
-                        console.log(connections)
-
                         for (const connection of connections) {
                                 context.moveTo(
                                 connection.ui.xposition - wrapper.offsetLeft + 175,
