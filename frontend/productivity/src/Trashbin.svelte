@@ -55,7 +55,7 @@
         width: 45%;
         right: 8px;
 
-        max-height: 40%;
+        max-height: 60%;
         overflow-y: auto;
     }
 
