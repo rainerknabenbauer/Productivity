@@ -119,11 +119,11 @@
             <div class="sidenavelement description">Delete and recover</div>
         </div>
         <div class="navigationWrapper">
-            <div class="sidenavelement topic project" on:click={() => loadPage("spacer")}>Project</div>
-            <div class="sidenavelement description" on:click={() => loadPage("spacer")}>Create</div>
+            <div class="sidenavelement topic task" on:click={() => loadPage("link")}>Task</div>
+            <div class="sidenavelement description" on:click={() => loadPage("link")}>Visualize a link</div>
         </div>
         <div class="navigationWrapper">
-            <div class="sidenavelement topic" on:click={() => loadPage("spacer")}>tbd</div>
+            <div class="sidenavelement topic project" on:click={() => loadPage("spacer")}>tbd</div>
             <div class="sidenavelement description" on:click={() => loadPage("spacer")}>tbd</div>
         </div>
     </div>
@@ -137,9 +137,12 @@
         <iframe src="https://player.vimeo.com/video/503031847" class="video" title="Edit a task" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         {:else if selected.localeCompare("deleteAndRecover") === 0}
         <iframe src="https://player.vimeo.com/video/503038887" class="video" title="Delete and recover a task" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        {:else if selected.localeCompare("link") === 0}
+        <iframe src="https://player.vimeo.com/video/504803215" class="video" title="Create a link" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         {:else}
         <div class="">nothing specified yet</div> 
         {/if}
+
     </div>
 </div>
 
