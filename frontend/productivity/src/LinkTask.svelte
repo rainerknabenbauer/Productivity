@@ -7,7 +7,7 @@
     let selection = []
 
     function createSuggestion() {
-        suggestions = tasks.filter(task => task.title.includes(search))
+        suggestions = tasks.filter(task => task.title.toLowerCase().includes(search.toLowerCase()))
     }
 
     function saveTask() {
