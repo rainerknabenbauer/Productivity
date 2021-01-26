@@ -54,6 +54,9 @@
         border-color: lightslategray;
         width: 45%;
         right: 8px;
+
+        max-height: 40%;
+        overflow-y: auto;
     }
 
     .sidenav {
