@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from "svelte";
+import LandingPage from "./LandingPage.svelte";
 	import MainContent from "./MainContent.svelte";
 
 	let tasksPromise = [];
@@ -26,16 +27,18 @@
         }
 	}
 
+	async function createProject() {
+		let newProject = await fetch(uri + "/projects/new")
+				.then((response) => response.json())
+				.catch((error) => alert(error));
+		reloadPage(newProject.projectId);
+	}
+
 	async function getProject() {
 		let result = [];
-		if (projectId === undefined || projectId === "") {
-			let newProject = await fetch(uri + "/projects/new")
-				.then((response) => (result = response.json()))
-				.catch((error) => alert(error));
-			reloadPage(newProject.projectId);
-		} else {
+		if (!(projectId === undefined || projectId === "")) {
 			result = await fetch(uri + "/projects/" + projectId)
-				.then((response) => (result = response.json()))
+				.then((response) => response.json())
 				.catch((error) => alert(error));
 		}
 		return result;
@@ -69,7 +72,9 @@
 	
 </script>
 
-
+{#if projectId === undefined || projectId === ""}
+	<LandingPage {host} on:createProject={createProject}/>
+{:else}
 	{#await projectPromise then project}
 		{#await tasksPromise then tasks}
 			<MainContent {project} {tasks} 
@@ -79,6 +84,9 @@
 			/>
 		{/await}
 	{/await}
+{/if}
+
+	
 
 <style>
 </style>
