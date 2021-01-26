@@ -58,14 +58,18 @@
       <i class="fa fa-trash-o" /></button>
     <button
       class="w3-button w3-white w3-hide-small actionItems" on:click={showFAQ}>
-      <i class="fa fa-angle-down w3-margin-right" />
-      More</button>
+      <i class="fa fa-angle-down w3-margin-right" />More</button>
     <!--
     <button class="w3-button w3-white w3-hide-small actionItems" on:click={showHistory}>
       <i class="fa fa-heartbeat w3-margin-right" />History</button>
     -->
     <button class="w3-button w3-white w3-hide-small actionItems" on:click={showReminder}>
-      <i class="fa  fa-envelope-o w3-margin-right" />Reminder</button>
+      {#if project.email === null}
+      <i class="fa fa-bell-o w3-margin-right" />
+      {:else}
+      <i class="fa fa-bell w3-margin-right" />
+      {/if}
+      Reminder</button>
     <button class="w3-button w3-hide-small actionItems" on:click={showPinboard}>Pinboard</button>
     <button
       class="w3-button w3-white w3-hide-small actionItems" on:click={showFirstSteps}>
