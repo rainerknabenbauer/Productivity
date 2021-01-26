@@ -2,7 +2,9 @@
     import Button from './Button.svelte';
     import { createEventDispatcher, onMount } from 'svelte';
     import Task from './Task';
+    import LinkTask from './LinkTask.svelte';
 
+    export let tasks;
     export let task;
 
     const dispatch = createEventDispatcher();
@@ -10,6 +12,7 @@
     const host = window.location.hostname;
 
     onMount(async () => {
+        console.log(tasks)
         if(task === undefined) {
             task = new Task();
         }
@@ -136,7 +139,7 @@
         <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes <div class="characters">{task.description.additionalNotes === null ? "" : getLength(task.description.additionalNotes)}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Time period <div class="characters">x</div></div>
         <div class="sidenavelement" on:click={() => loadPage("priority")}>Priority <div class="characters">{task.priority}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("followup")}>Follow up <div class="characters">{task.followUps === null ? "" : getLength(task.followUps)}</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("followup")}>Link to task </div>
         <div class="sidenavelement save" on:click={addTask}>SAVE</div>
     </div>
     
@@ -154,7 +157,7 @@
         {:else if selected.localeCompare("priority") === 0}
         <textarea class="textarea" disabled="true" bind:value={task.priority}></textarea>
         {:else if selected.localeCompare("followup") === 0}
-        <textarea class="textarea" disabled="true" bind:value={task.followUps}></textarea>
+        <LinkTask {tasks} {task} />
         {:else}
         <div class=""><Button text="add" on:click={addTask} /></div>
         {/if}

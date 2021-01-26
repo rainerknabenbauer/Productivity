@@ -26,6 +26,7 @@
 
 
     onMount(async () => {
+        console.log(tasks)
 		drawLines();
     });
 
@@ -125,7 +126,7 @@
 />
 
 {#if isTaskDetailsVisible}
-    <TaskDetails on:refresh={addTask} {task} />
+    <TaskDetails on:refresh={addTask} {tasks} {task} />
 {/if}
 
 {#each tasks as task (task.id)}
