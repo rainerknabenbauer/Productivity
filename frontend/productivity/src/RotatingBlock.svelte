@@ -59,7 +59,7 @@
     display: block;
     transition: 0.5s;
     position: absolute;
-    background: #f1f1f1;
+    background: #e4dede;
     content: attr(data-back);
     transform: translateY(-50%) rotateX(90deg);
   }
@@ -73,7 +73,7 @@
     line-height: 38px;
     transition: 0.5s;
     position: relative;
-    background: #999999;
+    background: #d1c7c7;
     content: attr(data-front);
     transform: translateY(0) rotateX(0);
   }
@@ -90,6 +90,6 @@
 
 <a href="#"
   class="btn-flip float left"
-  data-front="add note"
+  data-front="Add note"
   data-back={symbol}
   on:click={showTaskDetails} />
