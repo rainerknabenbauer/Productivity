@@ -2,11 +2,11 @@ package de.nykon.productivity
 
 import de.nykon.productivity.value.Project
 import org.springframework.stereotype.Service
-import java.util.ArrayList
 import org.springframework.data.domain.Example
 import org.springframework.data.domain.ExampleMatcher
 import java.time.LocalDate
 import java.time.Period
+import java.util.*
 
 
 @Service
@@ -25,8 +25,8 @@ class ProjectService(
         return projectRepository.save(project)
     }
 
-    fun findById(id: String): Project {
-        return projectRepository.findById(id).orElse(Project())
+    fun findById(id: String): Optional<Project> {
+        return projectRepository.findById(id)
     }
 
     fun recoverProjects(email: String): List<Project> {
