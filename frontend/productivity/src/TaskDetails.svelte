@@ -23,9 +23,7 @@
     }
 
     function refresh() {
-		dispatch('refresh', {
-			text: 'refresh'
-		});
+		dispatch('refresh');
 	}
 
     async function addTask() {
