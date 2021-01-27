@@ -142,7 +142,7 @@
 </script>
 
 <ActionItems
-    {project}
+    bind:project={project}
     on:showTaskDetails={() => toggleTaskDetailsVisibility(null)}
     on:showReminder={showReminder}
     on:showFAQ={showFAQ}
@@ -172,11 +172,11 @@
 {/each}
 
 {#if isReminderVisible}
-    <Reminder {project} on:showReminder={showReminder} />
+    <Reminder bind:project={project} on:showReminder={showReminder} />
 {/if}
 
 {#if isFAQvisible}
-    <Faq {project} />
+    <Faq bind:project={project} />
 {/if}
 
 {#if isTrashbinVisible}
