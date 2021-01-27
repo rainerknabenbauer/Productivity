@@ -103,7 +103,7 @@
   .projectName {
     font-family: 'Tangerine', cursive;
     font-size: 2em;
-    color: grey;
+    color: #636363;
     float: left;
     margin-top: -2px;
   }

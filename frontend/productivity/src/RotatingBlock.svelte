@@ -35,8 +35,7 @@
     letter-spacing: 1px;
     display: inline-block;
     text-decoration: none;
-    font-family: "Open Sans";
-    text-transform: uppercase;
+    text-transform: capitalize;
     min-width: 132pt;
     border: 0px solid transparent;
     border-radius: 25px;
@@ -55,7 +54,7 @@
     left: 0;
     opacity: 0;
     width: 100%;
-    color: #323237;
+    color: #636363;
     display: block;
     transition: 0.5s;
     position: absolute;
@@ -67,7 +66,7 @@
     top: 0;
     left: 0;
     opacity: 1;
-    color: #323237;
+    color: #818181;
     display: block;
     padding: 0 30px;
     line-height: 38px;
