@@ -38,7 +38,7 @@
         <div class="shortDescription">
             Never again lose your notes because you forgot the link.
         </div>
-        <textarea class="email" bind:value={project.email} />
+        <textarea class="email" autofocus bind:value={project.email} />
         <button on:click={bindEmail} >Set reminder</button>
     </div>
 </div>

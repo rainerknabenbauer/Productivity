@@ -103,7 +103,7 @@
     
     <div class="content">
         {#if selected.localeCompare("sendEmail") === 0}
-        <textarea class="sendEmail textarea" bind:value={email}></textarea>
+        <textarea class="sendEmail textarea" autofocus bind:value={email}></textarea>
         <Button text="eMail my projects" on:click={sendEmail} /> 
         {:else if selected.localeCompare("spacer") === 0}
         spacer

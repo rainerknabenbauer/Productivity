@@ -31,7 +31,7 @@
     }
 </style>
 
-<textarea class="textarea" bind:value={search} on:input={createSuggestion}></textarea>
+<textarea class="textarea" autofocus bind:value={search} on:input={createSuggestion}></textarea>
 
 <select class="selection" multiple bind:value={selection}>
 	{#each suggestions as suggestion (suggestion.id)}

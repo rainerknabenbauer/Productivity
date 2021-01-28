@@ -144,13 +144,13 @@
     
     <div class="content">
         {#if selected.localeCompare("title") === 0}
-        <textarea class="textarea" bind:value={task.title}></textarea>
+        <textarea class="textarea" autofocus bind:value={task.title}></textarea>
         {:else if selected.localeCompare("shortDescription") === 0}
-        <textarea class="textarea" bind:value={task.description.shortDescription}></textarea>
+        <textarea class="textarea" autofocus bind:value={task.description.shortDescription}></textarea>
         {:else if selected.localeCompare("longDescription") === 0}
-        <textarea class="textarea" bind:value={task.description.longDescription}></textarea>
+        <textarea class="textarea" autofocus bind:value={task.description.longDescription}></textarea>
         {:else if selected.localeCompare("additionalNotes") === 0}
-        <textarea class="textarea" bind:value={task.description.additionalNotes}></textarea>
+        <textarea class="textarea" autofocus bind:value={task.description.additionalNotes}></textarea>
         {:else if selected.localeCompare("timePeriod") === 0}
         [(1-24][h]<br>[_] weeks<br>...
         {:else if selected.localeCompare("priority") === 0}
