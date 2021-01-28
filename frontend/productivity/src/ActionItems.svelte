@@ -67,16 +67,11 @@
     </div>
 
     <div class="actionItems" on:click={showTrashbin}>
-      <i class="fa fa-trash-o" />
+      <i class="fa fa-trash" />
     </div>
 
-    <!--
-    <button class="w3-button w3-white w3-hide-small actionItems" on:click={showHistory}>
-      <i class="fa fa-heartbeat w3-margin-right" />History</button>
-    -->
-
     <div class="actionItems" on:click={showFirstSteps}>
-      <i class="fa fa-question-circle-o" />
+      <i class="fa fa-question-circle" />
     </div>
 
     <div class="actionItems" on:click={showReminder}>
@@ -98,10 +93,10 @@
     float: left;
     padding: 1px 48px 0 36px;
     height: 32px;
-    opacity: 0.8;
+    opacity: 0.75;
   }
   .edit:hover, .actionItems:hover {
-    opacity: 0.6;
+    opacity: 0.5;
     border-radius: 50%;
     text-align: center;
   }
@@ -109,7 +104,8 @@
   .actionItems {
     float: right;
     padding: 4px 24px 0 24px;
-    color: #636363;
+    color: #585858;
+    opacity: 0.8;
 
     font-size: 16pt;
     text-align: center;
