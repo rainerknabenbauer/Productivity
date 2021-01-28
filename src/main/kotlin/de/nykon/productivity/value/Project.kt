@@ -14,7 +14,7 @@ data class Project(
     @Id val projectId: String = UUID.randomUUID().toString(),
     val name: String = "New project",
     val description: String? = null,
-    @Indexed val email: String? = null,
+    @Indexed val email: String = "",
     val isProtected : Boolean = false,
     val createTime: LocalDateTime = LocalDateTime.now()
 )

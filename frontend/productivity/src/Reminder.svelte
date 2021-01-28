@@ -1,5 +1,4 @@
 <script>
-    import Button from './Button.svelte';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();
@@ -13,8 +12,10 @@
 	}
 
     function bindEmail() {
-        project.email = project.email == "" ? null : project.email;
-        document.cookie = "email=" + project.email; 
+        if (project.email == "") {
+            project.isProtected = false;
+        }
+        document.cookie = "email=" + project.email + ";Lax"; 
         
 		fetch("http://" + host + ":8080/projects/", {
             method: 'POST',

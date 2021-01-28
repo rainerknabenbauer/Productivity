@@ -11,6 +11,7 @@
     import Trashbin from "./Trashbin.svelte";
     import NotImplementedView from "./NotImplementedView.svelte";
     import FirstSteps from "./FirstSteps.svelte";
+    import PasswordDialogue from "./PasswordDialogue.svelte";
 
     const dispatch = createEventDispatcher();
 
@@ -19,6 +20,7 @@
 
     let task;
 
+    let isLocked = true;
     let isTaskDetailsVisible = false;
     let isReminderVisible = false;
     let isFAQvisible = false;
@@ -142,7 +144,10 @@
     }
 </script>
 
-<ActionItems
+{#if project.isProtected && isLocked}
+		<PasswordDialogue bind:project={project} on:unlock={() => isLocked = false}/>
+{:else}
+    <ActionItems
     bind:project={project}
     on:showTaskDetails={() => toggleTaskDetailsVisibility(null)}
     on:showReminder={showReminder}
@@ -152,13 +157,13 @@
     on:showFirstSteps={showFirstSteps}
     on:saveProject
     on:showPinboard={closeAllViews}
-/>
+    />
 
-{#if isTaskDetailsVisible}
+    {#if isTaskDetailsVisible}
     <TaskDetails {project} {tasks} {task} on:refresh={addTask} />
-{/if}
+    {/if}
 
-{#each tasks as task (task.id)}
+    {#each tasks as task (task.id)}
     {#if !task.isDeleted}
         <MoveableBlock
             {task}
@@ -170,31 +175,34 @@
             }}
         />
     {/if}
-{/each}
+    {/each}
 
-{#if isReminderVisible}
+    {#if isReminderVisible}
     <Reminder bind:project={project} on:showReminder={showReminder} />
-{/if}
+    {/if}
 
-{#if isFAQvisible}
+    {#if isFAQvisible}
     <Faq bind:project={project} />
-{/if}
+    {/if}
 
-{#if isTrashbinVisible}
+    {#if isTrashbinVisible}
     <Trashbin {tasks} on:undoDelete />
-{/if}
+    {/if}
 
-{#if isHistoryVisible}
+    {#if isHistoryVisible}
     <NotImplementedView />
-{/if}
+    {/if}
 
-{#if isFirstStepsVisible}
+    {#if isFirstStepsVisible}
     <FirstSteps />
+    {/if}
+
+    <Canvas />
+
+    <QRcode />
 {/if}
 
-<Canvas />
 
-<QRcode />
 
 <style>
 </style>

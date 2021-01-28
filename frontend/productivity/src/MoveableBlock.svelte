@@ -12,7 +12,7 @@
     let startPositionX = 0;
     let startPositionY = 0;
 
-    onMount(() => {
+    onMount(async () => {
         getThreshold();
         setStyle();
     });

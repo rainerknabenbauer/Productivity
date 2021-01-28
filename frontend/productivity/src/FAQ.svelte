@@ -10,7 +10,7 @@
     }
 
     async function sendEmail() {
-        if (!(email === undefined)) {
+        if (!(email === undefined && email == "")) {
             const response = await fetch("http://" + host + ":8080/email", {
                 method: 'POST',
                 mode: 'cors',

@@ -35,8 +35,12 @@
   }
 
   function toggleProtection() {
-    project.isProtected = !project.isProtected;
-    saveProject();
+    if (project.email == "") {
+      showReminder();
+    } else {
+      project.isProtected = !project.isProtected;
+      saveProject();
+    }
   }
 
   function updateTitle() {
@@ -97,7 +101,7 @@
     </div>
 
     <div class="actionItems tooltip" on:click={showReminder}>
-      {#if project.email === null}
+      {#if project.email == ""}
       <i class="fa fa-bell-o" />
       <span class="tooltiptext">Set eMail!</span>
       {:else}

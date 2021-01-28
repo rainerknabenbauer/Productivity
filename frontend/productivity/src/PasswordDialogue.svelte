@@ -7,7 +7,7 @@
     let password = "";
     let button = "Unlock!";
 
-    onMount(() => {
+    onMount(async () => {
         verifyCookie();
     })
 
@@ -30,7 +30,7 @@
     function checkInput() {
         if (checkPassword()) {
             dispatch("unlock");
-            document.cookie = "email=" + project.email; 
+            document.cookie = "email=" + project.email + ";Lax"; 
         } else {
             button = "Wrong password";
         }
@@ -66,6 +66,6 @@
 
 <div class="wrapper">
     <div class="passwordMessage">This project is locked.<br>Please enter your eMail address.</div>
-    <textarea class="textarea" autofocus bind:value={password}></textarea>
+    <input class="textarea" autofocus bind:value={password} />
 	<br><Button text={button} on:click={checkInput} />
 </div>

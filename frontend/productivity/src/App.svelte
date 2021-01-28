@@ -1,13 +1,10 @@
 <script>
 	import { onMount } from "svelte";
-	import Button from "./Button.svelte";
 	import MainContent from "./MainContent.svelte";
-	import PasswordDialogue from "./PasswordDialogue.svelte";
-import ProjectNotFound from "./ProjectNotFound.svelte";
+	import ProjectNotFound from "./ProjectNotFound.svelte";
 
 	let tasksPromise = [];
 	let isProjectNotFound = false;
-	let isLocked = true;
 
 	const host = window.location.hostname;
 	const backendUri = production() ? "http://188.34.198.168:8080" : "http://" + host + ":8080";
@@ -88,9 +85,6 @@ import ProjectNotFound from "./ProjectNotFound.svelte";
 	<ProjectNotFound on:createProject={createProject} />
 {:else}
 	{#await projectPromise then project}
-	{#if project.isProtected && isLocked}
-		<PasswordDialogue {project} on:unlock={() => isLocked = false}/>
-	{:else}
 		{#await tasksPromise then tasks}
 		<MainContent {project} {tasks} 
 			on:saveProject={(event) => saveProject(event.detail.text)}
@@ -98,7 +92,6 @@ import ProjectNotFound from "./ProjectNotFound.svelte";
 			on:saveTask={() => tasksPromise = getTasks()}
 		/>
 		{/await}
-	{/if}
 	{/await}
 {/if}
 

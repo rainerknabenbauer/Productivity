@@ -10,7 +10,7 @@
     dispatch("showTaskDetails");
   }
 
-  onMount(() => {
+  onMount(async () => {
     updateSymbol();
   })
 
