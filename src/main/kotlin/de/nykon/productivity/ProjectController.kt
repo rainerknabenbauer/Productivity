@@ -22,15 +22,6 @@ class ProjectController(
 
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
-    @GetMapping(path = ["/projects/samples"])
-    fun sampleProjects(): ArrayList<Project> {
-        val projects: ArrayList<Project> = ArrayList()
-        projects.add(Project(UUID.randomUUID().toString(), "test 1", "keine beschreibung", null, listOf()))
-        projects.add(Project(UUID.randomUUID().toString(), "test 2", "eine beschreibung", null, listOf()))
-        projectService.save(projects)
-        return projects
-    }
-
     @GetMapping(path = ["/projects/{id}"])
     fun getProject(@PathVariable id: String): ResponseEntity<Project> {
         log.info("called getProject with $id")

@@ -4,8 +4,7 @@ class Project {
         this.name = undefined;
         this.description = undefined;
         this.email = undefined;
-        this.userIds = undefined;
-        this.taskIds = undefined;
+        this.isProtected = false;
     }
 
 	static from(json){

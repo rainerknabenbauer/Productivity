@@ -1,10 +1,13 @@
 <script>
 	import { onMount } from "svelte";
-import Button from "./Button.svelte";
+	import Button from "./Button.svelte";
 	import MainContent from "./MainContent.svelte";
+	import PasswordDialogue from "./PasswordDialogue.svelte";
+import ProjectNotFound from "./ProjectNotFound.svelte";
 
 	let tasksPromise = [];
 	let isProjectNotFound = false;
+	let isLocked = true;
 
 	const host = window.location.hostname;
 	const backendUri = production() ? "http://188.34.198.168:8080" : "http://" + host + ":8080";
@@ -82,28 +85,22 @@ import Button from "./Button.svelte";
 </script>
 
 {#if isProjectNotFound}
-<div class="wrapper">
-	<div class="noProjectFound">No project reference found.<br>Please consider creating a project.</div>
-	<Button text="Create project" on:click={createProject} />
-</div>
+	<ProjectNotFound on:createProject={createProject} />
 {:else}
 	{#await projectPromise then project}
+	{#if project.isProtected && isLocked}
+		<PasswordDialogue {project} on:unlock={() => isLocked = false}/>
+	{:else}
 		{#await tasksPromise then tasks}
-			<MainContent {project} {tasks} 
-				on:saveProject={(event) => saveProject(event.detail.text)}
-				on:undoDelete={(event) => reloadPage(event.detail.text)}
-				on:saveTask={() => tasksPromise = getTasks()}
-			/>
+		<MainContent {project} {tasks} 
+			on:saveProject={(event) => saveProject(event.detail.text)}
+			on:undoDelete={(event) => reloadPage(event.detail.text)}
+			on:saveTask={() => tasksPromise = getTasks()}
+		/>
 		{/await}
+	{/if}
 	{/await}
 {/if}
 
 <style>
-.noProjectFound {
-	padding-bottom: 5px;
-}
-.wrapper {
-	padding: 70px 0;
-  	text-align: center;
-}
 </style>

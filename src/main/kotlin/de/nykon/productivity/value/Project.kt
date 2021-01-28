@@ -15,6 +15,6 @@ data class Project(
     val name: String = "New project",
     val description: String? = null,
     @Indexed val email: String? = null,
-    val userIds: List<String> = emptyList(),
+    val isProtected : Boolean = false,
     val createTime: LocalDateTime = LocalDateTime.now()
 )

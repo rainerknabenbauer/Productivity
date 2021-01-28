@@ -30,13 +30,22 @@
     dispatch("showPinboard");
   }
 
-  function editTitle() {
+  function toggleEditTitle() {
     isTitleBeingEdited = !isTitleBeingEdited;
   }
 
-  function saveProject() {
-    editTitle();
+  function toggleProtection() {
+    project.isProtected = !project.isProtected;
+    saveProject();
+  }
+
+  function updateTitle() {
+    toggleEditTitle();
     document.title = project.name;
+    saveProject();
+  }
+
+  function saveProject() {
     dispatch('saveProject', {
 			text: JSON.stringify(project)
 		});
@@ -57,9 +66,9 @@
 
     {#if isTitleBeingEdited}
       <input class="editName" type="text" id="fname" name="fname" bind:value={project.name}/>
-      <button on:click={saveProject}>OK</button>
+      <button on:click={updateTitle}>OK</button>
     {:else}
-      <div class="projectName" on:click={editTitle}>{project.name}</div>
+      <div class="projectName" on:click={toggleEditTitle}>{project.name}</div>
     {/if}
     
     <div class="actionItems tooltip" on:click={showFAQ}>
@@ -75,6 +84,16 @@
     <div class="actionItems tooltip" on:click={showFirstSteps}>
       <i class="fa fa-question-circle"/>
       <span class="tooltiptext">Need help?</span>
+    </div>
+
+    <div class="actionItems tooltip" on:click={toggleProtection}>
+      {#if project.isProtected }
+      <i class="fa fa-unlock-alt" />
+      <span class="tooltiptext">Protected <i class="fa fa-check" /></span>
+      {:else}
+      <i class="fa fa-unlock" />
+      <span class="tooltiptext">Enable protection</span>
+      {/if}
     </div>
 
     <div class="actionItems tooltip" on:click={showReminder}>
