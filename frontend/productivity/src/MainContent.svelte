@@ -30,59 +30,8 @@
 
 
     onMount(async () => {
-        drawLines();
         document.title = project.name == undefined ? "loading" : project.name;
     });
-
-    function closeAllViews() {
-        isReminderVisible = false;
-        isFAQvisible = false;
-        isTrashbinVisible = false;
-        isHistoryVisible = false;
-        isFirstStepsVisible = false;
-    }
-
-    function toggleTaskDetailsVisibility(taskJson) {
-        let state = isTaskDetailsVisible;
-        closeAllViews();
-        isTaskDetailsVisible = !state;
-        task = taskJson === null ? new Task() : JSON.parse(taskJson);
-    }
-
-    function showReminder() {
-        let state = isReminderVisible;
-        closeAllViews();
-        isReminderVisible = !state;
-    }
-
-    function showFAQ() {
-        let state = isFAQvisible;
-        closeAllViews();
-        isFAQvisible = !state;
-    }
-
-    function showTrashbin() {
-        let state = isTrashbinVisible;
-        closeAllViews();
-        isTrashbinVisible = !state;
-    }
-
-    function showHistory() {
-        let state = isHistoryVisible;
-        closeAllViews();
-        isHistoryVisible = !state;
-    }
-
-    function showFirstSteps() {
-        let state = isFirstStepsVisible;
-        closeAllViews();
-        isFirstStepsVisible = !state;
-    }
-
-    async function addTask() {
-		dispatch("saveTask")
-		isTaskDetailsVisible = !isTaskDetailsVisible;
-	}
 
     async function drawLines() {
         var wrapper = document.getElementById("canvas-wrapper");
@@ -142,6 +91,56 @@
             }
         });
     }
+
+    function closeAllViews() {
+        isReminderVisible = false;
+        isFAQvisible = false;
+        isTrashbinVisible = false;
+        isHistoryVisible = false;
+        isFirstStepsVisible = false;
+    }
+
+    function toggleTaskDetailsVisibility(taskJson) {
+        let state = isTaskDetailsVisible;
+        closeAllViews();
+        isTaskDetailsVisible = !state;
+        task = taskJson === null ? new Task() : JSON.parse(taskJson);
+    }
+
+    function showReminder() {
+        let state = isReminderVisible;
+        closeAllViews();
+        isReminderVisible = !state;
+    }
+
+    function showFAQ() {
+        let state = isFAQvisible;
+        closeAllViews();
+        isFAQvisible = !state;
+    }
+
+    function showTrashbin() {
+        let state = isTrashbinVisible;
+        closeAllViews();
+        isTrashbinVisible = !state;
+    }
+
+    function showHistory() {
+        let state = isHistoryVisible;
+        closeAllViews();
+        isHistoryVisible = !state;
+    }
+
+    function showFirstSteps() {
+        let state = isFirstStepsVisible;
+        closeAllViews();
+        isFirstStepsVisible = !state;
+    }
+
+    async function addTask() {
+		dispatch("saveTask")
+		isTaskDetailsVisible = !isTaskDetailsVisible;
+	}
 </script>
 
 {#if project.isProtected && isLocked}
@@ -197,7 +196,7 @@
     <FirstSteps />
     {/if}
 
-    <Canvas />
+    <Canvas on:canvasReady={drawLines} />
 
     <QRcode />
 {/if}

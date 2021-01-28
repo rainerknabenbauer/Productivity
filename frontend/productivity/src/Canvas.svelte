@@ -1,11 +1,13 @@
 <script>
-    import { onMount } from "svelte";
+    import { createEventDispatcher, onMount } from 'svelte';
+    const dispatch = createEventDispatcher();
 
     onMount(async () => {
         var wrapper = document.getElementById("canvas-wrapper");
         var canvas = document.getElementById("canvas");
         canvas.width = wrapper.clientWidth;
-		canvas.height = wrapper.clientHeight;
+        canvas.height = wrapper.clientHeight;
+        dispatch("canvasReady");
     })
 </script>
 
