@@ -7,8 +7,8 @@ import Button from "./Button.svelte";
 	let isProjectNotFound = false;
 
 	const host = window.location.hostname;
-	const uri = "http://" + host + ":8080";
-	const self = "http://" + host + ":5000";
+	const backendUri = production() ? "http://188.34.198.168:8080" : "http://" + host + ":8080";
+	const self = production() ? "http://" + host : "http://" + host + ":5000";
 
 	let projectPromise = [];
 	let projectId;
@@ -18,6 +18,10 @@ import Button from "./Button.svelte";
 		tasksPromise = getTasks();
 		projectPromise = getProject();
 	});
+
+	function production() {
+		return host == "makemedoit.de";
+	}
 
 	function getUrlParams() {
 		const queryString = window.location.search;
@@ -33,7 +37,7 @@ import Button from "./Button.svelte";
 		if (projectId === undefined || projectId === "") {
 			createProject();
 		} else {
-			result = await fetch(uri + "/projects/" + projectId)
+			result = await fetch(backendUri + "/projects/" + projectId)
 				.then((response) => (result = response.json()))
 				.catch(() => {
 					isProjectNotFound = true;
@@ -43,7 +47,7 @@ import Button from "./Button.svelte";
 	}
 
 	async function createProject() {
-		let newProject = await fetch(uri + "/projects/new")
+		let newProject = await fetch(backendUri + "/projects/new")
 				.then((response) => (response.json()))
 				.catch((error) => alert(error));
 			reloadPage(newProject.projectId);
@@ -52,7 +56,7 @@ import Button from "./Button.svelte";
 	async function getTasks() {
 		let result = [];
 		if (!(projectId === undefined || projectId === "")) {
-			result = await fetch(uri + "/tasks/" + projectId)
+			result = await fetch(backendUri + "/tasks/" + projectId)
 				.then((response) => response.json())
 				.catch((error) => alert(error));
 		}
