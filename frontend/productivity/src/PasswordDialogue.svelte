@@ -1,5 +1,5 @@
 <script>
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
     import Button from "./Button.svelte";
     const dispatch = createEventDispatcher();
 
@@ -7,13 +7,37 @@
     let password = "";
     let button = "Unlock!";
 
-    function checkPassword() {
-        if (password == project.email) {
+    onMount(() => {
+        verifyCookie();
+    })
+
+    function verifyCookie() {
+        let verification = getCookieValue("email");
+        
+        if (!(verification === undefined)) {
+            password = verification;
+            if (checkPassword()) {
+                dispatch("unlock");
+            }
+        }
+    }
+
+    function getCookieValue(name) {
+        let result = document.cookie.match("(^|[^;]+)\\s*" + name + "\\s*=\\s*([^;]+)");
+        return result ? result.pop() : "";
+    }
+
+    function checkInput() {
+        if (checkPassword()) {
             dispatch("unlock");
-            button = "unlocked";
+            document.cookie = "email=" + project.email; 
         } else {
             button = "Wrong password";
         }
+    }
+
+    function checkPassword() {
+        return password == project.email;
     }
 </script>
 
@@ -43,5 +67,5 @@
 <div class="wrapper">
     <div class="passwordMessage">This project is locked.<br>Please enter your eMail address.</div>
     <textarea class="textarea" autofocus bind:value={password}></textarea>
-	<br><Button text={button} on:click={checkPassword} />
+	<br><Button text={button} on:click={checkInput} />
 </div>

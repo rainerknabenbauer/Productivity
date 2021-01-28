@@ -14,6 +14,7 @@
 
     function bindEmail() {
         project.email = project.email == "" ? null : project.email;
+        document.cookie = "email=" + project.email; 
         
 		fetch("http://" + host + ":8080/projects/", {
             method: 'POST',
