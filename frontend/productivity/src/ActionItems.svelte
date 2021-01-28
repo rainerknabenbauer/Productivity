@@ -62,28 +62,34 @@
       <div class="projectName" on:click={editTitle}>{project.name}</div>
     {/if}
     
-    <div class="actionItems" on:click={showFAQ}>
+    <div class="actionItems tooltip" on:click={showFAQ}>
       <i class="fa fa-angle-down" />
+      <span class="tooltiptext">More</span>
     </div>
 
-    <div class="actionItems" on:click={showTrashbin}>
+    <div class="actionItems tooltip" on:click={showTrashbin}>
       <i class="fa fa-trash" />
+      <span class="tooltiptext">Undo</span>
     </div>
 
-    <div class="actionItems" on:click={showFirstSteps}>
-      <i class="fa fa-question-circle" />
+    <div class="actionItems tooltip" on:click={showFirstSteps}>
+      <i class="fa fa-question-circle"/>
+      <span class="tooltiptext">Need help?</span>
     </div>
 
-    <div class="actionItems" on:click={showReminder}>
+    <div class="actionItems tooltip" on:click={showReminder}>
       {#if project.email === null}
       <i class="fa fa-bell-o" />
+      <span class="tooltiptext">Set eMail!</span>
       {:else}
       <i class="fa fa-bell" />
+      <span class="tooltiptext">eMail set <i class="fa fa-check" /></span>
       {/if}
     </div>
 
-    <div class="actionItems">
+    <div class="actionItems tooltip">
       <i class="fa fa-home" on:click={showPinboard}/>
+      <span class="tooltiptext">Home</span>
     </div>
   </header>
 
@@ -111,7 +117,6 @@
     text-align: center;
     letter-spacing: 1px;
     text-decoration: none;
-    font-family: "Open Sans";
   }
 
   .projectName {
@@ -124,6 +129,33 @@
   .editName {
     height: 40px;
   }
+  .tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  font-size: 8pt;
+  opacity: 0.5;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
   .header {
     height: 50px;
     padding-top: 5px;
