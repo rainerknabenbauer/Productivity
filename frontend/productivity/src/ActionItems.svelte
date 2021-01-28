@@ -1,9 +1,9 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import RotatingBlock from "./RotatingBlock.svelte";
-
   const dispatch = createEventDispatcher();
+
   export let project;
+
   let isTitleBeingEdited = false;
 
   function showReminder() {
@@ -41,11 +41,19 @@
 			text: JSON.stringify(project)
 		});
   }
+
+  function showTaskDetails() {
+    dispatch("showTaskDetails");
+  }
 </script>
 
 
 <header class="header">
-    <RotatingBlock on:showTaskDetails />
+
+    <div class="edit" on:click={showTaskDetails}>
+      <img src="./img/edit.png" alt="Add new task">
+    </div>
+    
 
     {#if isTitleBeingEdited}
       <input class="editName" type="text" id="fname" name="fname" bind:value={project.name}/>
@@ -54,47 +62,57 @@
       <div class="projectName" on:click={editTitle}>{project.name}</div>
     {/if}
     
-    <button
-      class="w3-button actionItems right active" on:click={showTrashbin}>
-      <i class="fa fa-trash-o" /></button>
-    <button
-      class="w3-button w3-hide-small actionItems active" on:click={showFAQ}>
-      <i class="fa fa-angle-down w3-margin-right" />More</button>
+    <div class="actionItems" on:click={showFAQ}>
+      <i class="fa fa-angle-down" />
+    </div>
+
+    <div class="actionItems" on:click={showTrashbin}>
+      <i class="fa fa-trash-o" />
+    </div>
+
     <!--
     <button class="w3-button w3-white w3-hide-small actionItems" on:click={showHistory}>
       <i class="fa fa-heartbeat w3-margin-right" />History</button>
     -->
-    <button class="w3-button w3-hide-small actionItems active" on:click={showReminder}>
+
+    <div class="actionItems" on:click={showFirstSteps}>
+      <i class="fa fa-question-circle-o" />
+    </div>
+
+    <div class="actionItems" on:click={showReminder}>
       {#if project.email === null}
-      <i class="fa fa-bell-o w3-margin-right" />
+      <i class="fa fa-bell-o" />
       {:else}
-      <i class="fa fa-bell w3-margin-right" />
+      <i class="fa fa-bell" />
       {/if}
-      Reminder</button>
-    <button class="w3-button w3-hide-small actionItems inactive" on:click={showPinboard}>Pinboard</button>
-    <button
-      class="w3-button w3-hide-small actionItems active" on:click={showFirstSteps}>
-      <i class="fa fa-question-circle-o w3-margin-right" />First steps</button>
+    </div>
+
+    <div class="actionItems">
+      <i class="fa fa-home" on:click={showPinboard}/>
+    </div>
   </header>
 
 
 <style>
-  .inactive {
-    background-color: #bdcad9;
+  .edit {
+    float: left;
+    padding: 1px 36px 0 24px;
+    height: 32px;
+    opacity: 0.8;
   }
-  .active {
-    background-color: #dadfe6;
+  .edit:hover, .actionItems:hover {
+    opacity: 0.6;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    text-align: center;
   }
-  .active:hover, .inactive:hover {
-    background-color: #bdcad9;
-  }
-  .right {
-    margin-right: 5px;
-  }
+
   .actionItems {
     float: right;
+    padding: 2px 24px 0 24px;
     color: #636363;
 
+    font-size: 16pt;
     text-align: center;
     letter-spacing: 1px;
     text-decoration: none;
