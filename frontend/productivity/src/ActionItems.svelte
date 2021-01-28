@@ -96,20 +96,19 @@
 <style>
   .edit {
     float: left;
-    padding: 1px 36px 0 24px;
+    padding: 1px 48px 0 36px;
     height: 32px;
     opacity: 0.8;
   }
   .edit:hover, .actionItems:hover {
     opacity: 0.6;
-    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     text-align: center;
   }
 
   .actionItems {
     float: right;
-    padding: 2px 24px 0 24px;
+    padding: 4px 24px 0 24px;
     color: #636363;
 
     font-size: 16pt;
