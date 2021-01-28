@@ -36,6 +36,7 @@
 
   function saveProject() {
     editTitle();
+    document.title = project.name;
     dispatch('saveProject', {
 			text: JSON.stringify(project)
 		});

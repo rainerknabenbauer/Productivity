@@ -29,6 +29,7 @@
 
     onMount(async () => {
         drawLines();
+        document.title = project.name == undefined ? "loading" : project.name;
     });
 
     function closeAllViews() {

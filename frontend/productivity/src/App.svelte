@@ -74,7 +74,7 @@ import Button from "./Button.svelte";
 	function reloadPage(projectReference) {
 		location.assign(self + "/?id=" + projectReference);
 	}
-	
+
 </script>
 
 {#if isProjectNotFound}
