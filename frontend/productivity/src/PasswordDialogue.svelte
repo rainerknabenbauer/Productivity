@@ -30,7 +30,7 @@
     function checkInput() {
         if (checkPassword()) {
             dispatch("unlock");
-            document.cookie = "email=" + project.email + ";Lax"; 
+            document.cookie = "email=" + project.email + ";path=/; max-age=31536000;Lax"; 
         } else {
             button = "Wrong password";
         }
