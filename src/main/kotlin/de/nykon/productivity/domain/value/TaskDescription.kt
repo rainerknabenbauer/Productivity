@@ -1,4 +1,4 @@
-package de.nykon.productivity.value
+package de.nykon.productivity.domain.value
 
 class TaskDescription(
     val shortDescription: String,

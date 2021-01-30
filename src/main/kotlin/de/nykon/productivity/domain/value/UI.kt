@@ -1,4 +1,4 @@
-package de.nykon.productivity.value
+package de.nykon.productivity.domain.value
 
 /**
  * Recover UI layout chosen by the user.

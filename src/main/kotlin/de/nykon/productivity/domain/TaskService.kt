@@ -1,6 +1,6 @@
-package de.nykon.productivity
+package de.nykon.productivity.domain
 
-import de.nykon.productivity.value.Task
+import de.nykon.productivity.domain.value.Task
 import org.springframework.stereotype.Service
 import java.util.*
 

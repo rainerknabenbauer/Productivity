@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration
 
 
 @Configuration
-class ServerConfig {
+class TomcatConfig {
     @Bean
     fun servletContainer(): ServletWebServerFactory {
         val tomcat: TomcatServletWebServerFactory = object : TomcatServletWebServerFactory() {

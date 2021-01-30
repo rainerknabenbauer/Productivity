@@ -1,10 +1,6 @@
-package de.nykon.productivity
+package de.nykon.productivity.email
 
-import de.nykon.productivity.value.Project
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.springframework.scheduling.annotation.Async
-import org.springframework.scheduling.annotation.Scheduled
+import de.nykon.productivity.domain.value.Project
 import org.springframework.stereotype.Component
 import javax.mail.Authenticator
 import javax.mail.Message

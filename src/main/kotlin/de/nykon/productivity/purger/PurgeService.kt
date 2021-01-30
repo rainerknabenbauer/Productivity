@@ -1,7 +1,9 @@
-package de.nykon.productivity
+package de.nykon.productivity.purger
 
-import de.nykon.productivity.value.Project
-import de.nykon.productivity.value.Task
+import de.nykon.productivity.domain.ProjectRepository
+import de.nykon.productivity.domain.TaskRepository
+import de.nykon.productivity.domain.value.Project
+import de.nykon.productivity.domain.value.Task
 import org.springframework.data.domain.Example
 import org.springframework.data.domain.ExampleMatcher
 import org.springframework.stereotype.Service

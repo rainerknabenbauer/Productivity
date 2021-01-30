@@ -1,8 +1,8 @@
-package de.nykon.productivity
+package de.nykon.productivity.domain
 
-import de.nykon.productivity.value.Task
-import de.nykon.productivity.value.TaskDescription
-import de.nykon.productivity.value.UI
+import de.nykon.productivity.domain.value.Task
+import de.nykon.productivity.domain.value.TaskDescription
+import de.nykon.productivity.domain.value.UI
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType

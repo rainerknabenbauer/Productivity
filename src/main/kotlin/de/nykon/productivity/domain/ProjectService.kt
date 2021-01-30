@@ -1,17 +1,14 @@
-package de.nykon.productivity
+package de.nykon.productivity.domain
 
-import de.nykon.productivity.value.Project
+import de.nykon.productivity.domain.value.Project
 import org.springframework.stereotype.Service
-import org.springframework.data.domain.Example
-import org.springframework.data.domain.ExampleMatcher
-import java.time.LocalDate
-import java.time.Period
 import java.util.*
 
 
 @Service
 class ProjectService(
-    private val projectRepository: ProjectRepository) {
+    private val projectRepository: ProjectRepository
+) {
 
     fun getProjects(): MutableList<Project> {
         return projectRepository.findAll()

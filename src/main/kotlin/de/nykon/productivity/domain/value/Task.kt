@@ -1,4 +1,4 @@
-package de.nykon.productivity.value
+package de.nykon.productivity.domain.value
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.TextIndexed

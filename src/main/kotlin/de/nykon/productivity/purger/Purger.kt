@@ -1,6 +1,5 @@
-package de.nykon.productivity.utility
+package de.nykon.productivity.purger
 
-import de.nykon.productivity.PurgeService
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 

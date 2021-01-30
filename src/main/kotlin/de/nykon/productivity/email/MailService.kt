@@ -1,13 +1,15 @@
-package de.nykon.productivity
+package de.nykon.productivity.email
 
-import de.nykon.productivity.value.Project
+import de.nykon.productivity.domain.ProjectService
+import de.nykon.productivity.domain.value.Project
 import org.springframework.stereotype.Service
 
 
 @Service
-class EmailService(
+class MailService(
     private val projectService: ProjectService,
-    private val mailer: Mailer) {
+    private val mailer: Mailer
+) {
 
     fun recoverProjects(email: String): List<Project> {
         val linkedProjects = projectService.recoverProjects(email)

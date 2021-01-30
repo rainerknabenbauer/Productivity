@@ -1,9 +1,10 @@
-package de.nykon.productivity
+package de.nykon.productivity.domain
 
-import de.nykon.productivity.value.Project
-import de.nykon.productivity.value.Task
-import de.nykon.productivity.value.TaskDescription
-import de.nykon.productivity.value.UI
+import de.nykon.productivity.email.MailService
+import de.nykon.productivity.domain.value.Project
+import de.nykon.productivity.domain.value.Task
+import de.nykon.productivity.domain.value.TaskDescription
+import de.nykon.productivity.domain.value.UI
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
@@ -11,13 +12,12 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
 import java.util.*
-import kotlin.collections.ArrayList
 
 @RestController
 class ProjectController(
     private val projectService: ProjectService,
     private val taskService: TaskService,
-    private val emailService: EmailService
+    private val mailService: MailService
     ) {
 
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
@@ -37,7 +37,7 @@ class ProjectController(
     @PostMapping(path = ["/email"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun sendEmail(@RequestBody email: String): ResponseEntity<List<Project>> {
         log.info("called send Email $email")
-        return ResponseEntity.ok(emailService.recoverProjects(email.replace("\"", "")));
+        return ResponseEntity.ok(mailService.recoverProjects(email.replace("\"", "")));
     }
 
     @GetMapping(path = ["/projects/new"])
