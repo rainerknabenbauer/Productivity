@@ -8,7 +8,7 @@
 
 	const host = window.location.hostname;
 	const backendUri = production() ? "https://www.gobbler.one:8443" : "https://" + host + ":8443";
-	const self = production() ? "https://" + host : "https://" + host + ":5000";
+	const self = production() ? "https://" + host : "http://" + host + ":5000";
 
 	let projectPromise = [];
 	let projectId;
