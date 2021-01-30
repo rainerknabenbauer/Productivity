@@ -11,7 +11,7 @@
 
     async function sendEmail() {
         if (!(email === undefined && email == "")) {
-            const response = await fetch("http://" + host + ":8080/email", {
+            const response = await fetch("https://" + host + ":8443/email", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

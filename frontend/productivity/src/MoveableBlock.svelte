@@ -81,7 +81,7 @@
 
     //send to server
     async function updateTask() {
-        const response = await fetch("http://" + host + ":8080/tasks", {
+        const response = await fetch("https://" + host + ":8443/tasks", {
             method: "POST",
             mode: "cors",
             headers: {

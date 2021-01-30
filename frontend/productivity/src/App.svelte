@@ -7,8 +7,8 @@
 	let isProjectNotFound = false;
 
 	const host = window.location.hostname;
-	const backendUri = production() ? "http://188.34.198.168:8080" : "http://" + host + ":8080";
-	const self = production() ? "http://" + host : "http://" + host + ":5000";
+	const backendUri = production() ? "https://www.gobbler.one:8443" : "https://" + host + ":8443";
+	const self = production() ? "https://" + host : "https://" + host + ":5000";
 
 	let projectPromise = [];
 	let projectId;
@@ -20,7 +20,7 @@
 	});
 
 	function production() {
-		return host == "makemedoit.de";
+		return host == "www.gobbler.one";
 	}
 
 	function getUrlParams() {
@@ -64,7 +64,7 @@
 	}
 
 	function saveProject(project) {
-		fetch("http://" + host + ":8080/projects/", {
+		fetch("https://" + host + ":8443/projects/", {
             method: 'POST',
             mode: 'cors',
             headers: {

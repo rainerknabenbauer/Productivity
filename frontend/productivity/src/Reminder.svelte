@@ -17,7 +17,7 @@
         }
         document.cookie = "email=" + project.email + ";path=/; max-age=31536000;Lax"; 
         
-		fetch("http://" + host + ":8080/projects/", {
+		fetch("https://" + host + ":8443/projects/", {
             method: 'POST',
             mode: 'cors',
             headers: {
