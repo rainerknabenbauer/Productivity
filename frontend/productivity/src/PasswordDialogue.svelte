@@ -66,6 +66,7 @@
 
 <div class="wrapper">
     <div class="passwordMessage">This project is locked.<br>Please enter your eMail address.</div>
+    <!-- svelte-ignore a11y-autofocus -->
     <input class="textarea" autofocus bind:value={password} />
 	<br><Button text={button} on:click={checkInput} />
 </div>

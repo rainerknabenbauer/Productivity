@@ -38,6 +38,7 @@
         <div class="shortDescription">
             Never again lose your notes because you forgot the link.
         </div>
+        <!-- svelte-ignore a11y-autofocus -->
         <textarea class="email" autofocus bind:value={project.email} />
         <button on:click={bindEmail} >Set reminder</button>
     </div>

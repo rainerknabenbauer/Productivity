@@ -144,12 +144,16 @@
     
     <div class="content">
         {#if selected.localeCompare("title") === 0}
+        <!-- svelte-ignore a11y-autofocus -->
         <textarea class="textarea" autofocus bind:value={task.title}></textarea>
         {:else if selected.localeCompare("shortDescription") === 0}
+        <!-- svelte-ignore a11y-autofocus -->
         <textarea class="textarea" autofocus bind:value={task.description.shortDescription}></textarea>
         {:else if selected.localeCompare("longDescription") === 0}
+        <!-- svelte-ignore a11y-autofocus -->
         <textarea class="textarea" autofocus bind:value={task.description.longDescription}></textarea>
         {:else if selected.localeCompare("additionalNotes") === 0}
+        <!-- svelte-ignore a11y-autofocus -->
         <textarea class="textarea" autofocus bind:value={task.description.additionalNotes}></textarea>
         {:else if selected.localeCompare("timePeriod") === 0}
         [(1-24][h]<br>[_] weeks<br>...

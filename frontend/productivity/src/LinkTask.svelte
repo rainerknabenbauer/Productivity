@@ -31,6 +31,7 @@
     }
 </style>
 
+<!-- svelte-ignore a11y-autofocus -->
 <textarea class="textarea" autofocus bind:value={search} on:input={createSuggestion}></textarea>
 
 <select class="selection" multiple bind:value={selection}>
