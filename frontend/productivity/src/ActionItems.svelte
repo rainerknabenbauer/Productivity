@@ -205,9 +205,9 @@
     min-width: 500px;
     border: 1px solid transparent;
     border-radius: 4px;
-    box-shadow: rgba(0, 0, 0, 0.03) 0px 2px 5px 0px;
-    background-color: #bdcad9;
-    background-image: linear-gradient(315deg, #bdcad9 0%, #e1dada 74%);
+
+
+
 
   }
 </style>
