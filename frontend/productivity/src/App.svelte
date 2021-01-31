@@ -9,7 +9,7 @@
 	let unauthenticated = true;
 
 	const host = window.location.hostname;
-	const backendUri = production() ? "https://www.gobbler.one:8443" : "https://" + host + ":8443";
+	const backendUri = production() ? "https://productivity.to:8443" : "https://" + host + ":8443";
 	const self = production() ? "https://" + host : "http://" + host + ":5000";
 
 	let projectPromise = [];
@@ -22,7 +22,7 @@
 	});
 
 	function production() {
-		return host == "www.gobbler.one";
+		return host == "productivity.to";
 	}
 
 	function getUrlParams() {

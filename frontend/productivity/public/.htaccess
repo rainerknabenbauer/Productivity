@@ -4,6 +4,6 @@ Header set Access-Control-Allow-Headers "Content-Type, Authorization"
 
 RewriteEngine On
 
-RewriteCond %{HTTP_HOST} ^gobbler.one [NC]
+RewriteCond %{HTTP_HOST} ^www.productivity.to [NC]
 
-RewriteRule ^(.*)$ http://www.yourdomain.one/$1 [L,R=301]
+RewriteRule ^(.*)$ http://productivity.to/$1 [L,R=301]
