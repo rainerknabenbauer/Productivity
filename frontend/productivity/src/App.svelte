@@ -1,10 +1,12 @@
 <script>
 	import { onMount } from "svelte";
+	import Authentication from "./Authentication.svelte";
 	import MainContent from "./MainContent.svelte";
 	import ProjectNotFound from "./ProjectNotFound.svelte";
 
 	let tasksPromise = [];
 	let isProjectNotFound = false;
+	let unauthenticated = true;
 
 	const host = window.location.hostname;
 	const backendUri = production() ? "https://www.gobbler.one:8443" : "https://" + host + ":8443";
@@ -15,8 +17,8 @@
 
 	onMount(async () => {
 		getUrlParams();
-		tasksPromise = getTasks();
-		projectPromise = getProject();
+		projectPromise = await getProject();
+		tasksPromise = projectPromise.isProtected ? [] : getTasks()
 	});
 
 	function production() {
@@ -53,7 +55,13 @@
 			reloadPage(newProject.projectId);
 	}
 
+	async function authenticated() {
+		tasksPromise = getTasks();
+		unauthenticated = false;
+	}
+
 	async function getTasks() {
+		getUrlParams();
 		let result = [];
 		if (!(projectId === undefined || projectId === "")) {
 			result = await fetch(backendUri + "/tasks/" + projectId)
@@ -85,13 +93,19 @@
 	<ProjectNotFound on:createProject={createProject} />
 {:else}
 	{#await projectPromise then project}
-		{#await tasksPromise then tasks}
-		<MainContent {project} {tasks} 
-			on:saveProject={(event) => saveProject(event.detail.text)}
-			on:undoDelete={(event) => reloadPage(event.detail.text)}
-			on:saveTask={() => tasksPromise = getTasks()}
-		/>
-		{/await}
+		{#if project.isProtected && unauthenticated}
+			<Authentication {project} {host} on:authenticated={authenticated}/>
+		{:else}
+			{#await tasksPromise then tasks}
+				<MainContent
+					{project}
+					{tasks}
+					on:saveProject={(event) => saveProject(event.detail.text)}
+					on:undoDelete={(event) => reloadPage(event.detail.text)}
+					on:saveTask={() => tasksPromise = getTasks()}
+				/>
+			{/await}
+		{/if}
 	{/await}
 {/if}
 

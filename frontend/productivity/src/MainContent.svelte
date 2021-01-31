@@ -12,11 +12,13 @@
     import NotImplementedView from "./NotImplementedView.svelte";
     import FirstSteps from "./FirstSteps.svelte";
     import PasswordDialogue from "./PasswordDialogue.svelte";
+import SetToken from './SetToken.svelte';
 
     const dispatch = createEventDispatcher();
 
     export let project;
     export let tasks;
+    console.log("tasks: " + tasks)
 
     let task;
 
@@ -27,6 +29,7 @@
     let isTrashbinVisible = false;
     let isHistoryVisible = false;
     let isFirstStepsVisible = false;
+    let isSetTokenVisible = false;
 
 
     onMount(async () => {
@@ -113,6 +116,12 @@
         isReminderVisible = !state;
     }
 
+    function showSetToken() {
+        let state = isSetTokenVisible;
+        closeAllViews();
+        isSetTokenVisible = !state;
+    }
+
     function showFAQ() {
         let state = isFAQvisible;
         closeAllViews();
@@ -156,6 +165,7 @@
     on:showFirstSteps={showFirstSteps}
     on:saveProject
     on:showPinboard={closeAllViews}
+    on:showSetToken={showSetToken}
     />
 
     {#if isTaskDetailsVisible}
@@ -178,6 +188,10 @@
 
     {#if isReminderVisible}
     <Reminder bind:project={project} on:showReminder={showReminder} />
+    {/if}
+
+    {#if isSetTokenVisible}
+    <SetToken bind:project={project} on:showReminder={showSetToken} />
     {/if}
 
     {#if isFAQvisible}

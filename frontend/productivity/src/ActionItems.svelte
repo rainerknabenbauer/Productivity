@@ -10,6 +10,10 @@
     dispatch("showReminder");
   }
 
+  function showSetToken() {
+    dispatch("showSetToken");
+  }
+
   function showFAQ() {
     dispatch("showFAQ");
   }
@@ -35,11 +39,11 @@
   }
 
   function toggleProtection() {
-    if (project.email == "") {
-      showReminder();
-    } else {
+    if (project.isProtected) {
       project.isProtected = !project.isProtected;
       saveProject();
+    } else {
+      showSetToken();
     }
   }
 

@@ -22,7 +22,7 @@ class TomcatConfig {
                 val securityConstraint = SecurityConstraint()
                 securityConstraint.userConstraint = "CONFIDENTIAL"
                 val collection = SecurityCollection()
-                collection.addPattern("/**")
+                collection.addPattern("/*")
                 securityConstraint.addCollection(collection)
                 context.addConstraint(securityConstraint)
             }

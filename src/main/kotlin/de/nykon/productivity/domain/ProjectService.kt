@@ -27,9 +27,7 @@ class ProjectService(
     }
 
     fun recoverProjects(email: String): List<Project> {
-        val findByEmail = projectRepository.findByEmail(email)
-        println(findByEmail)
-        return findByEmail
+        return projectRepository.findByEmail(email)
     }
 
 }

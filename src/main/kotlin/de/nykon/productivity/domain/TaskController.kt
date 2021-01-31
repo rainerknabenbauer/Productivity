@@ -29,7 +29,7 @@ class TaskController(private val taskService: TaskService) {
         return ResponseEntity.ok(savedTask)
     }
 
-    @PostMapping(path = ["/ui/{id}"])  //TODO probably change to PUT
+    @PostMapping(path = ["/ui/{id}"])
     fun setPosition(@PathVariable id: String, @RequestBody ui: UI): ResponseEntity<Task> {
         log.info("set UI of $id to x=${ui.xposition} | y=${ui.yposition}")
         val savedTask = taskService.save(
