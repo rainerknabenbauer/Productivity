@@ -15,7 +15,6 @@
         if (project.email == "") {
             project.isProtected = false;
         }
-        document.cookie = "email=" + project.email + ";path=/; max-age=31536000;Lax"; 
         
 		fetch("https://" + host + ":8443/projects/", {
             method: 'POST',

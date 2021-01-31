@@ -11,8 +11,7 @@
     import Trashbin from "./Trashbin.svelte";
     import NotImplementedView from "./NotImplementedView.svelte";
     import FirstSteps from "./FirstSteps.svelte";
-    import PasswordDialogue from "./PasswordDialogue.svelte";
-import SetToken from './SetToken.svelte';
+    import SetToken from './SetToken.svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -96,6 +95,7 @@ import SetToken from './SetToken.svelte';
 
     function closeAllViews() {
         isReminderVisible = false;
+        isSetTokenVisible = false;
         isFAQvisible = false;
         isTrashbinVisible = false;
         isHistoryVisible = false;
@@ -151,9 +151,6 @@ import SetToken from './SetToken.svelte';
 	}
 </script>
 
-{#if project.isProtected && isLocked}
-		<PasswordDialogue bind:project={project} on:unlock={() => isLocked = false}/>
-{:else}
     <ActionItems
     bind:project={project}
     on:showTaskDetails={() => toggleTaskDetailsVisibility(null)}
@@ -212,7 +209,6 @@ import SetToken from './SetToken.svelte';
     <Canvas on:canvasReady={drawLines} />
 
     <QRcode />
-{/if}
 
 
 

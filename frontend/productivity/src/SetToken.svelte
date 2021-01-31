@@ -16,7 +16,7 @@
     function setToken() {
         project.isProtected = !(token == "")
 
-        document.cookie = "token=" + token + ";path=/; max-age=31536000;Lax"; 
+        document.cookie = "token=" + token + ";path=/; max-age=31536000;SameSite=Lax"; 
         let authentication = new Authentication();
         authentication.projectId = project.projectId;
         authentication.token = token;

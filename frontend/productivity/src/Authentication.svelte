@@ -9,6 +9,7 @@
 
     let token = "";
     let button = "Unlock!";
+    let showPassword = false;
 
     onMount(async () => {
 
@@ -29,8 +30,10 @@
             const authentication = new Authentication();
             authentication.projectId = project.projectId;
             authentication.token = token;
-            document.cookie = "token=" + authentication.token + ";path=/; max-age=31536000;Lax"; 
+            document.cookie = "token=" + authentication.token + ";path=/; max-age=31536000;SameSite=Lax"; 
             authenticationRequest(authentication);
+        } else {
+            showPassword = true;
         }
     }
 
@@ -50,6 +53,7 @@
             successfulAuthentication();
         } else {
             console.log("Authentication failed")
+            showPassword = true;
         }
     }
 
@@ -90,9 +94,11 @@
     }
 </style>
 
-<div class="wrapper">
-    <div class="passwordMessage">This project is locked.<br>Please enter your eMail address.</div>
-    <!-- svelte-ignore a11y-autofocus -->
-    <input class="textarea" autofocus bind:value={token} />
-	<br><Button text={button} on:click={authenticate} />
-</div>
+{#if showPassword}
+    <div class="wrapper">
+        <div class="passwordMessage">This project is locked.<br>Please provide your password.</div>
+        <!-- svelte-ignore a11y-autofocus -->
+        <input class="textarea" autofocus bind:value={token} />
+        <br><Button text={button} on:click={authenticate} />
+    </div>
+{/if}
