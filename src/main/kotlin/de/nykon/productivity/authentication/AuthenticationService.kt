@@ -9,6 +9,7 @@ import java.util.*
 class AuthenticationService(
     private val authenticationRepository: AuthenticationRepository
 ) {
+
     fun authenticate(authentication: Authentication): Optional<Authentication> {
         val example: Example<Authentication> = Example.of(authentication)
         return authenticationRepository.findOne(example)

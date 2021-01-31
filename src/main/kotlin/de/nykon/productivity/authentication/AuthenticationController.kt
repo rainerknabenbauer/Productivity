@@ -1,8 +1,11 @@
 package de.nykon.productivity.authentication
 
+import com.sun.mail.util.DecodingException
 import de.nykon.productivity.authentication.value.Authentication
+import de.nykon.productivity.exceptions.FormattingException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.core.codec.EncodingException
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -18,29 +21,26 @@ class AuthenticationController(
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping(path = ["/auth"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun authenticate(@RequestHeader("Authorization") authentication: String): ResponseEntity<String> {
-
-        val base64Authorization: String
-        try {
-            base64Authorization = authentication.split(" ")[1]
-        } catch (e: Exception) {
-            return ResponseEntity.badRequest()
-                .body("Authorization is not properly formatted. Should be 'Authorization: Basic projectId:token'")
-        }
+    fun authenticate(@RequestHeader("Authorization") authorization: String): ResponseEntity<String> {
 
         val authentication: Authentication
         try {
-            val decodedBytes = Base64.getDecoder().decode(base64Authorization)
-            val decodedString = String(decodedBytes).split(":")
-            
-            authentication = Authentication(decodedString[0], decodedString[1])
-        } catch (e: Exception) {
-            return ResponseEntity.unprocessableEntity()
-                .body("Authorization could not be decoded.")
+            authentication = Authentication.fromBase64(authorization)
+        } catch (ex: Exception) {
+            log.error(ex.message)
+            return when(ex) {
+                is FormattingException -> {
+                    ResponseEntity.badRequest().body(ex.message)
+                }
+                is EncodingException -> {
+                    ResponseEntity.unprocessableEntity().body(ex.message)
+                }
+                else -> throw ex
+            }
         }
 
-
         log.info("requested authentication with ${authentication.token} for ${authentication.projectId}")
+
         val result = authenticationService.authenticate(authentication)
 
         return if (result.isPresent) {
