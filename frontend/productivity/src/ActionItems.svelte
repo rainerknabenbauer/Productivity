@@ -88,13 +88,6 @@
       <span class="tooltiptext">More</span>
     </div>
 
-    {#if project.isProtected}
-    <div class="actionItems tooltip" on:click={logout}>
-      <i class="fa fa-sign-out" />
-      <span class="tooltiptext">Logout</span>
-    </div>
-    {/if}
-
     <div class="actionItems tooltip" on:click={showTrashbin}>
       <i class="fa fa-trash" />
       <span class="tooltiptext">Undo</span>
@@ -129,6 +122,18 @@
       <i class="fa fa-home" on:click={showPinboard}/>
       <span class="tooltiptext">Home</span>
     </div>
+
+    {#if project.isProtected}
+    <div class="actionItems tooltip" on:click={logout}>
+      <i class="fa fa-sign-out" />
+      <span class="tooltiptext">Sign out</span>
+    </div>
+    {:else}
+    <div class="actionItems tooltip" on:click={logout}>
+      
+      <span class="tooltiptext">Sign out</span>
+    </div>
+    {/if}
   </header>
 {/if}
 
