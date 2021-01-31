@@ -98,7 +98,7 @@
     <div class="wrapper">
         <div class="passwordMessage">This project is locked.<br>Please provide your password.</div>
         <!-- svelte-ignore a11y-autofocus -->
-        <input class="textarea" autofocus bind:value={token} />
+        <input class="textarea" type="password" autofocus bind:value={token} />
         <br><Button text={button} on:click={authenticate} />
     </div>
 {/if}
