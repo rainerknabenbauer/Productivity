@@ -64,7 +64,7 @@
   }
 </script>
 
-
+{#if !(project.name == undefined)}
 <header class="header">
 
     <div class="edit" on:click={showTaskDetails}>
@@ -119,7 +119,7 @@
       <span class="tooltiptext">Home</span>
     </div>
   </header>
-
+{/if}
 
 <style>
   .edit {
