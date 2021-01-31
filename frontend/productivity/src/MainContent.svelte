@@ -190,7 +190,7 @@ import SetToken from './SetToken.svelte';
     {/if}
 
     {#if isSetTokenVisible}
-    <SetToken bind:project={project} on:showReminder={showSetToken} />
+    <SetToken bind:project={project} on:showSetToken={showSetToken} />
     {/if}
 
     {#if isFAQvisible}
