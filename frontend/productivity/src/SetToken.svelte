@@ -20,8 +20,6 @@
         let authentication = new Authentication();
         authentication.projectId = project.projectId;
         authentication.token = token;
-
-        console.log("auth = " + JSON.stringify(authentication))
         
 		fetch("https://" + host + ":8443/auth", {
             method: 'POST',

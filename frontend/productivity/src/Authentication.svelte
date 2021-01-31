@@ -11,14 +11,11 @@
     let button = "Unlock!";
 
     onMount(async () => {
-        console.log("auth..:"+project)
 
         if (project.isProtected) {
-            console.log("auth:isProtected")
             verifyCookie();
             authenticate();
         } else {
-            console.log("authenticated")
             successfulAuthentication();
         }
     })

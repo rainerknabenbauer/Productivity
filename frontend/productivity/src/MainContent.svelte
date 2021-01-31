@@ -18,7 +18,6 @@ import SetToken from './SetToken.svelte';
 
     export let project;
     export let tasks;
-    console.log("tasks: " + tasks)
 
     let task;
 
