@@ -38,14 +38,14 @@
     }
 
     async function authenticationRequest(authentication) {
-        let result = await fetch("https://" + host + ":8443/auth/" + authentication.projectId, {
-            method: 'POST',
+        let result = await fetch("https://" + host + ":8443/auth", {
+            method: 'GET',
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/json',
-                'Media-Type': "MediaType.APPLICATION_JSON"
-            },
-            body: JSON.stringify(authentication)
+                'Content-Type': "application/json",
+                'Media-Type': "MediaType.APPLICATION_JSON",
+                'Authorization': "Basic " + btoa(authentication)
+            }
         });
 
         if (result.ok) {

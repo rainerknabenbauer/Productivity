@@ -48,32 +48,4 @@ class TaskController(private val taskService: TaskService) {
         taskService.delete(task)
     }
 
-
-
-    @GetMapping(path = ["/sample"])
-    fun getSample(): ResponseEntity<ArrayList<Task>> {
-        val tasks = ArrayList<Task>()
-        val task1 = Task(UUID.randomUUID().toString(), null, isBeingWorkedOn = false, isDeleted = false, "First Sample",
-            TaskDescription("...", "...", "..."),
-            LocalDate.now(), 0, null, UI(0, 0)
-        )
-        val task2 = Task(UUID.randomUUID().toString(), null, isBeingWorkedOn = false, isDeleted = false, "First Sample",
-            TaskDescription("...", "...", "..."),
-            LocalDate.now(), 0, null, UI(0, 0))
-
-        val task3 = Task(UUID.randomUUID().toString(), null, isBeingWorkedOn = false, isDeleted = false,"First Sample",
-            TaskDescription("...", "...", "..."),
-            LocalDate.now(), 0, null, UI(0, 0))
-
-        tasks.add(task1)
-        tasks.add(task2)
-        tasks.add(task3)
-
-        taskService.save(task1)
-        taskService.save(task2)
-        taskService.save(task3)
-
-        return ResponseEntity.ok(tasks)
-    }
-
 }
