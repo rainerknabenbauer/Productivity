@@ -87,6 +87,11 @@
 		location.assign(self + "/?id=" + projectReference);
 	}
 
+	function logout() {
+		document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+		reloadPage(projectId)
+	}
+
 </script>
 
 {#if isProjectNotFound}
@@ -103,6 +108,7 @@
 					on:saveProject={(event) => saveProject(event.detail.text)}
 					on:undoDelete={(event) => reloadPage(event.detail.text)}
 					on:saveTask={() => tasksPromise = getTasks()}
+					on:logout={logout}
 				/>
 			{/await}
 		{/if}

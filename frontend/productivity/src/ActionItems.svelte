@@ -47,6 +47,10 @@
     }
   }
 
+  function logout() {
+    dispatch("logout");
+  }
+
   function updateTitle() {
     toggleEditTitle();
     document.title = project.name;
@@ -83,6 +87,13 @@
       <i class="fa fa-angle-down" />
       <span class="tooltiptext">More</span>
     </div>
+
+    {#if project.isProtected}
+    <div class="actionItems tooltip" on:click={logout}>
+      <i class="fa fa-sign-out" />
+      <span class="tooltiptext">Logout</span>
+    </div>
+    {/if}
 
     <div class="actionItems tooltip" on:click={showTrashbin}>
       <i class="fa fa-trash" />

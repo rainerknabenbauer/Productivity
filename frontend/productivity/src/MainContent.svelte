@@ -160,6 +160,7 @@
     on:showHistory={showHistory}
     on:showFirstSteps={showFirstSteps}
     on:saveProject
+    on:logout
     on:showPinboard={closeAllViews}
     on:showSetToken={showSetToken}
     />
