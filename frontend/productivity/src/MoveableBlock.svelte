@@ -173,7 +173,7 @@
     .task {
         cursor: -webkit-grab;
         cursor: grab;
-        border: 1px solid rgb(156, 156, 156);
+        border: 1px solid rgb(148, 161, 123);
         min-width: 250px;
         max-width: 325px;
         z-index: 1;
