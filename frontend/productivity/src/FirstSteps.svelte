@@ -135,7 +135,14 @@
     
     <div class="content">
         {#if selected.localeCompare("theidea") === 0}
-        <div class="">in progress</div>
+        <div class="">
+            [introduction video]
+            <br>
+            <br>New here?
+            <br>Check out the videos on the left.
+            <br>Doesn't look like a button yet, but it's clickable.
+
+        </div>
         {:else if selected.localeCompare("create") === 0}
         <iframe src="https://player.vimeo.com/video/503035883" class="video" title="Create a task" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         {:else if selected.localeCompare("edit") === 0}
