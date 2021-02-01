@@ -165,7 +165,7 @@
   .projectName {
     font-family: 'Tangerine', cursive;
     font-size: 2em;
-    color: #636363;
+    color: #585858;
     float: left;
     margin-top: -2px;
   }
