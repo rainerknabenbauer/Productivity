@@ -179,7 +179,7 @@
         z-index: 1;
         opacity: 0.98;
 
-        background-color: rgb(206, 206, 206);
+        background-color: rgb(216, 210, 210);
         border-radius: 3px;
 
         -webkit-touch-callout: none;
@@ -217,7 +217,7 @@
     .inactive {
         margin: 0;
         color: #fff;
-        background: linear-gradient(-45deg, #888888, #49343c, #575050, #343837);
+        background: linear-gradient(-45deg, #686868, #3d4934, #575050, #494e4d);
         background-size: 400% 400%;
         -webkit-animation: gradientBG 10s ease infinite;
         animation: gradientBG 10s ease infinite;
