@@ -192,7 +192,7 @@
         z-index: 1;
         opacity: 0.98;
 
-        background-color: rgb(216, 210, 210);
+        background-color: rgb(241, 234, 234);
         border-radius: 3px;
 
         -webkit-touch-callout: none;
