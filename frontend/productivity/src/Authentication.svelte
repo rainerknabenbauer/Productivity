@@ -17,12 +17,14 @@
             verifyCookie();
             authenticate();
         } else {
-            successfulAuthentication();
+            successfulAuthentication("");
         }
     })
 
-    function successfulAuthentication() {
-        dispatch("authenticated");
+    function successfulAuthentication(authentication) {
+        dispatch("authenticated", {
+            text: authentication,
+        });
     }
 
     function authenticate() {
@@ -50,7 +52,7 @@
 
         if (result.ok) {
             console.log("Authentication success")
-            successfulAuthentication();
+            successfulAuthentication(authentication);
         } else {
             console.log("Authentication failed")
             showPassword = true;

@@ -1,8 +1,8 @@
 <script>
     import Button from './Button.svelte';
     import { createEventDispatcher, onMount } from 'svelte';
-    import Task from './Task';
     import LinkTask from './LinkTask.svelte';
+    import Authentication from './Authentication.js'
 
     export let project;
     export let tasks;
@@ -22,22 +22,38 @@
         selected = name;
     }
 
-    function refresh() {
-		dispatch('refresh');
+    function refresh(authentication) {
+		dispatch('refresh', {
+            text: authentication,
+        });
 	}
 
     async function addTask() {
+
+        let token = getCookieValue("token");
+        const authentication = new Authentication();
+        authentication.projectId = project.projectId;
+        authentication.token = token;
+
+        console.log(authentication)
+
         const response = await fetch("https://" + host + ":8443/tasks", {
             method: 'POST',
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/json',
-                'Media-Type': "MediaType.APPLICATION_JSON"
+                'Content-Type': "application/json",
+                'Media-Type': "MediaType.APPLICATION_JSON",
+                'Authorization': "Basic " + btoa(authentication)
             },
             body: JSON.stringify(task)
         });
 
-        refresh();
+        refresh(authentication);
+    }
+
+    function getCookieValue(name) {
+        let result = document.cookie.match("(^|[^;]+)\\s*" + name + "\\s*=\\s*([^;]+)");
+        return result ? result.pop() : "";
     }
 
     function getLength(node) {
@@ -107,6 +123,7 @@
         height: 100%;
         width: 100%;
         resize: none;
+        background: url(http://i.stack.imgur.com/ynxjD.png) repeat-y;
     }
     .textarea:focus {
         outline: none;

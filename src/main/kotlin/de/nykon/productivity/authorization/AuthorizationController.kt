@@ -1,7 +1,7 @@
-package de.nykon.productivity.authentication
+package de.nykon.productivity.authorization
 
-import com.sun.mail.util.DecodingException
-import de.nykon.productivity.authentication.value.Authentication
+import de.nykon.productivity.authorization.value.Authorization
+import de.nykon.productivity.domain.ProjectService
 import de.nykon.productivity.exceptions.FormattingException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -11,21 +11,21 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.lang.Exception
-import java.util.*
 
 @RestController
-class AuthenticationController(
-    private val authenticationService: AuthenticationService
-) {
+class AuthorizationController(
+    private val projectService: ProjectService,
+    private val authorizationService: AuthorizationService
+) : AbstractAuthorization(projectService, authorizationService) {
 
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping(path = ["/auth"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun authenticate(@RequestHeader("Authorization") authorization: String): ResponseEntity<String> {
+    fun authorization(@RequestHeader("Authorization") authorizationBase64: String): ResponseEntity<String> {
 
-        val authentication: Authentication
+        val authorization: Authorization
         try {
-            authentication = Authentication.fromBase64(authorization)
+            authorization = Authorization.fromBase64(authorizationBase64)
         } catch (ex: Exception) {
             log.error(ex.message)
             return when(ex) {
@@ -39,22 +39,22 @@ class AuthenticationController(
             }
         }
 
-        log.info("requested authentication with ${authentication.token} for ${authentication.projectId}")
+        log.info("requested authorization with ${authorization.token} for ${authorization.projectId}")
 
-        val result = authenticationService.authenticate(authentication)
+        val result = authorizationService.authorization(authorization)
 
         return if (result.isPresent) {
-            ResponseEntity.ok().body("Authentication successful")
+            ResponseEntity.ok().body("Authorization successful")
         } else {
-            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed")
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authorization failed")
         }
     }
 
     @PostMapping(path = ["/auth"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun setAuthentication(@RequestBody authentication: Authentication): ResponseEntity<Authentication> {
-        log.info("set authentication")
+    fun setAuthorization(@RequestBody authorization: Authorization): ResponseEntity<Authorization> {
+        log.info("set authorization")
 
-        return ResponseEntity.ok(authenticationService.setAuthentication(authentication))
+        return ResponseEntity.ok(authorizationService.setAuthorization(authorization))
     }
 
 }

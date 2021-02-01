@@ -1,32 +1,53 @@
 package de.nykon.productivity.domain
 
+import de.nykon.productivity.authorization.AbstractAuthorization
+import de.nykon.productivity.authorization.AuthorizationService
 import de.nykon.productivity.domain.value.Task
 import de.nykon.productivity.domain.value.TaskDescription
 import de.nykon.productivity.domain.value.UI
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
-import java.util.*
-import kotlin.collections.ArrayList
 
 @RestController
-class TaskController(private val taskService: TaskService) {
+class TaskController(
+    private val taskService: TaskService,
+    private val authorizationService: AuthorizationService,
+    private val projectService: ProjectService
+) : AbstractAuthorization(projectService, authorizationService)
+{
 
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping(path = ["/tasks/{projectId}"])
-    fun getProject(@PathVariable projectId: String): ResponseEntity<List<Task>> {
-        return ResponseEntity.ok(taskService.getByProject(projectId))
+    fun getProject(
+        @RequestHeader("Authorization") authorizationBase64: String,
+        @PathVariable projectId: String): ResponseEntity<List<Task>> {
+
+        return if (isAuthorized(projectId, authorizationBase64)) {
+            return ResponseEntity.ok(taskService.getByProject(projectId))
+        } else {
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(listOf())
+        }
     }
 
     @PostMapping(path = ["/tasks"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun saveTask(@RequestBody task: Task): ResponseEntity<Task> {
-        val savedTask = taskService.save(task)
-        log.info("saved task: $savedTask")
-        return ResponseEntity.ok(savedTask)
+    fun saveTask(
+        @RequestHeader("Authorization") authorizationBase64: String,
+        @RequestBody task: Task): ResponseEntity<Task> {
+
+        log.info("save task: $task with $authorizationBase64")
+
+        return if (isAuthorized(task, authorizationBase64)) {
+            val savedTask = taskService.save(task)
+            return ResponseEntity.ok(savedTask)
+        } else {
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(task)
+        }
     }
 
     @PostMapping(path = ["/ui/{id}"])
@@ -43,9 +64,17 @@ class TaskController(private val taskService: TaskService) {
     }
 
     @DeleteMapping(path = ["/tasks"])
-    fun deleteTask(@RequestBody task: Task) {
-        log.info("delete task: $task")
-        taskService.delete(task)
+    fun deleteTask(
+        @RequestHeader("Authorization") authorizationBase64: String,
+        @RequestBody task: Task): ResponseEntity<Task> {
+
+        return if (isAuthorized(task, authorizationBase64)) {
+            log.info("delete task: $task")
+            taskService.delete(task)
+            ResponseEntity.ok(task)
+        } else {
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(task)
+        }
     }
 
 }

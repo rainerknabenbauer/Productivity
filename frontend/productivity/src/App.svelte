@@ -55,16 +55,25 @@
 			reloadPage(newProject.projectId);
 	}
 
-	async function authenticated() {
-		tasksPromise = getTasks();
+	async function authenticated(authentication) {
+		tasksPromise = getTasks(authentication);
 		unauthenticated = false;
 	}
 
-	async function getTasks() {
+	async function getTasks(authentication) {
+		console.log("getTasks() " + authentication)
 		getUrlParams();
 		let result = [];
 		if (!(projectId === undefined || projectId === "")) {
-			result = await fetch(backendUri + "/tasks/" + projectId)
+			result = await fetch(backendUri + "/tasks/" + projectId, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': "application/json",
+                'Media-Type': "MediaType.APPLICATION_JSON",
+                'Authorization': "Basic " + btoa(authentication)
+            }
+        }) 
 				.then((response) => response.json())
 				.catch((error) => alert(error));
 		}
@@ -99,7 +108,7 @@
 {:else}
 	{#await projectPromise then project}
 		{#if project.isProtected && unauthenticated}
-			<Authentication {project} {host} on:authenticated={authenticated}/>
+			<Authentication {project} {host} on:authenticated={e => authenticated(e.detail.text)}/>
 		{:else}
 			{#await tasksPromise then tasks}
 				<MainContent
@@ -107,7 +116,7 @@
 					{tasks}
 					on:saveProject={(event) => saveProject(event.detail.text)}
 					on:undoDelete={(event) => reloadPage(event.detail.text)}
-					on:saveTask={() => tasksPromise = getTasks()}
+					on:saveTask={event => tasksPromise = getTasks(event.detail.text)}
 					on:logout={logout}
 				/>
 			{/await}

@@ -12,6 +12,7 @@
     import NotImplementedView from "./NotImplementedView.svelte";
     import FirstSteps from "./FirstSteps.svelte";
     import SetToken from './SetToken.svelte';
+import { text } from 'svelte/internal';
 
     const dispatch = createEventDispatcher();
 
@@ -145,8 +146,10 @@
         isFirstStepsVisible = !state;
     }
 
-    async function addTask() {
-		dispatch("saveTask")
+    async function addTask(authentication) {
+		dispatch("saveTask", {
+            text: authentication,
+        });
 		isTaskDetailsVisible = !isTaskDetailsVisible;
 	}
 </script>
@@ -166,7 +169,7 @@
     />
 
     {#if isTaskDetailsVisible}
-    <TaskDetails {project} {tasks} {task} on:refresh={addTask} />
+    <TaskDetails {project} {tasks} {task} on:refresh={event => addTask(event.detail.text)} />
     {/if}
 
     {#each tasks as task (task.id)}
