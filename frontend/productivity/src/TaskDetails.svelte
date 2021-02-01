@@ -123,7 +123,7 @@
         height: 100%;
         width: 100%;
         resize: none;
-        background: url(http://i.stack.imgur.com/ynxjD.png) repeat-y;
+        background: url(https://i.stack.imgur.com/ynxjD.png) repeat-y;
     }
     .textarea:focus {
         outline: none;
