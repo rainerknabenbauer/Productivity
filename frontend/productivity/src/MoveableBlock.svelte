@@ -230,7 +230,7 @@
     .inactive {
         margin: 0;
         color: #fff;
-        background: linear-gradient(-45deg, #686868, #3d4934, #575050, #494e4d);
+        background: linear-gradient(-45deg, #686868, #46533c, #686060, #545a59);
         background-size: 400% 400%;
         -webkit-animation: gradientBG 10s ease infinite;
         animation: gradientBG 10s ease infinite;
