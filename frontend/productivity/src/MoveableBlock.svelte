@@ -221,13 +221,11 @@
     .title {
         padding: 5px 7px;
         letter-spacing: 0.5px;
-        font-family: 'Raleway', sans-serif;
     }
 
     .shortDescription {
         margin-left: 5px;
         letter-spacing: 0.6px;
-        font-family: 'Raleway', sans-serif;
     }
 
     .inactive {
