@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class TaskService(private val taskRepository: TaskRepository) {
+class TaskService(
+    private val taskRepository: TaskRepository) {
 
     fun save(task: Task): Task {
         return taskRepository.save(task)
-
     }
 
     fun get(id: String): Optional<Task> {
@@ -25,7 +25,8 @@ class TaskService(private val taskRepository: TaskRepository) {
     }
 
     fun getByProject(projectId: String): List<Task> {
-        return taskRepository.findByProjectId(projectId);
+
+        return taskRepository.findByProjectId(projectId)
     }
 
 }

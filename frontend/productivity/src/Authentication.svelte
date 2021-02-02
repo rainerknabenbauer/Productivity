@@ -74,6 +74,22 @@
         return result ? result.pop() : "";
     }
 
+    async function recovery() {
+        if (!(project.email.value === undefined && project.email.value == "")) {
+            const response = await fetch("https://" + host + ":8443/recovery/" + project.projectId.value, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Media-Type': "MediaType.APPLICATION_JSON"
+                },
+                body: JSON.stringify(project.email.value)
+            });
+        } else {
+            console.log("email undefined")
+        }
+    }
+
 </script>
 
 <style>
@@ -104,5 +120,6 @@
         <!-- svelte-ignore a11y-autofocus -->
         <input class="textarea" type="password" autofocus bind:value={token} />
         <br><Button text={button} on:click={authenticate} />
+        <Button text="Send recovery eMail" on:click={recovery} />
     </div>
 {/if}

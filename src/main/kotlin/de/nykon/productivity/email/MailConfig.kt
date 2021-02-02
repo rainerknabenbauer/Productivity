@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class MailerConfig {
+class MailConfig {
 
     @Value("\${spring.mail.host}")
     lateinit var host: String

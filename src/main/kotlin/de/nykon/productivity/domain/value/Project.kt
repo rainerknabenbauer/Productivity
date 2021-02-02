@@ -16,5 +16,31 @@ data class Project(
     val description: String? = null,
     @Indexed val email: String = "",
     val isProtected : Boolean = false,
+    val unlockToken: String? = null,
     val createTime: LocalDateTime = LocalDateTime.now()
-)
+) {
+
+    fun recover(): Project {
+        return Project(
+            this.projectId,
+            this.name,
+            this.description,
+            this.email,
+            true,
+            UUID.randomUUID().toString(),
+            this.createTime
+        )
+    }
+
+    fun unlock(): Project {
+        return Project(
+            this.projectId,
+            this.name,
+            this.description,
+            this.email,
+            false,
+            null,
+            this.createTime
+        )
+    }
+}

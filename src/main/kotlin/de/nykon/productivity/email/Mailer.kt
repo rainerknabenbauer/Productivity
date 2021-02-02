@@ -16,7 +16,7 @@ import java.util.Properties
  * Sends an eMail containing relevant information to stakeholders.
  */
 @Component
-class Mailer(private val config: MailerConfig) {
+class Mailer(private val config: MailConfig) {
 
     private val URI: String = "sirsmokealot.de"
 
@@ -29,8 +29,9 @@ class Mailer(private val config: MailerConfig) {
         projects.forEach { project ->
             run {
                 projectLinks += getProjectLine()
-                    .replace("{{link}}", "http://www.gobbler.de/${project.projectId}")
+                    .replace("{{link}}", "https://productivity.to/${project.projectId}")
                     .replace("{{text}}", project.name) + "<br>"
+                    .replace("{{unlock}}", "https://productivity.to/projects/unlock/ !! toke")
             }
         }
 
@@ -65,7 +66,7 @@ class Mailer(private val config: MailerConfig) {
 
     private fun getProjectLine(): String {
         return """
-            <a href="{{link}}">{{text}}</a>
+            <a href="{{link}}">{{text}}</a> | <a href="{{unlock}}">Unlock project</a>
         """.trimIndent()
     }
 

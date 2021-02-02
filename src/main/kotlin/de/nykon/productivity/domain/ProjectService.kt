@@ -22,12 +22,22 @@ class ProjectService(
         return projectRepository.save(project)
     }
 
-    fun findById(id: String): Optional<Project> {
-        return projectRepository.findById(id)
+    fun findById(projectId: String): Optional<Project> {
+        return projectRepository.findById(projectId)
     }
 
     fun recoverProjects(email: String): List<Project> {
         return projectRepository.findByEmail(email)
+    }
+
+    fun unlock(token: String): Boolean {
+        val project = projectRepository.findFirstByUnlockToken(token)
+
+        if (Objects.nonNull(project)) {
+            projectRepository.save(project!!.unlock())
+            return true
+        }
+        return false
     }
 
 }
