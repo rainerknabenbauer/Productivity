@@ -131,7 +131,6 @@
     {:else}
     <div class="actionItems tooltip" on:click={logout}>
       
-      <span class="tooltiptext">Sign out</span>
     </div>
     {/if}
   </header>
@@ -182,13 +181,13 @@
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 120px;
-  background-color: rgb(230, 230, 230);
-  color: rgb(51, 51, 51);
+  background-color: rgb(240, 240, 240);
+  color: rgb(44, 44, 44);
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
   font-size: 8pt;
-  opacity: 0.5;
+  opacity: 0.65;
   
   /* Position the tooltip */
   position: absolute;
