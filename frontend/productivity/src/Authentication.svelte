@@ -13,6 +13,8 @@
 
     onMount(async () => {
 
+        document.title = project.name == undefined ? "Sesame open..?" : project.name;
+
         if (project.isProtected) {
             verifyCookie();
             authenticate();
