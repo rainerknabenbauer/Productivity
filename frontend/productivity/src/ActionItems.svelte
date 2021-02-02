@@ -72,7 +72,7 @@
 <header class="header">
 
     <div class="edit" on:click={showTaskDetails}>
-      <img src="./img/edit.png" alt="Add new task">
+      <i class="fa fa-edit image" />
     </div>
     
 
@@ -138,11 +138,13 @@
 {/if}
 
 <style>
+  .image {
+    font-size: 32pt;
+    color: #eeeeee;
+  }
   .edit {
     float: left;
     padding: 1px 48px 0 36px;
-    height: 32px;
-    opacity: 0.75;
   }
   .edit:hover, .actionItems:hover {
     opacity: 0.5;
@@ -153,7 +155,7 @@
   .actionItems {
     float: right;
     padding: 4px 24px 0 24px;
-    color: #585858;
+    color: #eeeeee;
     opacity: 0.8;
 
     font-size: 16pt;
@@ -165,9 +167,9 @@
   .projectName {
     font-family: 'Tangerine', cursive;
     font-size: 2em;
-    color: #585858;
+    color: #f1f1f1;
     float: left;
-    margin-top: -2px;
+    margin-top: 2px;
   }
   .editName {
     height: 40px;
@@ -180,8 +182,8 @@
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 120px;
-  background-color: black;
-  color: #fff;
+  background-color: rgb(230, 230, 230);
+  color: rgb(51, 51, 51);
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
@@ -199,15 +201,12 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-  .header {
+  
+.header {
     height: 50px;
     padding-top: 5px;
     min-width: 500px;
     border: 1px solid transparent;
     border-radius: 4px;
-
-
-
-
-  }
+}
 </style>

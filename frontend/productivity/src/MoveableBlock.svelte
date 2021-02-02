@@ -157,7 +157,7 @@
                 on:mouseup={letGo}
             >   
                 {#if task.isBeingWorkedOn}
-                <div id="{task.id}title" class="title active w3-serif">
+                <div id="{task.id}title" class="title active">
                     {task.title}
                 </div>
                 <div class="shortDescription">
@@ -167,7 +167,7 @@
                     </div>
                 </div>
                 {:else}
-                <div id="{task.id}title" class="title inactive w3-serif">
+                <div id="{task.id}title" class="title inactive">
                     {task.title}
                 </div>
                 <div class="shortDescription">
@@ -220,11 +220,14 @@
 
     .title {
         padding: 5px 7px;
-        letter-spacing: 0.7px;
+        letter-spacing: 0.5px;
+        font-family: 'Raleway', sans-serif;
     }
 
     .shortDescription {
         margin-left: 5px;
+        letter-spacing: 0.6px;
+        font-family: 'Raleway', sans-serif;
     }
 
     .inactive {
