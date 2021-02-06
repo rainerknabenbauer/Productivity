@@ -2,6 +2,7 @@ package de.nykon.productivity.email
 
 import de.nykon.productivity.domain.value.Project
 import org.springframework.stereotype.Component
+import java.util.*
 import javax.mail.Authenticator
 import javax.mail.Message
 import javax.mail.PasswordAuthentication
@@ -9,14 +10,13 @@ import javax.mail.Session
 import javax.mail.Transport
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
-import java.util.Date
-import java.util.Properties
 
 /**
  * Sends an eMail containing relevant information to stakeholders.
  */
 @Component
-class Mailer(private val config: MailConfig) {
+class Mailer(
+    private val config: MailConfig) {
 
     private val URI: String = "sirsmokealot.de"
 
@@ -31,7 +31,13 @@ class Mailer(private val config: MailConfig) {
                 projectLinks += getProjectLine()
                     .replace("{{link}}", "https://productivity.to/${project.projectId}")
                     .replace("{{text}}", project.name) + "<br>"
-                    .replace("{{unlock}}", "https://productivity.to/projects/unlock/ !! toke")
+
+                if (Objects.nonNull(project.unlockToken)) {
+                    projectLinks.replace("{{unlock}}",
+                        "https://productivity.to/projects/unlock/${project.unlockToken}")
+                } else {
+                    projectLinks.replace("{{unlock}}", "")
+                }
             }
         }
 
