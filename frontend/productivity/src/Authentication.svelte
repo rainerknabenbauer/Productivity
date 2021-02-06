@@ -75,15 +75,15 @@
     }
 
     async function recovery() {
-        if (!(project.email.value === undefined && project.email.value == "")) {
-            const response = await fetch("https://" + host + ":8443/recovery/" + project.projectId.value, {
+        if (!(project.email === undefined && project.email == "")) {
+            const response = await fetch("https://" + host + ":8443/recovery/" + project.projectId, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
                     'Media-Type': "MediaType.APPLICATION_JSON"
                 },
-                body: JSON.stringify(project.email.value)
+                body: JSON.stringify(project.email)
             });
         } else {
             console.log("email undefined")
