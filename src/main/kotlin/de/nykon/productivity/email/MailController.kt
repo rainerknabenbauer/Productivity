@@ -14,10 +14,10 @@ class MailController(private val mailService: MailService) {
 
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
-    @PostMapping(path = ["/email"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping(path = ["/email/{email}"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun sendEmail(@RequestBody email: String): ResponseEntity<List<Project>> {
         log.info("called send Email $email")
-        return ResponseEntity.ok(mailService.recoverProjects(email))
+        return ResponseEntity.ok(mailService.recovery(email))
     }
 
 }

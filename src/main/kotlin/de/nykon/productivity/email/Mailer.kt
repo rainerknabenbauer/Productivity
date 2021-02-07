@@ -28,15 +28,17 @@ class Mailer(
         var projectLinks = ""
         projects.forEach { project ->
             run {
-                projectLinks += getProjectLine()
-                    .replace("{{link}}", "https://productivity.to/${project.projectId}")
-                    .replace("{{text}}", project.name) + "<br>"
-
-                if (Objects.nonNull(project.unlockToken)) {
-                    projectLinks.replace("{{unlock}}",
-                        "https://productivity.to/projects/unlock/${project.unlockToken}")
+                projectLinks += if (Objects.nonNull(project.unlockToken)) {
+                    getProjectLine()
+                        .replace("{{link}}", "https://productivity.to/${project.projectId}")
+                        .replace("{{text}}", project.name)
+                        .replace("{{unlock}}",
+                            " | <a href=\"https://productivity.to/projects/unlock/${project.unlockToken}\">Unlock project</a><br>")
                 } else {
-                    projectLinks.replace("{{unlock}}", "")
+                    getProjectLine()
+                        .replace("{{link}}", "https://productivity.to/${project.projectId}")
+                        .replace("{{text}}", project.name)
+                        .replace("{{unlock}}", "<br>")
                 }
             }
         }
@@ -72,7 +74,7 @@ class Mailer(
 
     private fun getProjectLine(): String {
         return """
-            <a href="{{link}}">{{text}}</a> | <a href="{{unlock}}">Unlock project</a>
+            <a href="{{link}}">{{text}}</a>{{unlock}}
         """.trimIndent()
     }
 

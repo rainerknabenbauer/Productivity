@@ -221,7 +221,7 @@
     .title {
         padding: 5px 7px;
         letter-spacing: 0.5px;
-        font-size: 8pt;
+        font-size: 10pt;
     }
 
     .shortDescription {

@@ -11,7 +11,7 @@
 
     async function sendEmail() {
         if (!(email === undefined && email == "")) {
-            const response = await fetch("https://" + host + ":8443/email", {
+            const response = await fetch("https://" + host + ":8443/projects/recovery/{token}", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -105,7 +105,7 @@
         {#if selected.localeCompare("sendEmail") === 0}
         <!-- svelte-ignore a11y-autofocus -->
         <textarea class="sendEmail textarea" autofocus bind:value={email}></textarea>
-        <Button text="eMail my projects" on:click={sendEmail} /> 
+        <button disabled=true on:click={sendEmail} >eMail my projects</button> 
         {:else if selected.localeCompare("spacer") === 0}
         spacer
         {:else}

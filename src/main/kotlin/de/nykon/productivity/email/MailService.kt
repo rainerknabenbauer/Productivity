@@ -11,10 +11,14 @@ class MailService(
     private val mailer: Mailer
 ) {
 
-    fun recoverProjects(email: String): List<Project> {
+    fun recovery(email: String): List<Project> {
         val linkedProjects = projectService.recoverProjects(email)
-        mailer.sendRecoveryEmail(email, linkedProjects)
+        sendRecoveryEmail(email, linkedProjects)
         return linkedProjects
+    }
+
+    fun sendRecoveryEmail(email: String, linkedProjects: List<Project>) {
+        return mailer.sendRecoveryEmail(email, linkedProjects)
     }
 
 }
