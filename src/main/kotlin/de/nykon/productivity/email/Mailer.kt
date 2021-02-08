@@ -33,7 +33,7 @@ class Mailer(
                         .replace("{{link}}", "https://productivity.to/${project.projectId}")
                         .replace("{{text}}", project.name)
                         .replace("{{unlock}}",
-                            " | <a href=\"https://productivity.to/projects/unlock/${project.unlockToken}\">Unlock project</a><br>")
+                            " | <a href=\"https://productivity.to:8443/projects/unlock/${project.unlockToken}\">Unlock project</a><br>")
                 } else {
                     getProjectLine()
                         .replace("{{link}}", "https://productivity.to/${project.projectId}")

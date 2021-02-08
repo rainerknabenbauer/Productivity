@@ -18,7 +18,9 @@ class MailService(
     }
 
     fun sendRecoveryEmail(email: String, linkedProjects: List<Project>) {
-        return mailer.sendRecoveryEmail(email, linkedProjects)
+        mailer.sendRecoveryEmail(email, linkedProjects)
     }
+
+
 
 }

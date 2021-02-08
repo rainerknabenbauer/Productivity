@@ -1,6 +1,4 @@
 <script>
-    import Button from './Button.svelte';
-
     let selected = "sendEmail";
     let email;
     const host = window.location.hostname;
@@ -11,14 +9,14 @@
 
     async function sendEmail() {
         if (!(email === undefined && email == "")) {
-            const response = await fetch("https://" + host + ":8443/projects/recovery/{token}", {
+            const response = await fetch("https://" + host + ":8443/email", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
                     'Media-Type': "MediaType.APPLICATION_JSON"
                 },
-                body: JSON.stringify(email)
+                body: email
             });
         } else {
             console.log("email undefined")
@@ -105,7 +103,7 @@
         {#if selected.localeCompare("sendEmail") === 0}
         <!-- svelte-ignore a11y-autofocus -->
         <textarea class="sendEmail textarea" autofocus bind:value={email}></textarea>
-        <button disabled=true on:click={sendEmail} >eMail my projects</button> 
+        <button on:click={sendEmail} >eMail my projects</button> 
         {:else if selected.localeCompare("spacer") === 0}
         spacer
         {:else}
