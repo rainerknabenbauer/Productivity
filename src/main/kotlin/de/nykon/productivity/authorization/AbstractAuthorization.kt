@@ -27,7 +27,7 @@ abstract class AbstractAuthorization(
 
         return if (project.isPresent) {
             if (project.get().isProtected) {
-                authorize(authorizationBase64).isPresent
+                authorize(authorizationBase64)
             } else {
                 true
             }
@@ -37,15 +37,14 @@ abstract class AbstractAuthorization(
         }
     }
 
-    private fun authorize(authorizationBase64: String): Optional<Session> {
+    private fun authorize(authorizationBase64: String): Boolean {
         val authorization = transform(authorizationBase64)
 
         if (authorization.isEmpty) {
-            return Optional.empty()
+            return false
         }
 
         return authorizationService.authorizeSession(authorization.get())
-
     }
 
     private fun transform(authorization: String): Optional<Session> {

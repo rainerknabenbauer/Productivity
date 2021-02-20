@@ -61,7 +61,13 @@
 	}
 
 	async function getTasks(session) {
-		console.log("getTasks() " + session)
+
+		if (session === undefined) {
+			console.log("getTasks: session undefined")
+		} else {
+			console.log("getTasks: session valid with " + session)
+		}
+
 		getUrlParams();
 		let result = [];
 		if (!(projectId === undefined || projectId === "")) {

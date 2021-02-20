@@ -1,7 +1,7 @@
 <script>
     import { createEventDispatcher, onMount } from "svelte";
     import Button from './Button.svelte';
-import Credentials from "./Credentials";
+    import Credentials from "./Credentials";
     import Session from './Session.js';
     const dispatch = createEventDispatcher();
 
@@ -36,7 +36,7 @@ import Credentials from "./Credentials";
             const session = new Session();
             session.projectId = project.projectId;
             session.token = token;
-            document.cookie = "token=" + session.token + ";path=/; max-age=31536000;SameSite=Lax"; 
+
             sessionRequest(session);
         } else {
             showPassword = true;
@@ -44,7 +44,10 @@ import Credentials from "./Credentials";
     }
 
     async function sessionRequest(session) {
-        let result = await fetch("https://" + host + ":8443/auth", {
+
+        console.log("Session Request: " + session)
+
+        let result = await fetch("https://" + host + ":8443/session", {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -55,7 +58,7 @@ import Credentials from "./Credentials";
         });
 
         if (result.ok) {
-            console.log("Authentication success")
+            console.log("Authentication success with " + session.token + " and " + session.projectId)
             successfulAuthentication(session);
         } else {
             console.log("Authentication failed")
@@ -113,7 +116,11 @@ import Credentials from "./Credentials";
 
         if (result.ok) {
             console.log("Authentication success")
-            successfulAuthentication(result.body);
+
+            let session = await result.json()
+            document.cookie = "token=" + session.token + ";path=/; max-age=31536000;SameSite=Lax"; 
+
+            successfulAuthentication(Session.from(session));
         } else {
             console.log("Authentication failed")
             showPassword = true;

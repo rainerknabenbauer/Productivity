@@ -41,7 +41,7 @@ class AuthorizationController(
             }
         }
 
-        log.info("requested authorization for ${credentials.projectId}")
+        log.info("Requested login for ${credentials.projectId}")
 
         val session = authorizationService.authorizePassword(credentials)
 
@@ -50,6 +50,39 @@ class AuthorizationController(
             ResponseEntity.ok().body(session.get())
         } else {
             log.warn("Unauthorized request received for project ${credentials.projectId}")
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null)
+        }
+    }
+
+    @GetMapping(path = ["/session"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    fun session(@RequestHeader("Authorization") authorizationBase64: String): ResponseEntity<Nothing> {
+
+        val session: Session
+
+        try {
+            session = Session.fromBase64(authorizationBase64)
+        } catch (ex: Exception) {
+            log.error(ex.message)
+            return when(ex) {
+                is FormattingException -> {
+                    ResponseEntity.badRequest().body(null)
+                }
+                is EncodingException -> {
+                    ResponseEntity.unprocessableEntity().body(null)
+                }
+                else -> throw ex
+            }
+        }
+
+        log.info("Requested session authorization for ${session.projectId}")
+
+        val verified = authorizationService.authorizeSession(session)
+
+        return if (verified) {
+            log.info("Successful session authorization for project ${session.projectId}")
+            ResponseEntity.ok().body(null)
+        } else {
+            log.warn("Unauthorized session request received for project ${session.projectId}")
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null)
         }
     }

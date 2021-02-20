@@ -6,6 +6,8 @@ import org.passay.CharacterData
 import org.passay.CharacterRule
 import org.passay.EnglishCharacterData
 import org.passay.PasswordGenerator
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -20,15 +22,17 @@ class AuthorizationService(
     private val passwordGenerator: PasswordGenerator
 ) {
 
-    fun authorizeSession(session: Session): Optional<Session> {
-        // find project session
+    private val log: Logger = LoggerFactory.getLogger(this::class.java)
+
+    fun authorizeSession(session: Session): Boolean {
         val project = sessionRepository.findById(session.projectId)
 
         if (project.isPresent) {
-            //TODO session validation
+            log.info("project is present == true")
+            return project.get().token == session.token
         }
-
-        return Optional.empty()
+        log.info("project not present == false with ID ${session.projectId}")
+        return false
     }
 
     fun authorizePassword(credentials: Credentials): Optional<Session> {
@@ -36,9 +40,6 @@ class AuthorizationService(
         val project = credentialsRepository.findById(credentials.projectId)
 
         if (project.isPresent) {
-            // encrypt password
-            val securedCredentials = encryptPassword(credentials)
-
             // compare hashes
             val valid = verifyHash(credentials, project)
 
