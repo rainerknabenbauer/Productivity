@@ -24,13 +24,12 @@ class ProjectController(
      * The recovery button in the UI gets clicked.
      */
     @PostMapping(path = ["/projects/recovery"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun sendEmail(@RequestBody projectId: String): ResponseEntity<String> {
+    fun sendRecoveryEmail(@RequestBody projectId: String): ResponseEntity<String> {
         log.info("recovery of $projectId")
 
         val recoveredProject = projectService.findById(projectId)
 
         return if (recoveredProject.isPresent) {
-
             projectService.save(recoveredProject.get().recover())
 
             val associatedProjects = mailService.recovery(recoveredProject.get().email)
@@ -43,8 +42,6 @@ class ProjectController(
 
     /**
      * The link in the recovery email gets clicked and unlocks the project.
-     *
-     * @param
      */
     @GetMapping(path = ["/projects/unlock/{token}"])
     fun unlock(@PathVariable token: String): ResponseEntity<String> {

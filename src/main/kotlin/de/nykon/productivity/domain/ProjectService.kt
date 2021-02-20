@@ -10,11 +10,11 @@ class ProjectService(
     private val projectRepository: ProjectRepository
 ) {
 
-    fun getProjects(): MutableList<Project> {
+    fun getProjects(): List<Project> {
         return projectRepository.findAll()
     }
 
-    fun save(projects: ArrayList<Project>) {
+    fun save(projects: List<Project>) {
         projects.forEach(projectRepository::save)
     }
 

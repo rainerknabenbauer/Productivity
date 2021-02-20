@@ -16,7 +16,7 @@ class TaskService(
         return taskRepository.findById(id)
     }
 
-    fun findAll(): MutableList<Task> {
+    fun findAll(): List<Task> {
         return taskRepository.findAll()
     }
 
