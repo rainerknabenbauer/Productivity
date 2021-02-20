@@ -19,8 +19,6 @@
         let credentials = new Credentials();
         credentials.projectId = project.projectId;
         credentials.password = password;
-
-        console.log("SetPassword = " + credentials)
         
 		let result = await fetch("https://" + host + ":8443/auth", {
             method: 'POST',
@@ -32,9 +30,8 @@
             body: JSON.stringify(credentials)
         });
 
-        console.log("SetPassword.returnedToken = " + JSON.stringify(result))
-
-        document.cookie = "token=" + result.token + ";path=/; max-age=31536000;SameSite=Lax"; 
+        let session = await result.json()
+        document.cookie = "token=" + session.token + ";path=/; max-age=31536000;SameSite=Lax"; 
 
         saveProject(project);
         showSetPassword();

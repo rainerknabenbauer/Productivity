@@ -1,5 +1,6 @@
 package de.nykon.productivity.authorization
 
+import org.passay.PasswordGenerator
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -12,6 +13,11 @@ class PasswordConfig {
     @Bean
     fun passwordEncoder(): PasswordEncoder? {
         return BCryptPasswordEncoder()
+    }
+
+    @Bean
+    fun passwordGenerator(): PasswordGenerator? {
+        return PasswordGenerator()
     }
 
 }

@@ -2,6 +2,10 @@ package de.nykon.productivity.authorization
 
 import de.nykon.productivity.authorization.value.Credentials
 import de.nykon.productivity.authorization.value.Session
+import org.passay.CharacterData
+import org.passay.CharacterRule
+import org.passay.EnglishCharacterData
+import org.passay.PasswordGenerator
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -12,7 +16,8 @@ import java.util.*
 class AuthorizationService(
     private val credentialsRepository: CredentialsRepository,
     private val sessionRepository: SessionRepository,
-    private val passwordEncoder: PasswordEncoder
+    private val passwordEncoder: PasswordEncoder,
+    private val passwordGenerator: PasswordGenerator
 ) {
 
     fun authorizeSession(session: Session): Optional<Session> {
@@ -71,10 +76,13 @@ class AuthorizationService(
     }
 
     private fun generateToken(): String {
+
+        val characterRule = CharacterRule(EnglishCharacterData.Alphabetical)
+
         val random = SecureRandom()
         val bytes = ByteArray(20)
         random.nextBytes(bytes)
-        return bytes.toString()
+        return passwordGenerator.generatePassword(20, characterRule)
     }
 
 }
