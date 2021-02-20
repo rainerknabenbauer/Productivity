@@ -1,6 +1,6 @@
 <script>
     import { createEventDispatcher, onMount } from "svelte";
-    import Authentication from './Authentication.js'
+    import Session from './Session.js'
 
     const dispatch = createEventDispatcher();
     export let task;
@@ -84,9 +84,9 @@
     async function updateTask() {
 
         let token = getCookieValue("token");
-        const authentication = new Authentication();
-        authentication.projectId = task.projectId;
-        authentication.token = token;
+        const session = new Session();
+        session.projectId = task.projectId;
+        session.token = token;
 
         const response = await fetch("https://" + host + ":8443/tasks", {
             method: "POST",
@@ -94,7 +94,7 @@
             headers: {
                 "Content-Type": "application/json",
                 "Media-Type": "MediaType.APPLICATION_JSON",
-                'Authorization': "Basic " + btoa(authentication)
+                'Authorization': "Basic " + btoa(session)
             },
             body: JSON.stringify(task),
         });

@@ -1,12 +1,14 @@
 <script>
     import { createEventDispatcher, onMount } from "svelte";
     import Button from './Button.svelte';
-    import Authentication from './Authentication';
+import Credentials from "./Credentials";
+    import Session from './Session.js';
     const dispatch = createEventDispatcher();
 
     export let project;
     export let host;
 
+    let password = "";
     let token = "";
     let button = "Unlock!";
     let showPassword = false;
@@ -23,38 +25,38 @@
         }
     })
 
-    function successfulAuthentication(authentication) {
+    function successfulAuthentication(session) {
         dispatch("authenticated", {
-            text: authentication,
+            text: session,
         });
     }
 
     function authenticate() {
         if (token != "") {
-            const authentication = new Authentication();
-            authentication.projectId = project.projectId;
-            authentication.token = token;
-            document.cookie = "token=" + authentication.token + ";path=/; max-age=31536000;SameSite=Lax"; 
-            authenticationRequest(authentication);
+            const session = new Session();
+            session.projectId = project.projectId;
+            session.token = token;
+            document.cookie = "token=" + session.token + ";path=/; max-age=31536000;SameSite=Lax"; 
+            sessionRequest(session);
         } else {
             showPassword = true;
         }
     }
 
-    async function authenticationRequest(authentication) {
+    async function sessionRequest(session) {
         let result = await fetch("https://" + host + ":8443/auth", {
             method: 'GET',
             mode: 'cors',
             headers: {
                 'Content-Type': "application/json",
                 'Media-Type': "MediaType.APPLICATION_JSON",
-                'Authorization': "Basic " + btoa(authentication)
+                'Authorization': "Basic " + btoa(session)
             }
         });
 
         if (result.ok) {
             console.log("Authentication success")
-            successfulAuthentication(authentication);
+            successfulAuthentication(session);
         } else {
             console.log("Authentication failed")
             showPassword = true;
@@ -90,6 +92,34 @@
         }
     }
 
+    async function login() {
+        const credentials = new Credentials();
+        credentials.projectId = project.projectId;
+        credentials.password = password;
+
+        loginRequest(credentials)
+    }
+
+    async function loginRequest(credentials) {
+        let result = await fetch("https://" + host + ":8443/auth", {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': "application/json",
+                'Media-Type': "MediaType.APPLICATION_JSON",
+                'Authorization': "Basic " + btoa(credentials)
+            }
+        });
+
+        if (result.ok) {
+            console.log("Authentication success")
+            successfulAuthentication(result.body);
+        } else {
+            console.log("Authentication failed")
+            showPassword = true;
+        }
+    }
+
 </script>
 
 <style>
@@ -118,8 +148,8 @@
     <div class="wrapper">
         <div class="passwordMessage">This project is locked.<br>Please provide your password.</div>
         <!-- svelte-ignore a11y-autofocus -->
-        <input class="textarea" type="password" autofocus bind:value={token} />
-        <br><Button text={button} on:click={authenticate} />
+        <input class="textarea" type="password" autofocus bind:value={password} />
+        <br><Button text={button} on:click={login} />
         <Button text="Send recovery eMail" on:click={recovery} />
     </div>
 {/if}

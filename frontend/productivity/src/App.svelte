@@ -55,13 +55,13 @@
 			reloadPage(newProject.projectId);
 	}
 
-	async function authenticated(authentication) {
-		tasksPromise = getTasks(authentication);
+	async function authenticated(session) {
+		tasksPromise = getTasks(session);
 		unauthenticated = false;
 	}
 
-	async function getTasks(authentication) {
-		console.log("getTasks() " + authentication)
+	async function getTasks(session) {
+		console.log("getTasks() " + session)
 		getUrlParams();
 		let result = [];
 		if (!(projectId === undefined || projectId === "")) {
@@ -71,7 +71,7 @@
             headers: {
                 'Content-Type': "application/json",
                 'Media-Type': "MediaType.APPLICATION_JSON",
-                'Authorization': "Basic " + btoa(authentication)
+                'Authorization': "Basic " + btoa(session)
             }
         }) 
 				.then((response) => response.json())

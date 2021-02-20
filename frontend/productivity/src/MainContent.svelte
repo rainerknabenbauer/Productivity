@@ -11,8 +11,7 @@
     import Trashbin from "./Trashbin.svelte";
     import NotImplementedView from "./NotImplementedView.svelte";
     import FirstSteps from "./FirstSteps.svelte";
-    import SetToken from './SetToken.svelte';
-import { text } from 'svelte/internal';
+    import SetPassword from './SetPassword.svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -116,7 +115,7 @@ import { text } from 'svelte/internal';
         isReminderVisible = !state;
     }
 
-    function showSetToken() {
+    function showSetPassword() {
         let state = isSetTokenVisible;
         closeAllViews();
         isSetTokenVisible = !state;
@@ -165,7 +164,7 @@ import { text } from 'svelte/internal';
     on:saveProject
     on:logout
     on:showPinboard={closeAllViews}
-    on:showSetToken={showSetToken}
+    on:showSetPassword={showSetPassword}
     />
 
     {#if isTaskDetailsVisible}
@@ -191,7 +190,7 @@ import { text } from 'svelte/internal';
     {/if}
 
     {#if isSetTokenVisible}
-    <SetToken bind:project={project} on:showSetToken={showSetToken} />
+    <SetPassword bind:project={project} on:showSetPassword={showSetPassword} />
     {/if}
 
     {#if isFAQvisible}

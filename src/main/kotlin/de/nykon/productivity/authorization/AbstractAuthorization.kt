@@ -1,6 +1,6 @@
 package de.nykon.productivity.authorization
 
-import de.nykon.productivity.authorization.value.Authorization
+import de.nykon.productivity.authorization.value.Session
 import de.nykon.productivity.domain.ProjectService
 import de.nykon.productivity.domain.value.Task
 import org.slf4j.Logger
@@ -37,21 +37,21 @@ abstract class AbstractAuthorization(
         }
     }
 
-    private fun authorize(authorizationBase64: String): Optional<Authorization> {
+    private fun authorize(authorizationBase64: String): Optional<Session> {
         val authorization = transform(authorizationBase64)
 
         if (authorization.isEmpty) {
             return Optional.empty()
         }
 
-        return authorizationService.authorization(authorization.get())
+        return authorizationService.authorizeSession(authorization.get())
 
     }
 
-    private fun transform(authorization: String): Optional<Authorization> {
+    private fun transform(authorization: String): Optional<Session> {
         log.info("authorization is $authorization")
         return try {
-            Optional.of(Authorization.fromBase64(authorization))
+            Optional.of(Session.fromBase64(authorization))
         } catch (ex: Exception) {
             log.error(ex.message)
             Optional.ofNullable(null)

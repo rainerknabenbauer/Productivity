@@ -23,13 +23,14 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation ("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("org.springframework.data:spring-data-mongodb")
+	implementation("org.springframework.security:spring-security-core:5.4.5")
 	implementation("javax.mail:mail:1.5.0-b01")
+	implementation("at.favre.lib:bcrypt:0.9.0")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.projectlombok:lombok")

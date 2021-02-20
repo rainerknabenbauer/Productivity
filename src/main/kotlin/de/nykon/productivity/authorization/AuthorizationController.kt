@@ -1,6 +1,7 @@
 package de.nykon.productivity.authorization
 
-import de.nykon.productivity.authorization.value.Authorization
+import de.nykon.productivity.authorization.value.Credentials
+import de.nykon.productivity.authorization.value.Session
 import de.nykon.productivity.domain.ProjectService
 import de.nykon.productivity.exceptions.FormattingException
 import org.slf4j.Logger
@@ -21,40 +22,43 @@ class AuthorizationController(
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping(path = ["/auth"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun authorization(@RequestHeader("Authorization") authorizationBase64: String): ResponseEntity<String> {
+    fun authorization(@RequestHeader("Authorization") authorizationBase64: String): ResponseEntity<Session> {
 
-        val authorization: Authorization
+        val credentials: Credentials
+
         try {
-            authorization = Authorization.fromBase64(authorizationBase64)
+            credentials = Credentials.fromBase64(authorizationBase64)
         } catch (ex: Exception) {
             log.error(ex.message)
             return when(ex) {
                 is FormattingException -> {
-                    ResponseEntity.badRequest().body(ex.message)
+                    ResponseEntity.badRequest().body(null)
                 }
                 is EncodingException -> {
-                    ResponseEntity.unprocessableEntity().body(ex.message)
+                    ResponseEntity.unprocessableEntity().body(null)
                 }
                 else -> throw ex
             }
         }
 
-        log.info("requested authorization with ${authorization.token} for ${authorization.projectId}")
+        log.info("requested authorization for ${credentials.projectId}")
 
-        val result = authorizationService.authorization(authorization)
+        val session = authorizationService.authorizePassword(credentials)
 
-        return if (result.isPresent) {
-            ResponseEntity.ok().body("Authorization successful")
+        return if (session.isPresent) {
+            log.info("Successful authorization for project ${credentials.projectId}")
+            ResponseEntity.ok().body(session.get())
         } else {
-            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authorization failed")
+            log.warn("Unauthorized request received for project ${credentials.projectId}")
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null)
         }
     }
 
     @PostMapping(path = ["/auth"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun setAuthorization(@RequestBody authorization: Authorization): ResponseEntity<Authorization> {
-        log.info("set authorization")
+    fun setAuthorization(@RequestBody credentials: Credentials): ResponseEntity<Session> {
+        log.info("set credentials for ${credentials.projectId}")
 
-        return ResponseEntity.ok(authorizationService.setAuthorization(authorization))
+        return ResponseEntity.ok(authorizationService.setCredentials(credentials))
     }
 
 }

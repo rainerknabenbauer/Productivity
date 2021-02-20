@@ -10,8 +10,8 @@
     dispatch("showReminder");
   }
 
-  function showSetToken() {
-    dispatch("showSetToken");
+  function showSetPassword() {
+    dispatch("showSetPassword");
   }
 
   function showFAQ() {
@@ -43,7 +43,7 @@
       project.isProtected = !project.isProtected;
       saveProject();
     } else {
-      showSetToken();
+      showSetPassword();
     }
   }
 

@@ -2,7 +2,7 @@
     import Button from './Button.svelte';
     import { createEventDispatcher, onMount } from 'svelte';
     import LinkTask from './LinkTask.svelte';
-    import Authentication from './Authentication.js'
+    import Session from './Session.js'
 
     export let project;
     export let tasks;
@@ -22,20 +22,20 @@
         selected = name;
     }
 
-    function refresh(authentication) {
+    function refresh(session) {
 		dispatch('refresh', {
-            text: authentication,
+            text: session,
         });
 	}
 
     async function addTask() {
 
         let token = getCookieValue("token");
-        const authentication = new Authentication();
-        authentication.projectId = project.projectId;
-        authentication.token = token;
+        const session = new Session();
+        session.projectId = project.projectId;
+        session.token = token;
 
-        console.log(authentication)
+        console.log(session)
 
         const response = await fetch("https://" + host + ":8443/tasks", {
             method: 'POST',
@@ -43,12 +43,12 @@
             headers: {
                 'Content-Type': "application/json",
                 'Media-Type': "MediaType.APPLICATION_JSON",
-                'Authorization': "Basic " + btoa(authentication)
+                'Authorization': "Basic " + btoa(session)
             },
             body: JSON.stringify(task)
         });
 
-        refresh(authentication);
+        refresh(session);
     }
 
     function getCookieValue(name) {

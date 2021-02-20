@@ -7,15 +7,15 @@ import org.springframework.data.mongodb.core.mapping.Document
 import java.util.*
 
 /**
- * Credentials for a protected project.
+ * Session details for a protected project.
  */
-@Document(collection = "credentials")
-data class Authorization(
+@Document(collection = "sessions")
+data class Session(
     @Id val projectId: String,
     val token: String
 ) {
     companion object {
-        fun fromBase64(authorization: String): Authorization {
+        fun fromBase64(authorization: String): Session {
 
             val base64Authorization: String
             try {
@@ -29,7 +29,7 @@ data class Authorization(
                 val decodedBytes = Base64.getDecoder().decode(base64Authorization)
                 val decodedString = String(decodedBytes).split(":")
 
-                return Authorization(decodedString[0], decodedString[1])
+                return Session(decodedString[0], decodedString[1])
             } catch (e: Exception) {
                 e.printStackTrace()
                 throw DecodingException("Authorization could not be decoded.")

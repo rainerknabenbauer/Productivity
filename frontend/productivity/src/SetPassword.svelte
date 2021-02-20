@@ -1,37 +1,43 @@
 <script>
     import { createEventDispatcher } from 'svelte';
-    import Authentication from './Authentication';
+    import Credentials from './Credentials.js';
 
     const dispatch = createEventDispatcher();
 
     export let project;
-    let token = "";
+    let password = "";
 
     const host = window.location.hostname;
 
-    function showSetToken() {
-        dispatch('showSetToken');
+    function showSetPassword() {
+        dispatch('showSetPassword');
 	}
 
-    function setToken() {
-        project.isProtected = !(token == "")
+    async function setPassword() {
+        project.isProtected = !(password == "")
 
-        document.cookie = "token=" + token + ";path=/; max-age=31536000;SameSite=Lax"; 
-        let authentication = new Authentication();
-        authentication.projectId = project.projectId;
-        authentication.token = token;
+        let credentials = new Credentials();
+        credentials.projectId = project.projectId;
+        credentials.password = password;
+
+        console.log("SetPassword = " + credentials)
         
-		fetch("https://" + host + ":8443/auth", {
+		let result = await fetch("https://" + host + ":8443/auth", {
             method: 'POST',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
                 'Media-Type': "MediaType.APPLICATION_JSON"
             },
-            body: JSON.stringify(authentication)
+            body: JSON.stringify(credentials)
         });
+
+        console.log("SetPassword.returnedToken = " + JSON.stringify(result))
+
+        document.cookie = "token=" + result.token + ";path=/; max-age=31536000;SameSite=Lax"; 
+
         saveProject(project);
-        showSetToken();
+        showSetPassword();
     }
     
     function saveProject(project) {
@@ -53,8 +59,8 @@
             Protect your project, set a password.
         </div>
         <!-- svelte-ignore a11y-autofocus -->
-        <textarea class="token" autofocus bind:value={token} />
-        <button on:click={setToken}>Set password</button>
+        <textarea class="token" autofocus bind:value={password} />
+        <button on:click={setPassword}>Set password</button>
     </div>
 </div>
 

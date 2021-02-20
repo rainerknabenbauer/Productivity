@@ -1,4 +1,4 @@
-class Authentication {
+class Session {
 	constructor() {
         this.projectId = undefined;
         this.token = undefined;
@@ -9,8 +9,8 @@ class Authentication {
 	  }
 
 	static from(json){
-		return Object.assign(new Authentication(), json);
+		return Object.assign(new Session(), json);
 	  }
 }
 
-export default Authentication;
+export default Session;
