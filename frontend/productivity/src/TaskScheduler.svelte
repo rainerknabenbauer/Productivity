@@ -79,7 +79,7 @@
         outline: none;
     }
     .days {
-        width: 21pt;
+        width: 23pt;
         height: 18pt;
     }
     .date {
@@ -106,11 +106,20 @@
 </style>
 
 <div class="wrapper">
-    <br>This task should be completed in <input class="input days" type="number" maxlength="2" bind:value={daysLeft} on:input={calculateDeadline} /> {#if daysLeft==1} day.{:else} days.{/if}
-    <br>This task should be completed until <input id="date" class="input date" type="text" maxlength="10" bind:value={deadline} on:input={calculateDaysLeft} on:focus={resetField} />
+    <br>This task should be completed in 
+        <input class="input days" type="number" maxlength="2" bind:value={daysLeft} on:input={calculateDeadline} /> 
+        {#if daysLeft==1} day.{:else} days.{/if}
+
+    <br>This task should be completed until 
+        <input id="date" class="input date" type="text" maxlength="10" bind:value={deadline} on:input={calculateDaysLeft} on:focus={resetField} />
     
-    <br><br>Remind me in <input class="input days" type="number" maxlength="2" bind:value={notifyInDays} on:input={calculateReminder} /> {#if notifyInDays==1} day.{:else} days.{/if}
-    <br>Remind me <input class="input days" type="number" maxlength="2" bind:value={notifyDaysBeforeDeadline} on:input={calculateDeadlineReminder} /> {#if notifyDaysBeforeDeadline==1} day {:else} days{/if} before deadline.
+    <br><br>Remind me in 
+        <input class="input days" type="number" maxlength="2" bind:value={notifyInDays} on:input={calculateReminder} /> 
+        {#if notifyInDays==1} day.{:else} days.{/if}
+
+    <br>Remind me 
+        <input class="input days" type="number" maxlength="2" bind:value={notifyDaysBeforeDeadline} on:input={calculateDeadlineReminder} /> 
+        {#if notifyDaysBeforeDeadline==1} day {:else} days{/if} before deadline.
 
     <br><br><br><br><span class="info">You will receive an eMail on the day specified.</span>
 </div>
