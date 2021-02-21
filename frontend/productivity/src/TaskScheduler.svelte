@@ -10,6 +10,11 @@
 
     onMount(async () => {
         deadline = new Date().toISOString().slice(0,10);
+
+        if (task.deadline != undefined) {
+            deadline = task.deadline;
+            calculateRelativeDays();
+        }
     })
 
     Date.prototype.addDays = function (days) {
@@ -24,6 +29,23 @@
         return date;
     }
 
+    function calculateRelativeDays() {
+        let partialDaysLeft; 
+
+        partialDaysLeft = (new Date(task.deadline).getTime() - new Date().getTime()) / (1000 * 3600 * 24);
+        daysLeft = Math.ceil(partialDaysLeft);
+        console.log("daysLeft: " + daysLeft)
+
+        partialDaysLeft = (new Date(task.notifyRelativeDate).getTime() - new Date().getTime()) / (1000 * 3600 * 24);
+        notifyInDays = Math.ceil(partialDaysLeft);
+        console.log("notifyInDays: " + notifyInDays)
+
+        partialDaysLeft = (new Date(task.deadline).getTime() - new Date(task.notifyDateBeforeDeadline).getTime()) / (1000 * 3600 * 24);
+        notifyDaysBeforeDeadline = Math.ceil(partialDaysLeft);
+        console.log("notifydaysbeforedaeline: " + notifyDaysBeforeDeadline)
+
+    }
+
     async function resetField() {
         let date = document.getElementById("date");
         date.style.color = null;
@@ -36,12 +58,11 @@
     }
 
     async function calculateReminder() {
-        console.log("notifyindays: " + notifyInDays)
-        task.notifyOn = new Date().addDays(notifyInDays).toISOString().slice(0,10);
+        task.notifyRelativeDate = new Date().addDays(notifyInDays).toISOString().slice(0,10);
     }
 
     async function calculateDeadlineReminder() {
-        task.notifyBeforeDeadlineOn = new Date(deadline).subtractDays(notifyDaysBeforeDeadline).toISOString().slice(0,10);
+        task.notifyDateBeforeDeadline = new Date(deadline).subtractDays(notifyDaysBeforeDeadline).toISOString().slice(0,10);
     }
 
 </script>

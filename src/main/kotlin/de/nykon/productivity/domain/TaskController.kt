@@ -12,6 +12,10 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+
+
 
 @RestController
 class TaskController(
@@ -57,7 +61,7 @@ class TaskController(
             Task(
                 id, null, isBeingWorkedOn = false, isDeleted = false,"updated task",
                 TaskDescription("", "", ""),
-                LocalDate.now(), 0, listOf(), ui
+                getSqlDate(LocalDate.now()), null, null,0, listOf(), ui
             )
         )
         return ResponseEntity.ok(savedTask)
@@ -75,6 +79,11 @@ class TaskController(
         } else {
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(task)
         }
+    }
+
+    private fun getSqlDate(localDate: LocalDate): String? {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        return localDate.format(formatter)
     }
 
 }

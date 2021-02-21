@@ -93,7 +93,7 @@ class ProjectController(
                     You can also use the 'X' in the upper right corner of the task to delete it.
                 """.trimIndent()
             ),
-            null, 0, emptyList(), UI(350, 200), LocalDateTime.now())
+            null, null, null,0, emptyList(), UI(350, 200), LocalDateTime.now())
         taskService.save(task)
         return ResponseEntity.ok(projectService.save(project))
     }
