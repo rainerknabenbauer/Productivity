@@ -4,11 +4,17 @@
     export let task;
 
     let daysLeft;
-    let deadline = "";
+    let deadline;
 
     onMount(async () => {
-        
+        deadline = new Date().toISOString().slice(0,10);
     })
+
+    Date.prototype.addDays = function (days) {
+        let date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    }
 
     async function resetField() {
         let date = document.getElementById("date");
@@ -17,14 +23,7 @@
     }
 
     async function calculateDeadline() {
-
-        Date.prototype.addDays = function (days) {
-            let date = new Date(this.valueOf());
-            date.setDate(date.getDate() + days);
-            return date;
-        }
-        let date = new Date();
-        deadline = date.addDays(daysLeft).toISOString().slice(0,10);
+        deadline = new Date().addDays(daysLeft).toISOString().slice(0,10);
     }
 
 </script>
