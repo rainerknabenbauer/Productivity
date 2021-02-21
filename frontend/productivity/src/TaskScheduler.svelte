@@ -32,29 +32,32 @@
     function calculateRelativeDays() {
         let partialDaysLeft; 
 
-        partialDaysLeft = (new Date(task.deadline).getTime() - new Date().getTime()) / (1000 * 3600 * 24);
-        daysLeft = Math.ceil(partialDaysLeft);
-        console.log("daysLeft: " + daysLeft)
+        calculateDaysLeft();
 
         partialDaysLeft = (new Date(task.notifyRelativeDate).getTime() - new Date().getTime()) / (1000 * 3600 * 24);
         notifyInDays = Math.ceil(partialDaysLeft);
-        console.log("notifyInDays: " + notifyInDays)
 
         partialDaysLeft = (new Date(task.deadline).getTime() - new Date(task.notifyDateBeforeDeadline).getTime()) / (1000 * 3600 * 24);
         notifyDaysBeforeDeadline = Math.ceil(partialDaysLeft);
-        console.log("notifydaysbeforedaeline: " + notifyDaysBeforeDeadline)
 
     }
 
     async function resetField() {
         let date = document.getElementById("date");
-        date.style.color = null;
-        deadline = "";
+        date.style.color = "black";
     }
 
     async function calculateDeadline() {
         deadline = new Date().addDays(daysLeft).toISOString().slice(0,10);
         task.deadline = deadline;
+    }
+
+    async function calculateDaysLeft() {
+        if (deadline.length == 10) {
+            let partialDaysLeft = (new Date(deadline).getTime() - new Date().getTime()) / (1000 * 3600 * 24);
+            daysLeft = Math.ceil(partialDaysLeft);
+            console.log("daysleft: "+daysLeft)
+        }
     }
 
     async function calculateReminder() {
@@ -84,6 +87,7 @@
         width: 70pt;
         height: 18pt;
         margin-left: 2px;
+        color: darkgrey;
     }
     .info {
         color: #9c9c9c;
@@ -104,7 +108,7 @@
 
 <div class="wrapper">
     <br>This task should be completed in <input class="input days" type="number" maxlength="2" bind:value={daysLeft} on:input={calculateDeadline} /> days.
-    <br>This task should be completed until <input id="date" class="input date" type="text" maxlength="10" bind:value={deadline} on:focus={resetField} />
+    <br>This task should be completed until <input id="date" class="input date" type="text" maxlength="10" bind:value={deadline} on:input={calculateDaysLeft} on:focus={resetField} />
     
     <br><br>Remind me in <input class="input days" type="number" maxlength="2" bind:value={notifyInDays} on:input={calculateReminder} /> days.
     <br>Remind me <input class="input days" type="number" maxlength="2" bind:value={notifyDaysBeforeDeadline} on:input={calculateDeadlineReminder} /> days before deadline.
