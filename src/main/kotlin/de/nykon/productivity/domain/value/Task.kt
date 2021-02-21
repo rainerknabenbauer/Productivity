@@ -18,7 +18,7 @@ data class Task(
     val isDeleted: Boolean = false,
     val title: String,
     val description: TaskDescription,
-    val endDate: LocalDate?,
+    val deadline: LocalDate?,
     val priority: Int,
     val parentTasks: List<String>?,
     val ui: UI,

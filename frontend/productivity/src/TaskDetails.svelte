@@ -36,8 +36,6 @@ import TaskScheduler from './TaskScheduler.svelte';
         session.projectId = project.projectId;
         session.token = token;
 
-        console.log(session)
-
         const response = await fetch("https://" + host + ":8443/tasks", {
             method: 'POST',
             mode: 'cors',
@@ -49,7 +47,25 @@ import TaskScheduler from './TaskScheduler.svelte';
             body: JSON.stringify(task)
         });
 
+        setNotifiers();
+
         refresh(session);
+    }
+
+    function setNotifiers() {
+
+        console.log(task)
+        console.log("date:" + task.deadline)
+
+        if (task.deadline != undefined) {
+            if (task.notifyInDays != undefined) {
+
+            }
+
+            if (task.notifyDaysBeforeDeadline != undefined) {
+
+            }
+        }
     }
 
     function getCookieValue(name) {
@@ -124,7 +140,7 @@ import TaskScheduler from './TaskScheduler.svelte';
         height: 100%;
         width: 100%;
         resize: none;
-        background: url(https://i.stack.imgur.com/ynxjD.png) repeat-y;
+        background-color: rgb(247, 247, 247);
     }
     .textarea:focus {
         outline: none;
@@ -174,7 +190,7 @@ import TaskScheduler from './TaskScheduler.svelte';
         <!-- svelte-ignore a11y-autofocus -->
         <textarea class="textarea" autofocus bind:value={task.description.additionalNotes}></textarea>
         {:else if selected.localeCompare("timePeriod") === 0}
-        <TaskScheduler />
+        <TaskScheduler bind:task={task} />
         {:else if selected.localeCompare("priority") === 0}
         <textarea class="textarea" disabled="true" bind:value={task.priority}></textarea>
         {:else if selected.localeCompare("parentTasks") === 0}

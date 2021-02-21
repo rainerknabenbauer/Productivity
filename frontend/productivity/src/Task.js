@@ -10,7 +10,9 @@ class Task {
 			longDescription: "",
 			additionalNotes: undefined
 		};
-        this.endDate = undefined;
+        this.deadline = undefined;
+		this.notifyInDays = undefined;
+		this.notifyDaysBeforeDeadline = undefined; 
         this.priority = 0;
         this.parentTasks = undefined;
 		this.ui = {

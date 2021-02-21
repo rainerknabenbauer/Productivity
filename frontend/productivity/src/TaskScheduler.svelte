@@ -1,26 +1,75 @@
 <script>
-    import Datepicker from 'svelte-calendar';
+    import { onMount } from 'svelte';
+
+    export let task;
+
+    let daysLeft;
+    let deadline = "";
+
+    onMount(async () => {
+        
+    })
+
+    async function resetField() {
+        let date = document.getElementById("date");
+        date.style.color = null;
+        deadline = "";
+    }
+
+    async function calculateDeadline() {
+
+        Date.prototype.addDays = function (days) {
+            let date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+        let date = new Date();
+        deadline = date.addDays(daysLeft).toISOString().slice(0,10);
+    }
+
 </script>
 
 <style>
     .wrapper {
+        height: 100%;
         margin: 3px;
         text-align: center;
     }
     .input {
+        outline: none;
+    }
+    .days {
         width: 21pt;
         height: 18pt;
-        outline: none;
+    }
+    .date {
+        width: 70pt;
+        height: 18pt;
+        margin-left: 2px;
     }
     .info {
         color: #9c9c9c;
     }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield; 
+    }
 </style>
 
 <div class="wrapper">
-    <br>This task should be completed until:
-    <br><br><Datepicker format={'#{d}.#{m}.#{Y}'} />
-    <br><br>Remind me in <input class="input" type="text" maxlength="2"/> days.
-    <br>Remind me <input class="input" type="text" maxlength="2"/> days before deadline.
-    <br><br><br><span class="info">You will receive an eMail on the day specified.</span>
+    <br>This task should be completed in <input class="input days" type="number" maxlength="2" bind:value={daysLeft} on:input={calculateDeadline} /> days.
+    <br>This task should be completed until <input id="date" class="input date" type="text" maxlength="10" bind:value={deadline} on:focus={resetField} />
+    
+    <br><br>Remind me in <input class="input days" type="text" maxlength="2" bind:value={task.notifyInDays} /> days.
+    <br>Remind me <input class="input days" type="text" maxlength="2" bind:value={task.notifyDaysBeforeDeadline} /> days before deadline.
+
+    <br><br><br><br><span class="info">You will receive an eMail on the day specified.</span>
 </div>
