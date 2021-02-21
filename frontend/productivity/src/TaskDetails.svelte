@@ -3,6 +3,7 @@
     import { createEventDispatcher, onMount } from 'svelte';
     import LinkTask from './LinkTask.svelte';
     import Session from './Session.js'
+import TaskScheduler from './TaskScheduler.svelte';
 
     export let project;
     export let tasks;
@@ -153,7 +154,7 @@
         <div class="sidenavelement" on:click={() => loadPage("shortDescription")}>Short description <div class="characters">{getLength(task.description.shortDescription)}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("longDescription")}>Long description <div class="characters">{getLength(task.description.longDescription)}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes <div class="characters">{task.description.additionalNotes === null ? "" : getLength(task.description.additionalNotes)}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Time period <div class="characters">x</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Deadline</div>
         <div class="sidenavelement" on:click={() => loadPage("priority")}>Priority <div class="characters">{task.priority}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("parentTasks")}>Link to task </div>
         <div class="sidenavelement save" on:click={addTask}>SAVE</div>
@@ -173,7 +174,7 @@
         <!-- svelte-ignore a11y-autofocus -->
         <textarea class="textarea" autofocus bind:value={task.description.additionalNotes}></textarea>
         {:else if selected.localeCompare("timePeriod") === 0}
-        [(1-24][h]<br>[_] weeks<br>...
+        <TaskScheduler />
         {:else if selected.localeCompare("priority") === 0}
         <textarea class="textarea" disabled="true" bind:value={task.priority}></textarea>
         {:else if selected.localeCompare("parentTasks") === 0}
