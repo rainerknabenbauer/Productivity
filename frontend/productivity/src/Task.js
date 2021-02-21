@@ -11,8 +11,8 @@ class Task {
 			additionalNotes: undefined
 		};
         this.deadline = undefined;
-		this.notifyInDays = undefined;
-		this.notifyDaysBeforeDeadline = undefined; 
+		this.notifyOn = undefined;
+		this.notifyBeforeDeadlineOn = undefined; 
         this.priority = 0;
         this.parentTasks = undefined;
 		this.ui = {

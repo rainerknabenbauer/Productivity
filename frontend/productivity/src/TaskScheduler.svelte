@@ -5,6 +5,8 @@
 
     let daysLeft;
     let deadline;
+    let notifyInDays;
+    let notifyDaysBeforeDeadline;
 
     onMount(async () => {
         deadline = new Date().toISOString().slice(0,10);
@@ -16,6 +18,12 @@
         return date;
     }
 
+    Date.prototype.subtractDays = function (days) {
+        let date = new Date(this.valueOf());
+        date.setDate(date.getDate() - days);
+        return date;
+    }
+
     async function resetField() {
         let date = document.getElementById("date");
         date.style.color = null;
@@ -24,6 +32,16 @@
 
     async function calculateDeadline() {
         deadline = new Date().addDays(daysLeft).toISOString().slice(0,10);
+        task.deadline = deadline;
+    }
+
+    async function calculateReminder() {
+        console.log("notifyindays: " + notifyInDays)
+        task.notifyOn = new Date().addDays(notifyInDays).toISOString().slice(0,10);
+    }
+
+    async function calculateDeadlineReminder() {
+        task.notifyBeforeDeadlineOn = new Date(deadline).subtractDays(notifyDaysBeforeDeadline).toISOString().slice(0,10);
     }
 
 </script>
@@ -67,8 +85,8 @@
     <br>This task should be completed in <input class="input days" type="number" maxlength="2" bind:value={daysLeft} on:input={calculateDeadline} /> days.
     <br>This task should be completed until <input id="date" class="input date" type="text" maxlength="10" bind:value={deadline} on:focus={resetField} />
     
-    <br><br>Remind me in <input class="input days" type="text" maxlength="2" bind:value={task.notifyInDays} /> days.
-    <br>Remind me <input class="input days" type="text" maxlength="2" bind:value={task.notifyDaysBeforeDeadline} /> days before deadline.
+    <br><br>Remind me in <input class="input days" type="number" maxlength="2" bind:value={notifyInDays} on:input={calculateReminder} /> days.
+    <br>Remind me <input class="input days" type="number" maxlength="2" bind:value={notifyDaysBeforeDeadline} on:input={calculateDeadlineReminder} /> days before deadline.
 
     <br><br><br><br><span class="info">You will receive an eMail on the day specified.</span>
 </div>
