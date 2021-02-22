@@ -47,25 +47,7 @@
             body: JSON.stringify(task)
         });
 
-        setNotifiers();
-
         refresh(session);
-    }
-
-    function setNotifiers() {
-
-        console.log(task)
-        console.log("date:" + task.deadline)
-
-        if (task.deadline != undefined) {
-            if (task.notifyInDays != undefined) {
-
-            }
-
-            if (task.notifyDaysBeforeDeadline != undefined) {
-
-            }
-        }
     }
 
     function getCookieValue(name) {
@@ -170,7 +152,7 @@
         <div class="sidenavelement" on:click={() => loadPage("shortDescription")}>Short description <div class="characters">{getLength(task.description.shortDescription)}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("longDescription")}>Long description <div class="characters">{getLength(task.description.longDescription)}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes <div class="characters">{task.description.additionalNotes === null ? "" : getLength(task.description.additionalNotes)}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Deadline</div>
+        <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Deadline {#if task.deadline !== null}<div class="characters"><i class="fa fa-check" /></div>{/if}</div>
         <div class="sidenavelement" on:click={() => loadPage("priority")}>Priority <div class="characters">{task.priority}</div></div>
         <div class="sidenavelement" on:click={() => loadPage("parentTasks")}>Link to task </div>
         <div class="sidenavelement save" on:click={addTask}>SAVE</div>
