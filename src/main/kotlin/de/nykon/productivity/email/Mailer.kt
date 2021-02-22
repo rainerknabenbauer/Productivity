@@ -1,6 +1,7 @@
 package de.nykon.productivity.email
 
 import de.nykon.productivity.domain.value.Project
+import de.nykon.productivity.domain.value.Task
 import org.springframework.stereotype.Component
 import java.util.*
 import javax.mail.Authenticator
@@ -18,38 +19,50 @@ import javax.mail.internet.MimeMessage
 class Mailer(
     private val config: MailConfig) {
 
-    private val URI: String = "sirsmokealot.de"
+    private val FRONTEND: String = "https://productivity.to/"
+    private val BACKEND: String = "https://productivity.to:8443/"
 
     /**
-     * Sends a recovery eMail to the user containing all linked projects.
+     * Creates an eMail reminder for a deadline of a task.
      */
-    fun sendRecoveryEmail(recipient: String, projects: List<Project>) {
+    fun createDeadlineEmail(task: Task): String {
+
+        return this::class.java.getResource("/deadline_email.html")
+            .readText(Charsets.UTF_8)
+            .replace("{{TASK_TITLE}}", task.title)
+            .replace("{{FRONTEND}}", FRONTEND)
+            .replace("{{PROJECT_ID}}", task.projectId!!)
+    }
+
+    /**
+     * Creates a recovery eMail to the user containing all linked projects.
+     */
+    fun createRecoveryEmail(projects: List<Project>): String {
 
         var projectLinks = ""
         projects.forEach { project ->
             run {
                 projectLinks += if (Objects.nonNull(project.unlockToken)) {
                     getProjectLine()
-                        .replace("{{link}}", "https://productivity.to/?id=${project.projectId}")
+                        .replace("{{link}}", "${FRONTEND}?id=${project.projectId}")
                         .replace("{{text}}", project.name)
                         .replace("{{unlock}}",
-                            " | <a href=\"https://productivity.to:8443/projects/unlock/${project.unlockToken}\">Unlock project</a><br>")
+                            " | <a href=\"${BACKEND}projects/unlock/${project.unlockToken}\">Unlock project</a><br>")
                 } else {
                     getProjectLine()
-                        .replace("{{link}}", "https://productivity.to/?id=${project.projectId}")
+                        .replace("{{link}}", "${FRONTEND}?id=${project.projectId}")
                         .replace("{{text}}", project.name)
                         .replace("{{unlock}}", "<br>")
                 }
             }
         }
 
-        val message = this::class.java.getResource("/recovery_mail.html").readText(Charsets.UTF_8)
+        return this::class.java.getResource("/recovery_mail.html")
+            .readText(Charsets.UTF_8)
             .replace("{{PROJECTS}}", projectLinks)
-
-        send(recipient, message)
     }
 
-    private fun send(recipient: String, message: String) {
+    fun send(recipient: String, message: String) {
         val props = Properties()
         props["mail.smtp.auth"] = "true"
         //props["mail.smtp.starttls.enable"] = config.starttls
@@ -62,7 +75,7 @@ class Mailer(
             }
         })
         val msg: Message = MimeMessage(session)
-        msg.setFrom(InternetAddress("recovery@$URI", false))
+        msg.setFrom(InternetAddress("recovery@sirsmokealot.de", false))
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient))
         msg.subject = "Recover your PRODUCTIVITY projects"

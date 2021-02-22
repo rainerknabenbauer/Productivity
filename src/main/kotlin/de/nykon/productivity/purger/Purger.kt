@@ -3,6 +3,9 @@ package de.nykon.productivity.purger
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
+/**
+ * Cleans the database. Removes obsolete projects and tasks.
+ */
 @Component
 class Purger(private val purgeService: PurgeService) {
 

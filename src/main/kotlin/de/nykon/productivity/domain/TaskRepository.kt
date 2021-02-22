@@ -9,5 +9,8 @@ interface TaskRepository : MongoRepository<Task, String> {
 
     fun findByProjectId(projectId: String): List<Task>
 
+    fun findByNotifyRelativeDate(sqlDate: String): List<Task>
+    fun findByNotifyDateBeforeDeadline(sqlDate: String): List<Task>
+
 
 }

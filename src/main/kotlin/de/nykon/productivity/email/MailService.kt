@@ -2,6 +2,7 @@ package de.nykon.productivity.email
 
 import de.nykon.productivity.domain.ProjectService
 import de.nykon.productivity.domain.value.Project
+import de.nykon.productivity.domain.value.Task
 import org.springframework.stereotype.Service
 
 
@@ -18,7 +19,13 @@ class MailService(
     }
 
     fun sendRecoveryEmail(email: String, linkedProjects: List<Project>) {
-        mailer.sendRecoveryEmail(email, linkedProjects)
+        val message = mailer.createRecoveryEmail(linkedProjects)
+        mailer.send(email, message)
+    }
+
+    fun sendDeadlineReminder(email: String, task: Task) {
+        val message = mailer.createDeadlineEmail(task)
+        mailer.send(email, message)
     }
 
 
