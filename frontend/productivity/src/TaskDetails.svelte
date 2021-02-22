@@ -148,12 +148,12 @@
 
 <div class="containers w3-light-grey">
     <div class="sidenav">
-        <div class="sidenavelement" on:click={() => loadPage("title")}>Titel <div class="characters">{getLength(task.title)}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("shortDescription")}>Short description <div class="characters">{getLength(task.description.shortDescription)}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("longDescription")}>Long description <div class="characters">{getLength(task.description.longDescription)}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes <div class="characters">{task.description.additionalNotes === null ? "" : getLength(task.description.additionalNotes)}</div></div>
-        <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Deadline {#if task.deadline !== null}<div class="characters"><i class="fa fa-check" /></div>{/if}</div>
-        <div class="sidenavelement" on:click={() => loadPage("priority")}>Priority <div class="characters">{task.priority}</div></div>
+        <div class="sidenavelement" on:click={() => loadPage("title")}>Titel {#if task.title !== ""}<div class="characters">{getLength(task.title)}</div>{/if}</div>
+        <div class="sidenavelement" on:click={() => loadPage("shortDescription")}>Short description {#if task.description.shortDescription !== ""}<div class="characters">{getLength(task.description.shortDescription)}</div>{/if}</div>
+        <div class="sidenavelement" on:click={() => loadPage("longDescription")}>Long description {#if task.description.longDescription !== ""}<div class="characters">{getLength(task.description.longDescription)}</div>{/if}</div>
+        <div class="sidenavelement" on:click={() => loadPage("additionalNotes")}>Additional notes {#if task.description.additionalNotes !== null && task.description.additionalNotes !== undefined}<div class="characters">{getLength(task.description.additionalNotes)}</div>{/if}</div>
+        <div class="sidenavelement" on:click={() => loadPage("timePeriod")}>Deadline {#if task.deadline !== null && task.deadline !== undefined}<div class="characters"><i class="fa fa-check" /></div>{/if}</div>
+        <div class="sidenavelement" on:click={() => loadPage("priority")}>Priority {#if task.priority !== 0}<div class="characters">{task.priority}</div>{/if}</div>
         <div class="sidenavelement" on:click={() => loadPage("parentTasks")}>Link to task </div>
         <div class="sidenavelement save" on:click={addTask}>SAVE</div>
     </div>
