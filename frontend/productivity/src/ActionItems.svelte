@@ -66,6 +66,10 @@
   function showTaskDetails() {
     dispatch("showTaskDetails");
   }
+
+  function repositionFocus() {
+    dispatch('repositionFocus');
+  }
 </script>
 
 {#if !(project.name == undefined)}
@@ -116,6 +120,11 @@
       <i class="fa fa-bell" />
       <span class="tooltiptext">eMail set <i class="fa fa-check" /></span>
       {/if}
+    </div>
+
+    <div class="actionItems tooltip">
+      <i class="fa fa-code-fork" on:click={repositionFocus}/>
+      <span class="tooltiptext">Customize focus</span>
     </div>
 
     <div class="actionItems tooltip">

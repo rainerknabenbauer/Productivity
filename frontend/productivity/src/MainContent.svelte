@@ -20,7 +20,6 @@
 
     let task;
 
-    let isLocked = true;
     let isTaskDetailsVisible = false;
     let isReminderVisible = false;
     let isFAQvisible = false;
@@ -28,6 +27,7 @@
     let isHistoryVisible = false;
     let isFirstStepsVisible = false;
     let isSetTokenVisible = false;
+    let focusFollowsMouse = false;
 
 
     onMount(async () => {
@@ -44,6 +44,14 @@
             if (!task.isDeleted) {
                 context.beginPath();
 
+                let focusX = window.outerWidth / 2;
+                let focusY = window.outerHeight / 2;
+
+                if (project.ui.xposition != 0 && project.ui.yposition != 0) {
+                    focusX = project.ui.xposition;
+                    focusY = project.ui.yposition;
+                }
+
                 if (task.parentTasks != null && task.parentTasks.length > 0) {
 
                     task.parentTasks.forEach(parent => {
@@ -52,10 +60,12 @@
                         for (const connection of connections) {
                             
                             if (connection.isDeleted) {
+
                                 context.moveTo(
-                                window.outerWidth / 2,
-                                window.outerHeight / 2 - wrapper.offsetTop,
-                                0);
+                                    focusX,
+                                    focusY - wrapper.offsetTop,
+                                    0
+                                );
                             } else {
                                 context.moveTo(
                                     connection.ui.xposition - wrapper.offsetLeft + 175,
@@ -75,8 +85,8 @@
                     });
                 } else {
                     context.moveTo(
-                        window.outerWidth / 2,
-                        window.outerHeight / 2 - wrapper.offsetTop,
+                        focusX,
+                        focusY - wrapper.offsetTop,
                         0
                     );
 
@@ -145,12 +155,42 @@
         isFirstStepsVisible = !state;
     }
 
+    function repositionFocus() {
+        focusFollowsMouse = !focusFollowsMouse;
+    }
+
     async function addTask(authentication) {
 		dispatch("saveTask", {
             text: authentication,
         });
 		isTaskDetailsVisible = !isTaskDetailsVisible;
 	}
+
+    function canvasReady() {
+        drawLines();
+
+        var wrapper = document.getElementById("canvas-wrapper");
+        
+        // Set focus point
+        wrapper.addEventListener("click", (event) => {
+            if (focusFollowsMouse) {
+                focusFollowsMouse = false;
+                dispatch('saveProject', {
+			        text: JSON.stringify(project)
+		        });
+            }
+        });
+
+        // Calculate position of focus point
+        wrapper.addEventListener("mousemove", (event) => {
+            if (focusFollowsMouse) {
+                project.ui.xposition = event.clientX;
+                project.ui.yposition = event.clientY;
+                drawLines();
+            }
+        });
+    }
+
 </script>
 
     <ActionItems
@@ -165,6 +205,7 @@
     on:logout
     on:showPinboard={closeAllViews}
     on:showSetPassword={showSetPassword}
+    on:repositionFocus={repositionFocus}
     />
 
     {#if isTaskDetailsVisible}
@@ -212,7 +253,7 @@
     <FirstSteps />
     {/if}
 
-    <Canvas on:canvasReady={drawLines} />
+    <Canvas on:canvasReady={canvasReady} />
 
     <QRcode />
 

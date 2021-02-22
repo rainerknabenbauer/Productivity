@@ -16,8 +16,6 @@
         const session = new Session();
         session.projectId = task.projectId;
         session.token = token;
-
-        console.log(session)
         
         const response = await fetch("https://" + host + ":8443/tasks", {
             method: 'POST',

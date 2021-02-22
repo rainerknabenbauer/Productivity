@@ -16,8 +16,9 @@ data class Project(
     val description: String? = null,
     @Indexed val email: String = "",
     val isProtected : Boolean = false,
+    val ui: UI = UI(0,0),
     val unlockToken: String? = null,
-    val createTime: LocalDateTime = LocalDateTime.now()
+    val createTime: LocalDateTime = LocalDateTime.now(),
 ) {
 
     fun recover(): Project {
@@ -27,6 +28,7 @@ data class Project(
             this.description,
             this.email,
             true,
+            UI(0,0),
             UUID.randomUUID().toString(),
             this.createTime
         )
@@ -39,6 +41,7 @@ data class Project(
             this.description,
             this.email,
             false,
+            UI(0,0),
             null,
             this.createTime
         )

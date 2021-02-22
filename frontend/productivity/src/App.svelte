@@ -61,13 +61,6 @@
 	}
 
 	async function getTasks(session) {
-
-		if (session === undefined) {
-			console.log("getTasks: session undefined")
-		} else {
-			console.log("getTasks: session valid with " + session)
-		}
-
 		getUrlParams();
 		let result = [];
 		if (!(projectId === undefined || projectId === "")) {
@@ -120,8 +113,8 @@
 				<MainContent
 					{project}
 					{tasks}
-					on:saveProject={(event) => saveProject(event.detail.text)}
-					on:undoDelete={(event) => reloadPage(event.detail.text)}
+					on:saveProject={event => saveProject(event.detail.text)}
+					on:undoDelete={event => reloadPage(event.detail.text)}
 					on:saveTask={event => tasksPromise = getTasks(event.detail.text)}
 					on:logout={logout}
 				/>

@@ -5,6 +5,10 @@ class Project {
         this.description = undefined;
         this.email = undefined;
         this.isProtected = false;
+        this.ui = {
+          xposition: 0,
+          yposition: 0
+        };
     }
 
 	static from(json){

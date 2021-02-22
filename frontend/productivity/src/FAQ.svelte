@@ -18,8 +18,6 @@
                 },
                 body: email
             });
-        } else {
-            console.log("email undefined")
         }
     }
 </script>

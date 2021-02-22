@@ -45,8 +45,6 @@
 
     async function sessionRequest(session) {
 
-        console.log("Session Request: " + session)
-
         let result = await fetch("https://" + host + ":8443/session", {
             method: 'GET',
             mode: 'cors',
@@ -90,8 +88,6 @@
                 },
                 body: project.projectId
             });
-        } else {
-            console.log("email undefined")
         }
     }
 
