@@ -27,14 +27,14 @@
     border-style: solid;
     border-width: 1px;
     border-color: lightslategray;
-    width: 50%;
+    width: 60%;
     right: 8px;
     box-shadow: 0 3px 5px 0 rgba(0,0,0,.1);
 }
 
 .sidenav {
   height: 315px;
-  width: 55%;
+  width: 65%;
   position: relative;
   top: 0;
   left: 0;
@@ -124,6 +124,10 @@
             <div class="sidenavelement description" on:click={() => loadPage("link")}>Visualize a link</div>
         </div>
         <div class="navigationWrapper">
+            <div class="sidenavelement topic task" on:click={() => loadPage("linkMultiple")}>Task</div>
+            <div class="sidenavelement description" on:click={() => loadPage("linkMultiple")}>Visualize multiple links</div>
+        </div>
+        <div class="navigationWrapper">
             <div class="sidenavelement topic project" on:click={() => loadPage("protect")}>Project</div>
             <div class="sidenavelement description" on:click={() => loadPage("protect")}>Make it private</div>
         </div>
@@ -155,6 +159,8 @@
         <iframe src="https://player.vimeo.com/video/503038887" class="video" title="Delete and recover a task" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         {:else if selected.localeCompare("link") === 0}
         <iframe src="https://player.vimeo.com/video/504803215" class="video" title="Create a link" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        {:else if selected.localeCompare("linkMultiple") === 0}
+        <iframe src="https://player.vimeo.com/video/515413595" class="video" title="Create multiple links" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         {:else if selected.localeCompare("protect") === 0}
         <iframe src="https://player.vimeo.com/video/505820837" class="video" title="Protect a project" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         {:else if selected.localeCompare("focusPoint") === 0}
@@ -165,6 +171,3 @@
 
     </div>
 </div>
-
-
-
