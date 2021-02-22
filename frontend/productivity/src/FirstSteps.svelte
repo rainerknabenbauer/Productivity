@@ -128,6 +128,10 @@
             <div class="sidenavelement description" on:click={() => loadPage("protect")}>Make it private</div>
         </div>
         <div class="navigationWrapper">
+            <div class="sidenavelement topic project" on:click={() => loadPage("focusPoint")}>Project</div>
+            <div class="sidenavelement description" on:click={() => loadPage("focusPoint")}>Customize focus</div>
+        </div>
+        <div class="navigationWrapper">
             <div class="sidenavelement topic project" on:click={() => loadPage("spacer")}>tbd</div>
             <div class="sidenavelement description" on:click={() => loadPage("spacer")}>tbd</div>
         </div>
@@ -153,6 +157,8 @@
         <iframe src="https://player.vimeo.com/video/504803215" class="video" title="Create a link" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         {:else if selected.localeCompare("protect") === 0}
         <iframe src="https://player.vimeo.com/video/505820837" class="video" title="Protect a project" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        {:else if selected.localeCompare("focusPoint") === 0}
+        <iframe src="https://player.vimeo.com/video/515396404" class="video" title="Customize focus point" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         {:else}
         <div class="">nothing specified yet</div> 
         {/if}
