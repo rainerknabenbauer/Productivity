@@ -1,21 +1,23 @@
 <script>
+import { onMount } from "svelte";
+
+
     export let tasks;
     export let task;
 
     let search;
     let suggestions = [];
-    let selection = []
+    let selection = [];
+
+    onMount(async () => {
+        suggestions = tasks.filter(task => !task.isDeleted)
+    })
 
     function createSuggestion() {
         suggestions = tasks.filter(task => 
             task.title.toLowerCase().includes(search.toLowerCase()) &&
             !task.isDeleted
         )
-        console.log(suggestions)
-    }
-
-    function saveTask() {
-        task.parentTasks = selection;
     }
 </script>
 
