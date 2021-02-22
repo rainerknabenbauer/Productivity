@@ -94,7 +94,7 @@
 
     <div class="actionItems tooltip" on:click={showTrashbin}>
       <i class="fa fa-trash" />
-      <span class="tooltiptext">Undo</span>
+      <span class="tooltiptext">Archive</span>
     </div>
 
     <div class="actionItems tooltip" on:click={showFirstSteps}>
