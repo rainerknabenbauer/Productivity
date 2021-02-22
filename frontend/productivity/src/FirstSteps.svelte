@@ -117,7 +117,7 @@
         </div>
         <div class="navigationWrapper" on:click={() => loadPage("deleteAndRecover")}>
             <div class="sidenavelement topic task">Task</div>
-            <div class="sidenavelement description">Delete and recover</div>
+            <div class="sidenavelement description">Recover from trash bin</div>
         </div>
         <div class="navigationWrapper">
             <div class="sidenavelement topic task" on:click={() => loadPage("link")}>Task</div>

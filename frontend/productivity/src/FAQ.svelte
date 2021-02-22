@@ -1,7 +1,15 @@
 <script>
+    import { createEventDispatcher, onMount } from 'svelte';
+
+    export let project;
+
     let selected = "sendEmail";
     let email;
     const host = window.location.hostname;
+
+    onMount(async () => {
+        if (project.email != "") email = project.email
+    })
 
     function loadPage(name) {
         selected = name;

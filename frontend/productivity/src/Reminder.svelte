@@ -1,11 +1,15 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher, onMount } from 'svelte';
     const dispatch = createEventDispatcher();
 
     export let project;
 
     const host = window.location.hostname;
     let email = "";
+
+    onMount(async () => {
+        if (project.email != "") email = project.email
+    })
 
     function showReminder() {
         dispatch('showReminder');
