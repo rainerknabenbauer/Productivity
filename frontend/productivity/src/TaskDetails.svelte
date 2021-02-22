@@ -4,6 +4,7 @@
     import LinkTask from './LinkTask.svelte';
     import Session from './Session.js'
     import TaskScheduler from './TaskScheduler.svelte';
+import Priority from './Priority.svelte';
 
     export let project;
     export let tasks;
@@ -174,7 +175,7 @@
         {:else if selected.localeCompare("timePeriod") === 0}
         <TaskScheduler bind:project={project} bind:task={task} on:showReminder />
         {:else if selected.localeCompare("priority") === 0}
-        <textarea class="textarea" disabled="true" bind:value={task.priority}></textarea>
+        <Priority />
         {:else if selected.localeCompare("parentTasks") === 0}
         <LinkTask {tasks} {task} />
         {:else}
