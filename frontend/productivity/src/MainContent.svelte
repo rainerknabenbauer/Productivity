@@ -172,7 +172,8 @@
         var wrapper = document.getElementById("canvas-wrapper");
         
         // Set focus point
-        wrapper.addEventListener("click", (event) => {
+        wrapper.addEventListener("click", event => {
+            closeAllViews();
             if (focusFollowsMouse) {
                 focusFollowsMouse = false;
                 dispatch('saveProject', {
@@ -182,7 +183,7 @@
         });
 
         // Calculate position of focus point
-        wrapper.addEventListener("mousemove", (event) => {
+        wrapper.addEventListener("mousemove", event => {
             if (focusFollowsMouse) {
                 project.ui.xposition = event.clientX;
                 project.ui.yposition = event.clientY;
