@@ -1,9 +1,6 @@
 package de.nykon.productivity.domain
 
-import de.nykon.productivity.domain.value.Project
 import de.nykon.productivity.domain.value.Task
-import org.springframework.data.domain.Example
-import org.springframework.data.domain.ExampleMatcher
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -31,7 +28,6 @@ class TaskService(
     }
 
     fun getAllDueTodayTasks(): List<Task> {
-
         val date = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd")
         val sqlDate = formatter.format(date)

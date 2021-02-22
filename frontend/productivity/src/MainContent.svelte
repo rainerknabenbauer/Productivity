@@ -168,7 +168,10 @@
     />
 
     {#if isTaskDetailsVisible}
-    <TaskDetails {project} {tasks} {task} on:refresh={event => addTask(event.detail.text)} />
+    <TaskDetails {project} {tasks} {task} 
+    on:refresh={event => addTask(event.detail.text)} 
+    on:showReminder={showReminder}
+    />
     {/if}
 
     {#each tasks as task (task.id)}

@@ -3,7 +3,7 @@
     import { createEventDispatcher, onMount } from 'svelte';
     import LinkTask from './LinkTask.svelte';
     import Session from './Session.js'
-import TaskScheduler from './TaskScheduler.svelte';
+    import TaskScheduler from './TaskScheduler.svelte';
 
     export let project;
     export let tasks;
@@ -190,7 +190,7 @@ import TaskScheduler from './TaskScheduler.svelte';
         <!-- svelte-ignore a11y-autofocus -->
         <textarea class="textarea" autofocus bind:value={task.description.additionalNotes}></textarea>
         {:else if selected.localeCompare("timePeriod") === 0}
-        <TaskScheduler bind:task={task} />
+        <TaskScheduler bind:project={project} bind:task={task} on:showReminder />
         {:else if selected.localeCompare("priority") === 0}
         <textarea class="textarea" disabled="true" bind:value={task.priority}></textarea>
         {:else if selected.localeCompare("parentTasks") === 0}

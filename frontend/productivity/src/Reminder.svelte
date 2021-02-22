@@ -1,20 +1,22 @@
 <script>
     import { createEventDispatcher } from 'svelte';
-
     const dispatch = createEventDispatcher();
 
     export let project;
 
     const host = window.location.hostname;
+    let email = "";
 
     function showReminder() {
         dispatch('showReminder');
 	}
 
     function bindEmail() {
-        if (project.email == "") {
+        if (email == "") {
             project.isProtected = false;
         }
+
+        project.email = email;
         
 		fetch("https://" + host + ":8443/projects/", {
             method: 'POST',
@@ -38,7 +40,7 @@
             Never again lose your notes because you forgot the link.
         </div>
         <!-- svelte-ignore a11y-autofocus -->
-        <textarea class="email" autofocus bind:value={project.email} />
+        <textarea class="email" autofocus bind:value={email} />
         <button on:click={bindEmail} >Set reminder</button>
     </div>
 </div>

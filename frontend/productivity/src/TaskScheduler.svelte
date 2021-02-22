@@ -1,7 +1,10 @@
 <script>
     import { onMount } from 'svelte';
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
 
     export let task;
+    export let project;
 
     let daysLeft;
     let deadline;
@@ -67,6 +70,10 @@
         task.notifyDateBeforeDeadline = new Date(deadline).subtractDays(notifyDaysBeforeDeadline).toISOString().slice(0,10);
     }
 
+    function showReminder() {
+        dispatch("showReminder");
+    }
+
 </script>
 
 <style>
@@ -121,5 +128,10 @@
         <input class="input days" type="number" maxlength="2" bind:value={notifyDaysBeforeDeadline} on:input={calculateDeadlineReminder} /> 
         {#if notifyDaysBeforeDeadline==1} day {:else} days{/if} before deadline.
 
-    <br><br><br><br><span class="info">You will receive an eMail on the day specified.</span>
+    <br><br><br><br>
+    {#if project.email !== undefined && project.email !== ""}
+    <span class="info" on:click={showReminder}><i class="fa fa-check" /> eMail is set</span>
+    {:else}
+    <span class="info" on:click={showReminder}>Click here to enable eMail</span>
+    {/if}
 </div>
