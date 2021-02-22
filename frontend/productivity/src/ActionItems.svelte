@@ -104,7 +104,7 @@
       <span class="tooltiptext">Protected <i class="fa fa-check" /></span>
       {:else}
       <i class="fa fa-unlock" />
-      <span class="tooltiptext">Enable protection</span>
+      <span class="tooltiptext">Set password</span>
       {/if}
     </div>
 
