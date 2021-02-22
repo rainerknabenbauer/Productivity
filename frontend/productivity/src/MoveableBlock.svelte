@@ -211,11 +211,11 @@
         min-width: 25px;
         color: white;
         text-align: center;
+        cursor: default;
     }
 
     .options:hover {
         color: darkgrey;
-        cursor: default;
     }
 
     .title {
