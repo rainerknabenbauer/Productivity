@@ -95,6 +95,7 @@
     }
     .content {
         width: 100%;
+        margin: 3px;
     }
 </style>
 
@@ -107,6 +108,7 @@
     
     <div class="content">
         {#if selected.localeCompare("sendEmail") === 0}
+        Receive all your projects by mail.
         <!-- svelte-ignore a11y-autofocus -->
         <textarea class="sendEmail textarea" autofocus bind:value={email}></textarea>
         <button on:click={sendEmail} >eMail my projects</button> 
