@@ -14,12 +14,12 @@ Check out the live product at [productivity.to](https://productivity.to/)
 * Clean interface
 * Rearrange your tasks with joy 
 * Chain tasks where needed
-* Visualize dependencies within projects
-* Automatically notifies you of upcoming deadline
+* Visualize dependencies within a project
+* Automatically get notified of upcoming deadlines
 * Recover already deleted tasks
 * Password protect your project
 * Share your project
-* Share on devices
+* Share on mobile with auto-generated QR codes
 
 ### Backlog
 * Add full mobile support
