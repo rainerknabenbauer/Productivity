@@ -20,6 +20,7 @@ Check out the live product at [productivity.to](https://productivity.to/)
 * Password protect your project
 * Share your project
 * Share on mobile with auto-generated QR codes
+* Unused projects get purged every night
 
 ### Backlog
 * Add full mobile support
