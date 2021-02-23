@@ -19,13 +19,13 @@ class MailService(
     }
 
     fun sendRecoveryEmail(email: String, linkedProjects: List<Project>) {
-        val message = mailer.createRecoveryEmail(linkedProjects)
-        mailer.send(email, message)
+        val mail = mailer.createRecoveryEmail(linkedProjects)
+        mailer.send(email, mail)
     }
 
     fun sendDeadlineReminder(email: String, task: Task) {
-        val message = mailer.createDeadlineEmail(task)
-        mailer.send(email, message)
+        val mail = mailer.createDeadlineEmail(task)
+        mailer.send(email, mail)
     }
 
 

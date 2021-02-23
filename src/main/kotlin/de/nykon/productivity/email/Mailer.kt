@@ -2,6 +2,7 @@ package de.nykon.productivity.email
 
 import de.nykon.productivity.domain.value.Project
 import de.nykon.productivity.domain.value.Task
+import de.nykon.productivity.email.value.Mail
 import org.springframework.stereotype.Component
 import java.util.*
 import javax.mail.Authenticator
@@ -25,19 +26,21 @@ class Mailer(
     /**
      * Creates an eMail reminder for a deadline of a task.
      */
-    fun createDeadlineEmail(task: Task): String {
-
-        return this::class.java.getResource("/deadline_email.html")
+    fun createDeadlineEmail(task: Task): Mail {
+        val title = "A task is due today! from PRODUCTIVITY"
+        val content = this::class.java.getResource("/deadline_email.html")
             .readText(Charsets.UTF_8)
             .replace("{{TASK_TITLE}}", task.title)
             .replace("{{FRONTEND}}", FRONTEND)
             .replace("{{PROJECT_ID}}", task.projectId!!)
+
+        return Mail(title, content)
     }
 
     /**
      * Creates a recovery eMail to the user containing all linked projects.
      */
-    fun createRecoveryEmail(projects: List<Project>): String {
+    fun createRecoveryEmail(projects: List<Project>): Mail {
 
         var projectLinks = ""
         projects.forEach { project ->
@@ -57,12 +60,15 @@ class Mailer(
             }
         }
 
-        return this::class.java.getResource("/recovery_mail.html")
+        val title = "Recovery of your projects from PRODUCTIVITY"
+        val content = this::class.java.getResource("/recovery_mail.html")
             .readText(Charsets.UTF_8)
             .replace("{{PROJECTS}}", projectLinks)
+
+        return Mail(title, content)
     }
 
-    fun send(recipient: String, message: String) {
+    fun send(recipient: String, mail: Mail) {
         val props = Properties()
         props["mail.smtp.auth"] = "true"
         //props["mail.smtp.starttls.enable"] = config.starttls
@@ -78,8 +84,8 @@ class Mailer(
         msg.setFrom(InternetAddress("recovery@sirsmokealot.de", false))
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient))
-        msg.subject = "Recover your PRODUCTIVITY projects"
-        msg.setContent(message, "text/html; charset=UTF-8")
+        msg.subject = mail.title
+        msg.setContent(mail.content, "text/html; charset=UTF-8")
         msg.sentDate = Date()
 
         Transport.send(msg)
