@@ -22,7 +22,7 @@ class AuthorizationController(
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping(path = ["/auth"], consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun authorization(@RequestHeader("Authorization") authorizationBase64: String): ResponseEntity<Session> {
+    fun basic(@RequestHeader("Authorization") authorizationBase64: String): ResponseEntity<Session> {
 
         val credentials: Credentials
 
@@ -90,6 +90,8 @@ class AuthorizationController(
     @PostMapping(path = ["/auth"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun setAuthorization(@RequestBody credentials: Credentials): ResponseEntity<Session> {
         log.info("set credentials for ${credentials.projectId}")
+
+        //TODO credentials can be overwritten if password has been already been set. fix.
 
         return ResponseEntity.ok(authorizationService.setCredentials(credentials))
     }
