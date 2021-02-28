@@ -57,7 +57,14 @@ class ProjectController(
     @GetMapping(path = ["/projects/{id}"])
     fun getProject(@PathVariable id: String): ResponseEntity<Project> {
         log.info("called getProject with $id")
-        return ResponseEntity.ok(projectService.findById(id).orElse(null))
+
+        val result = projectService.findById(id)
+
+        return if (result.isPresent) {
+            ResponseEntity.ok(result.get())
+        } else {
+            ResponseEntity.status(404).body(null)
+        }
     }
 
     @PostMapping(path = ["/projects"], consumes = [MediaType.APPLICATION_JSON_VALUE])
