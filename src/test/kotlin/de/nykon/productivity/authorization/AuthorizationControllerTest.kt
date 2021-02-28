@@ -1,11 +1,9 @@
 package de.nykon.productivity.authorization
 
-import com.fasterxml.jackson.core.JsonEncoding
 import com.ninjasquad.springmockk.MockkBean
 import de.nykon.productivity.authorization.value.Credentials
 import de.nykon.productivity.authorization.value.Session
 import io.mockk.every
-import org.json.JSONObject
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
