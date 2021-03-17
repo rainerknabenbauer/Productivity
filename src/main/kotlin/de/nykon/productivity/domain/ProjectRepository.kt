@@ -13,5 +13,4 @@ interface ProjectRepository : MongoRepository<Project, String> {
     fun findByEmail(email: String): List<Project>
     fun findFirstByUnlockToken(token: String): Project?
 
-
 }

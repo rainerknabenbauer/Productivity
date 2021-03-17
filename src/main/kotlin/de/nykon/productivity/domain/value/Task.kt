@@ -17,11 +17,11 @@ data class Task(
     val isDeleted: Boolean = false,
     val title: String,
     val description: TaskDescription,
-    val deadline: String?,
-    @Indexed val notifyRelativeDate: String?,
-    @Indexed val notifyDateBeforeDeadline: String?,
+    val deadline: String? = null,
+    @Indexed val notifyRelativeDate: String? = null,
+    @Indexed val notifyDateBeforeDeadline: String? = null,
     val priority: Int,
-    val parentTasks: List<String>?,
+    val parentTasks: List<String>? = null,
     val ui: UI,
     val createTime: LocalDateTime = LocalDateTime.now()
 
