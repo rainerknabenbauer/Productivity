@@ -33,6 +33,7 @@ class TaskController(
         return if (verified == AuthorizationStatus.SUCCESSFUL) {
             return ResponseEntity.ok(taskService.getByProject(projectId))
         } else {
+            log.warn("Unauthorized retrieval of tasks requested: $projectId")
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(listOf())
         }
     }
@@ -50,6 +51,7 @@ class TaskController(
             val savedTask = taskService.save(task)
             return ResponseEntity.ok(savedTask)
         } else {
+            log.warn("Unauthorized saving of task requested: $task")
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(task)
         }
     }
@@ -66,6 +68,7 @@ class TaskController(
             taskService.delete(task)
             ResponseEntity.ok(task)
         } else {
+            log.warn("Unauthorized deletion of task requested: $task")
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(task)
         }
     }

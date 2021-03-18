@@ -7,6 +7,8 @@ import de.nykon.productivity.authorization.value.AuthorizationStatus
 import de.nykon.productivity.domain.value.Task
 import de.nykon.productivity.domain.value.TaskDescription
 import io.mockk.every
+import io.mockk.just
+import io.mockk.runs
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -139,11 +141,53 @@ internal class TaskControllerTest(
 
     @Test
     fun `successfully remove a task from the database`() {
-        //TODO Not implemented
+        // arrange
+        val authorizationBase64 = "mockBase64String"
+        val projectId = "mockProjectId"
+        val task = Task(
+            title = "mock task 1",
+            projectId = projectId,
+            description = TaskDescription("","")
+        )
+
+        every { authorizationService.isAuthorized(task, authorizationBase64) } returns AuthorizationStatus.SUCCESSFUL
+        every { taskService.delete(task) } just runs
+
+        // act
+        val actual = mockMvc.perform(
+            MockMvcRequestBuilders.delete("/tasks")
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .header("Authorization", authorizationBase64)
+                .content(gson.toJson(task))
+        )
+
+        // assert
+        actual.andExpect(MockMvcResultMatchers.status().isOk)
     }
 
     @Test
     fun `failed authorization to remove a task from the database`() {
-        //TODO Not implemented
+        // arrange
+        val authorizationBase64 = "mockBase64String"
+        val projectId = "mockProjectId"
+        val task = Task(
+            title = "mock task 1",
+            projectId = projectId,
+            description = TaskDescription("","")
+        )
+
+        every { authorizationService.isAuthorized(task, authorizationBase64) } returns AuthorizationStatus.FAILED
+        every { taskService.delete(task) } just runs
+
+        // act
+        val actual = mockMvc.perform(
+            MockMvcRequestBuilders.delete("/tasks")
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .header("Authorization", authorizationBase64)
+                .content(gson.toJson(task))
+        )
+
+        // assert
+        actual.andExpect(MockMvcResultMatchers.status().isUnauthorized)
     }
 }

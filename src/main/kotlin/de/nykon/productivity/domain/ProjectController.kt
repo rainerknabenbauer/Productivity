@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDateTime
-import java.util.*
 
 @RestController
 class ProjectController(
@@ -24,7 +22,6 @@ class ProjectController(
      */
     @PostMapping(path = ["/projects/recovery"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun sendRecoveryEmail(@RequestBody projectId: String): ResponseEntity<String> {
-        log.info("Recovery of $projectId")
 
         val recoveredProject = projectService.findById(projectId)
 
@@ -32,9 +29,11 @@ class ProjectController(
             projectService.save(recoveredProject.get().recover())
 
             val associatedProjects = mailService.recovery(recoveredProject.get().email)
-            log.info("${associatedProjects.size} associated projects found.")
+            log.info("Recovery of $projectId with ${associatedProjects.size} associated projects found.")
+
             ResponseEntity.ok().body("Recovery eMail sent.")
         } else {
+            log.warn("Recovery of non-existing project requested: $projectId")
             ResponseEntity.badRequest().body("Project could not be located.")
         }
     }
@@ -47,21 +46,23 @@ class ProjectController(
         val unlockSuccessful = projectService.unlock(token)
 
         return if (unlockSuccessful) {
+            log.info("Successfully unlocked project with token: $token")
             ResponseEntity.ok().body("Project has been unlocked.")
         } else {
+            log.warn("Unlock of non-existing token requested: $token")
             ResponseEntity.status(HttpStatus.GONE).body("No matching project was found.")
         }
     }
 
-    @GetMapping(path = ["/projects/{id}"])
-    fun getProject(@PathVariable id: String): ResponseEntity<Project> {
-        log.info("Called getProject with $id")
+    @GetMapping(path = ["/projects/{projectId}"])
+    fun getProject(@PathVariable projectId: String): ResponseEntity<Project> {
 
-        val result = projectService.findById(id)
+        val result = projectService.findById(projectId)
 
         return if (result.isPresent) {
             ResponseEntity.ok(result.get())
         } else {
+            log.warn("Recovery of non-existing project requested: $projectId")
             ResponseEntity.status(404).body(null)
         }
     }
