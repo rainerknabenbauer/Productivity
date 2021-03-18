@@ -25,7 +25,7 @@ class TaskController(
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping(path = ["/tasks/{projectId}"])
-    fun getProject(
+    fun getProjectTasks(
         @RequestHeader("Authorization") authorizationBase64: String,
         @PathVariable projectId: String): ResponseEntity<List<Task>> {
 
