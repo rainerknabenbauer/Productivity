@@ -27,13 +27,8 @@ internal class ProjectControllerTest(
     @Autowired val mockMvc: MockMvc
 ) {
 
-    private val log: Logger = LoggerFactory.getLogger(this::class.java)
-
     @MockkBean
     private lateinit var projectService: ProjectService
-
-    @MockkBean
-    private lateinit var mailService: MailService
 
     @Test
     fun `valid token successfully unlocks project`() {
