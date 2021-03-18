@@ -3,6 +3,7 @@ package de.nykon.productivity.domain
 import com.google.gson.Gson
 import com.ninjasquad.springmockk.MockkBean
 import de.nykon.productivity.authorization.AuthorizationService
+import de.nykon.productivity.authorization.value.AuthorizationStatus
 import de.nykon.productivity.domain.value.Task
 import de.nykon.productivity.domain.value.TaskDescription
 import io.mockk.every
@@ -42,7 +43,7 @@ internal class TaskControllerTest(
         )
         )
 
-        every { authorizationService.isAuthorized(projectId, authorizationBase64) } returns true
+        every { authorizationService.isAuthorized(projectId, authorizationBase64) } returns AuthorizationStatus.SUCCESSFUL
         every { taskService.getByProject(projectId) } returns tasks
 
         // act
@@ -70,7 +71,7 @@ internal class TaskControllerTest(
             )
         )
 
-        every { authorizationService.isAuthorized(projectId, authorizationBase64) } returns false
+        every { authorizationService.isAuthorized(projectId, authorizationBase64) } returns AuthorizationStatus.FAILED
         every { taskService.getByProject(projectId) } returns tasks
 
         // act

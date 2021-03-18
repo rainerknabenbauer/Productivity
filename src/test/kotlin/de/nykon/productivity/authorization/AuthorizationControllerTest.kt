@@ -1,6 +1,7 @@
 package de.nykon.productivity.authorization
 
 import com.ninjasquad.springmockk.MockkBean
+import de.nykon.productivity.authorization.value.AuthorizationStatus
 import de.nykon.productivity.authorization.value.Credentials
 import de.nykon.productivity.authorization.value.Session
 import io.mockk.every
@@ -66,7 +67,7 @@ internal class AuthorizationControllerTest(
         val sessionToken = "mockSessionToken"
         val session = Session(projectId, sessionToken)
 
-        every { authorizationService.authorizeSession(session) } returns true
+        every { authorizationService.authorizeSession(session) } returns AuthorizationStatus.SUCCESSFUL
 
         // act
         val actual = mockMvc.perform(get("/session")

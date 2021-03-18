@@ -1,6 +1,7 @@
 package de.nykon.productivity.domain
 
 import de.nykon.productivity.authorization.AuthorizationService
+import de.nykon.productivity.authorization.value.AuthorizationStatus
 import de.nykon.productivity.domain.value.Task
 import de.nykon.productivity.domain.value.TaskDescription
 import de.nykon.productivity.domain.value.UI
@@ -27,7 +28,10 @@ class TaskController(
         @RequestHeader("Authorization") authorizationBase64: String,
         @PathVariable projectId: String): ResponseEntity<List<Task>> {
 
-        return if (authorizationService.isAuthorized(projectId, authorizationBase64)) {
+
+        val verified = authorizationService.isAuthorized(projectId, authorizationBase64)
+
+        return if (verified == AuthorizationStatus.SUCCESSFUL) {
             return ResponseEntity.ok(taskService.getByProject(projectId))
         } else {
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(listOf())
@@ -41,7 +45,9 @@ class TaskController(
 
         log.info("save task: $task with $authorizationBase64")
 
-        return if (authorizationService.isAuthorized(task, authorizationBase64)) {
+        val verified = authorizationService.isAuthorized(task, authorizationBase64)
+
+        return if (verified == AuthorizationStatus.SUCCESSFUL) {
             val savedTask = taskService.save(task)
             return ResponseEntity.ok(savedTask)
         } else {
@@ -67,7 +73,9 @@ class TaskController(
         @RequestHeader("Authorization") authorizationBase64: String,
         @RequestBody task: Task): ResponseEntity<Task> {
 
-        return if (authorizationService.isAuthorized(task, authorizationBase64)) {
+        val verified = authorizationService.isAuthorized(task, authorizationBase64)
+
+        return if (verified == AuthorizationStatus.SUCCESSFUL) {
             log.info("delete task: $task")
             taskService.delete(task)
             ResponseEntity.ok(task)

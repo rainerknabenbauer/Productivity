@@ -1,5 +1,6 @@
 package de.nykon.productivity.authorization
 
+import de.nykon.productivity.authorization.value.AuthorizationStatus
 import de.nykon.productivity.authorization.value.Credentials
 import de.nykon.productivity.authorization.value.Session
 import de.nykon.productivity.domain.ProjectService
@@ -78,7 +79,7 @@ class AuthorizationController(
 
         val verified = authorizationService.authorizeSession(session)
 
-        return if (verified) {
+        return if (verified == AuthorizationStatus.SUCCESSFUL) {
             log.info("Successful session authorization for project ${session.projectId}")
             ResponseEntity.ok().body(null)
         } else {

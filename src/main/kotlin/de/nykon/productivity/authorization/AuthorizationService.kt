@@ -1,17 +1,16 @@
 package de.nykon.productivity.authorization
 
+import de.nykon.productivity.authorization.value.AuthorizationStatus
 import de.nykon.productivity.authorization.value.Credentials
 import de.nykon.productivity.authorization.value.Session
 import de.nykon.productivity.domain.ProjectService
 import de.nykon.productivity.domain.value.Project
 import de.nykon.productivity.domain.value.Task
-import org.passay.CharacterData
 import org.passay.CharacterRule
 import org.passay.EnglishCharacterData
 import org.passay.PasswordGenerator
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.security.SecureRandom
@@ -28,15 +27,22 @@ class AuthorizationService(
 
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
-    fun authorizeSession(session: Session): Boolean {
+    fun authorizeSession(session: Session): AuthorizationStatus {
         val project = sessionRepository.findById(session.projectId)
 
         if (project.isPresent) {
-            log.info("project is present == true")
-            return project.get().token == session.token
+            return validateToken(project.get(), session)
         }
         log.info("project not present == false with ID ${session.projectId}")
-        return false
+        return AuthorizationStatus.FAILED
+    }
+
+    private fun validateToken(expected: Session, actual: Session): AuthorizationStatus {
+        return if (expected.token == actual.token) {
+            AuthorizationStatus.SUCCESSFUL
+        } else {
+            AuthorizationStatus.FAILED
+        }
     }
 
     fun authorizePassword(credentials: Credentials): Optional<Session> {
@@ -93,44 +99,44 @@ class AuthorizationService(
     /**
      * Tier 1: Verify that projectID is given.
      */
-    fun isAuthorized(task: Task, authorizationBase64: String): Boolean {
+    fun isAuthorized(task: Task, authorizationBase64: String): AuthorizationStatus {
         return if (task.projectId != null) {
             isAuthorized(task.projectId, authorizationBase64)
         } else {
-            false
+            AuthorizationStatus.FAILED
         }
     }
 
     /**
      * Tier 2: Verify that project with given projectID exists.
      */
-    fun isAuthorized(projectId: String, authorizationBase64: String): Boolean {
+    fun isAuthorized(projectId: String, authorizationBase64: String): AuthorizationStatus {
         val project = projectService.findById(projectId)
 
         return if (project.isPresent) {
             isAuthorized(project.get(), authorizationBase64)
         } else {
             log.error("Project $projectId not found.")
-            false
+            AuthorizationStatus.FAILED
         }
     }
 
     /**
      * Tier 3: Verify that token matches the project's token.
      */
-    fun isAuthorized(project: Project, authorizationBase64: String): Boolean {
+    fun isAuthorized(project: Project, authorizationBase64: String): AuthorizationStatus {
         return if (project.isProtected) {
             authorize(authorizationBase64)
         } else {
-            true
+            AuthorizationStatus.SUCCESSFUL
         }
     }
 
-    private fun authorize(authorizationBase64: String): Boolean {
+    private fun authorize(authorizationBase64: String): AuthorizationStatus {
         val authorization = transform(authorizationBase64)
 
         if (authorization.isEmpty) {
-            return false
+            return AuthorizationStatus.FAILED
         }
 
         return authorizeSession(authorization.get())
