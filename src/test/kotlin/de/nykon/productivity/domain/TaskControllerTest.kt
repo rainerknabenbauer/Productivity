@@ -138,11 +138,6 @@ internal class TaskControllerTest(
     }
 
     @Test
-    fun `successfully store new UI location of task`() {
-        //TODO Not implemented
-    }
-
-    @Test
     fun `successfully remove a task from the database`() {
         //TODO Not implemented
     }

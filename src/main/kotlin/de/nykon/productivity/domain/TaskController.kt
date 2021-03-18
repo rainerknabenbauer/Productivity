@@ -3,7 +3,6 @@ package de.nykon.productivity.domain
 import de.nykon.productivity.authorization.AuthorizationService
 import de.nykon.productivity.authorization.value.AuthorizationStatus
 import de.nykon.productivity.domain.value.Task
-import de.nykon.productivity.domain.value.TaskDescription
 import de.nykon.productivity.domain.value.UI
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -55,19 +54,6 @@ class TaskController(
         }
     }
 
-    @PostMapping(path = ["/ui/{id}"])
-    fun setPosition(@PathVariable id: String, @RequestBody ui: UI): ResponseEntity<Task> {
-        log.info("set UI of $id to x=${ui.xposition} | y=${ui.yposition}")
-        val savedTask = taskService.save(
-            Task(
-                id, null, isBeingWorkedOn = false, isDeleted = false,"updated task",
-                TaskDescription("", "", ""),
-                getSqlDate(LocalDate.now()), null, null,0, listOf(), ui
-            )
-        )
-        return ResponseEntity.ok(savedTask)
-    }
-
     @DeleteMapping(path = ["/tasks"])
     fun deleteTask(
         @RequestHeader("Authorization") authorizationBase64: String,
@@ -82,11 +68,6 @@ class TaskController(
         } else {
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(task)
         }
-    }
-
-    private fun getSqlDate(localDate: LocalDate): String? {
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        return localDate.format(formatter)
     }
 
 }
