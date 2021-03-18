@@ -33,6 +33,9 @@ class JacksonConfig {
             .registerModule(module)
     }
 
+    /**
+     * Supply GSON to have another Serializer for integration testing.
+     */
     @Bean
     fun gson(): Gson {
         val gsonBuilder = GsonBuilder()
@@ -42,6 +45,9 @@ class JacksonConfig {
 
 }
 
+/**
+ * Modify GSON LocalDateTime serialization to match Jackson format.
+ */
 private class LocalDateTimeSerializer : JsonSerializer<LocalDateTime?> {
     override fun serialize(src: LocalDateTime?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement {
         if (Objects.nonNull(src)) {

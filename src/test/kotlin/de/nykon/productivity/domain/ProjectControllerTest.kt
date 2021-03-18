@@ -104,7 +104,7 @@ internal class ProjectControllerTest(
         val projectJson = gson.toJson(project)
 
         every { projectService.save(project) } returns project
-        
+
         // act
         val actual = mockMvc.perform(post("/projects")
             .header("Content-Type", MediaType.APPLICATION_JSON)
