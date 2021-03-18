@@ -11,11 +11,13 @@ import org.apache.tomcat.util.descriptor.web.SecurityConstraint
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 
 
 @Configuration
 class TomcatConfig {
     @Bean
+    @Profile("prod")
     fun servletContainer(): ServletWebServerFactory {
         val tomcat: TomcatServletWebServerFactory = object : TomcatServletWebServerFactory() {
             override fun postProcessContext(context: Context) {
