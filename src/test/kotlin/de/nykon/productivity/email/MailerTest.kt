@@ -1,6 +1,5 @@
 package de.nykon.productivity.email
 
-import com.ninjasquad.springmockk.MockkBean
 import de.nykon.productivity.domain.value.Project
 import de.nykon.productivity.domain.value.Task
 import de.nykon.productivity.domain.value.TaskDescription

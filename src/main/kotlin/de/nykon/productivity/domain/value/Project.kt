@@ -1,9 +1,15 @@
 package de.nykon.productivity.domain.value
 
+import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.aggregation.DateOperators
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 /**
@@ -18,7 +24,8 @@ data class Project(
     val isProtected : Boolean = false,
     val ui: UI = UI(0,0),
     val unlockToken: String? = null,
-    val createTime: LocalDateTime = LocalDateTime.now(),
+
+    val createTime: LocalDateTime = LocalDateTime.now()
 ) {
 
     fun recover(): Project {

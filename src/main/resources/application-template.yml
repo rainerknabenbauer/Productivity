@@ -11,6 +11,8 @@ spring:
             enabled: true
   jackson:
     default-property-inclusion: non_null
+    serialization:
+      write_dates_as_timestamps: false
   data:
     mongodb:
       uri: mongodb+srv://USERNAME:PASSWORD@mongodb.wecon.mongodb.net/DATABASE?retryWrites=true&w=majority

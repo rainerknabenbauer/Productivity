@@ -30,7 +30,8 @@ dependencies {
 	implementation("org.springframework.data:spring-data-mongodb")
 	implementation("org.springframework.security:spring-security-core")
 	implementation("javax.mail:mail:1.5.0-b01")
-	implementation("org.passay:passay:1.6.0")
+	implementation("org.passay:passay:1.6.0")  // Token generator
+	implementation("com.google.code.gson:gson:2.8.6")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.projectlombok:lombok")

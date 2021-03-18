@@ -69,7 +69,7 @@ class ProjectController(
 
     @PostMapping(path = ["/projects"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun setProject(@RequestBody project: Project): ResponseEntity<Project> {
-        log.info("called setProject")
+        log.info("called POST projects: $project")
         return ResponseEntity.ok(projectService.save(project));
     }
 
