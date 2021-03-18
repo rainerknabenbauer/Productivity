@@ -14,7 +14,6 @@ import java.util.*
 @RestController
 class ProjectController(
     private val projectService: ProjectService,
-    private val taskService: TaskService,
     private val mailService: MailService
     ) {
 
