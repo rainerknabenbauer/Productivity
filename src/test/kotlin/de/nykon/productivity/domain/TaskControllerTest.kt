@@ -82,17 +82,59 @@ internal class TaskControllerTest(
         )
 
         // assert
-        actual.andExpect(MockMvcResultMatchers.status().isOk)
+        actual.andExpect(MockMvcResultMatchers.status().isUnauthorized)
     }
 
     @Test
     fun `successfully save a task`() {
-        //TODO Not implemented
+        // arrange
+        val authorizationBase64 = "mockBase64String"
+        val projectId = "mockProjectId"
+        val task = Task(
+            title = "mock task 1",
+            projectId = projectId,
+            description = TaskDescription("","")
+        )
+
+        every { authorizationService.isAuthorized(task, authorizationBase64) } returns AuthorizationStatus.SUCCESSFUL
+        every { taskService.save(task) } returns task
+
+        // act
+        val actual = mockMvc.perform(
+            MockMvcRequestBuilders.post("/tasks")
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .header("Authorization", authorizationBase64)
+                .content(gson.toJson(task))
+        )
+
+        // assert
+        actual.andExpect(MockMvcResultMatchers.status().isOk)
     }
 
     @Test
     fun `failed authorization to save a task`() {
-        //TODO Not implemented
+        // arrange
+        val authorizationBase64 = "mockBase64String"
+        val projectId = "mockProjectId"
+        val task = Task(
+            title = "mock task 1",
+            projectId = projectId,
+            description = TaskDescription("","")
+        )
+
+        every { authorizationService.isAuthorized(task, authorizationBase64) } returns AuthorizationStatus.FAILED
+        every { taskService.save(task) } returns task
+
+        // act
+        val actual = mockMvc.perform(
+            MockMvcRequestBuilders.post("/tasks")
+                .header("Content-Type", MediaType.APPLICATION_JSON)
+                .header("Authorization", authorizationBase64)
+                .content(gson.toJson(task))
+        )
+
+        // assert
+        actual.andExpect(MockMvcResultMatchers.status().isUnauthorized)
     }
 
     @Test
