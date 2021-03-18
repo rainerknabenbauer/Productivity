@@ -75,8 +75,8 @@ class ProjectController(
 
     @GetMapping(path = ["/projects/new"])
     fun createProject(): ResponseEntity<Project> {
-        log.info("Create new project")
         val project = projectService.createNewProject()
+        log.info("Created new project with ID ${project.projectId}")
         return ResponseEntity.ok(project)
     }
 
