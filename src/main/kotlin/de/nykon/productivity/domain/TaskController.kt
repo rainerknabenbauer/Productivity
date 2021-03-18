@@ -19,7 +19,7 @@ class TaskController(
     private val taskService: TaskService,
     private val authorizationService: AuthorizationService,
     private val projectService: ProjectService
-) : AbstractAuthorization(projectService, authorizationService)
+)
 {
 
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
@@ -29,7 +29,7 @@ class TaskController(
         @RequestHeader("Authorization") authorizationBase64: String,
         @PathVariable projectId: String): ResponseEntity<List<Task>> {
 
-        return if (isAuthorized(projectId, authorizationBase64)) {
+        return if (authorizationService.isAuthorized(projectId, authorizationBase64)) {
             return ResponseEntity.ok(taskService.getByProject(projectId))
         } else {
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(listOf())
@@ -43,7 +43,7 @@ class TaskController(
 
         log.info("save task: $task with $authorizationBase64")
 
-        return if (isAuthorized(task, authorizationBase64)) {
+        return if (authorizationService.isAuthorized(task, authorizationBase64)) {
             val savedTask = taskService.save(task)
             return ResponseEntity.ok(savedTask)
         } else {
@@ -69,7 +69,7 @@ class TaskController(
         @RequestHeader("Authorization") authorizationBase64: String,
         @RequestBody task: Task): ResponseEntity<Task> {
 
-        return if (isAuthorized(task, authorizationBase64)) {
+        return if (authorizationService.isAuthorized(task, authorizationBase64)) {
             log.info("delete task: $task")
             taskService.delete(task)
             ResponseEntity.ok(task)
