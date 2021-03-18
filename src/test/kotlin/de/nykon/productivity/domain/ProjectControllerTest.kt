@@ -130,7 +130,30 @@ internal class ProjectControllerTest(
 
     @Test
     fun `successfully activate recovery mode for a project`() {
-        //TODO Not implemented
+        // arrange
+        val token = "mockToken";
+
+        every { projectService.unlock(token)} returns true
+
+        // act
+        val actual = mockMvc.perform(get("/projects/unlock/$token"))
+
+        // assert
+        actual.andExpect(status().isOk)
+    }
+
+    @Test
+    fun `failed gto activate recovery mode for a project`() {
+        // arrange
+        val token = "mockToken";
+
+        every { projectService.unlock(token)} returns false
+
+        // act
+        val actual = mockMvc.perform(get("/projects/unlock/$token"))
+
+        // assert
+        actual.andExpect(status().isGone)
     }
     
 }
