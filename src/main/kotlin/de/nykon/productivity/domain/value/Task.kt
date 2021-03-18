@@ -20,9 +20,9 @@ data class Task(
     val deadline: String? = null,
     @Indexed val notifyRelativeDate: String? = null,
     @Indexed val notifyDateBeforeDeadline: String? = null,
-    val priority: Int,
+    val priority: Int = 0,
     val parentTasks: List<String>? = null,
-    val ui: UI,
+    val ui: UI = UI(25,25),
     val createTime: LocalDateTime = LocalDateTime.now()
 
 )

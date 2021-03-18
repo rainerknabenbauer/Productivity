@@ -1,6 +1,5 @@
 package de.nykon.productivity.domain
 
-import de.nykon.productivity.authorization.AbstractAuthorization
 import de.nykon.productivity.authorization.AuthorizationService
 import de.nykon.productivity.domain.value.Task
 import de.nykon.productivity.domain.value.TaskDescription
@@ -17,8 +16,7 @@ import java.time.format.DateTimeFormatter
 @RestController
 class TaskController(
     private val taskService: TaskService,
-    private val authorizationService: AuthorizationService,
-    private val projectService: ProjectService
+    private val authorizationService: AuthorizationService
 )
 {
 
