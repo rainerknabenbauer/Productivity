@@ -25,7 +25,7 @@ class ProjectController(
      */
     @PostMapping(path = ["/projects/recovery"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun sendRecoveryEmail(@RequestBody projectId: String): ResponseEntity<String> {
-        log.info("recovery of $projectId")
+        log.info("Recovery of $projectId")
 
         val recoveredProject = projectService.findById(projectId)
 
@@ -56,7 +56,7 @@ class ProjectController(
 
     @GetMapping(path = ["/projects/{id}"])
     fun getProject(@PathVariable id: String): ResponseEntity<Project> {
-        log.info("called getProject with $id")
+        log.info("Called getProject with $id")
 
         val result = projectService.findById(id)
 
@@ -69,40 +69,15 @@ class ProjectController(
 
     @PostMapping(path = ["/projects"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun setProject(@RequestBody project: Project): ResponseEntity<Project> {
-        log.info("called POST projects: $project")
+        log.info("Called POST projects: $project")
         return ResponseEntity.ok(projectService.save(project));
     }
 
     @GetMapping(path = ["/projects/new"])
     fun createProject(): ResponseEntity<Project> {
-        log.info("create project")
-        val project = Project()
-        val task = Task(UUID.randomUUID().toString(), project.projectId, isBeingWorkedOn = true, isDeleted = false,"First steps",
-            TaskDescription(
-                """
-                    Click the pen in the lower right corner to see details.
-                    
-                    You can edit the details as you wish.
-                """.trimIndent(),
-                """
-                    Hello and welcome. 
-                    
-                    If you are new here, consider these next steps:
-                    
-                    1. Save the project link to your favorites
-                    2. Set a reminder so you can access your projects even if you lose the link
-                    3. Add a new task
-                    4. Start to organize
-                """.trimIndent(),
-                """
-                    You can edit this task, save it and view the changes again.
-                    
-                    You can also use the 'X' in the upper right corner of the task to delete it.
-                """.trimIndent()
-            ),
-            null, null, null,0, emptyList(), UI(350, 200), LocalDateTime.now())
-        taskService.save(task)
-        return ResponseEntity.ok(projectService.save(project))
+        log.info("Create new project")
+        val project = projectService.createNewProject()
+        return ResponseEntity.ok(project)
     }
 
 

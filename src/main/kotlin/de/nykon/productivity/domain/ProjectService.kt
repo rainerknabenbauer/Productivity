@@ -1,12 +1,17 @@
 package de.nykon.productivity.domain
 
 import de.nykon.productivity.domain.value.Project
+import de.nykon.productivity.domain.value.Task
+import de.nykon.productivity.domain.value.TaskDescription
+import de.nykon.productivity.domain.value.UI
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 import java.util.*
 
 
 @Service
 class ProjectService(
+    private val taskService: TaskService,
     private val projectRepository: ProjectRepository
 ) {
 
@@ -38,6 +43,15 @@ class ProjectService(
             return true
         }
         return false
+    }
+
+    /**
+     * A user has requested to setup a new project.
+     */
+    fun createNewProject(): Project {
+        val project = Project()
+        taskService.setupTasksForNewProject(project)
+        return save(project)
     }
 
 }
