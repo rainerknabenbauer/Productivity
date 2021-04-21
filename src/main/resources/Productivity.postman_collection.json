@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "37d267cd-103d-488d-88ef-1c62ebb35f57",
+		"_postman_id": "112c8d4b-6518-461e-9b90-c4a7cd6dec8c",
 		"name": "Productivity",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,29 +17,21 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "TvDSncpBttdjFbrsxHZo",
+							"value": "password",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "4dc42ba2-c8ac-4186-a995-28511cc59929",
+							"value": "project-id",
 							"type": "string"
 						}
 					]
 				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Basic NGRjNDJiYTItYzhhYy00MTg2LWE5OTUtMjg1MTFjYzU5OTI5OlR2RFNuY3BCdHRkakZicnN4SFpv",
-						"description": "Base64 encoded basic authentication \"user:token\"",
-						"type": "text",
-						"disabled": true
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"meet@nykon.de\"\n}",
+					"raw": "{\n    \"email\": \"associated@email.adress\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -47,10 +39,11 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:8443/v1/tasks/imminent",
+					"raw": "https://productivity.to:8443/v1/tasks/imminent",
 					"protocol": "https",
 					"host": [
-						"localhost"
+						"productivity",
+						"to"
 					],
 					"port": "8443",
 					"path": [
@@ -73,7 +66,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"projectId\": \"4dc42ba2-c8ac-4186-a995-28511cc59929\",\n    \"password\": \"me\"\n}",
+					"raw": "{\n    \"projectId\": \"this-weird-project-id-from-url\",\n    \"password\": \"passwort123\"\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -81,10 +74,11 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:8443/auth",
+					"raw": "https://productivity.to:8443/auth",
 					"protocol": "https",
 					"host": [
-						"localhost"
+						"productivity",
+						"to"
 					],
 					"port": "8443",
 					"path": [

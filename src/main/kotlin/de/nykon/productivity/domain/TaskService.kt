@@ -61,8 +61,9 @@ class TaskService(
         val imminentTasks = ArrayList<Task>()
         for (project in projects) {
 
-            val tasks = taskRepository.findByProjectId(project.projectId).
-                filter { task ->
+            val tasks = taskRepository.findByProjectId(project.projectId)
+                .filter { task -> !task.isDeleted }
+                .filter { task ->
                     task.notifyDateBeforeDeadline == sqlDate || task.notifyRelativeDate == sqlDate
                 }
 
