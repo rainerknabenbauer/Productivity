@@ -54,4 +54,8 @@ class ProjectService(
         return save(project)
     }
 
+    fun findByEmail(email: String): List<Project> {
+        return projectRepository.findByEmail(email)
+    }
+
 }

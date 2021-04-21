@@ -2,20 +2,20 @@ package de.nykon.productivity.domain
 
 import de.nykon.productivity.authorization.AuthorizationService
 import de.nykon.productivity.authorization.value.AuthorizationStatus
+import de.nykon.productivity.domain.value.ImminentTasksQuery
+import de.nykon.productivity.domain.value.ImminentTasksResponse
 import de.nykon.productivity.domain.value.Task
-import de.nykon.productivity.domain.value.UI
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @RestController
 class TaskController(
     private val taskService: TaskService,
+    private val projectService: ProjectService,
     private val authorizationService: AuthorizationService
 )
 {
@@ -73,4 +73,46 @@ class TaskController(
         }
     }
 
+    @GetMapping(path = ["/v1/tasks/imminent"])
+    fun getImminentTasks(
+        @RequestHeader("Authorization") authorizationBase64: String,
+        @RequestBody imminentTasksQuery: ImminentTasksQuery): ResponseEntity<ImminentTasksResponse> {
+
+        val projects =  projectService.findByEmail(imminentTasksQuery.email)
+
+        if (projects.isEmpty()) {
+            return ResponseEntity.noContent().build()
+        }
+
+        // [] -> AuthorizationStatus yes / no -> [] projectID
+
+        var verified = AuthorizationStatus.SUCCESSFUL
+
+        for (project in projects) {
+            val verification = authorizationService.isAuthorized(project.projectId, authorizationBase64)
+
+            if (verification == AuthorizationStatus.FAILED) {
+                verified = AuthorizationStatus.FAILED
+            }
+        }
+
+        return if (verified == AuthorizationStatus.SUCCESSFUL) {
+            return ResponseEntity.ok(
+                ImminentTasksResponse.Builder()
+                    .email(imminentTasksQuery.email)
+                    .tasks(taskService.getImminentTasks(projects)).build())
+        } else {
+            log.warn("Unauthorized retrieval of tasks requested: " +
+                    "${projects.map { project -> project.projectId}}")
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        }
+    }
+
 }
+
+
+
+
+
+
+

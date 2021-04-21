@@ -4,6 +4,7 @@ import de.nykon.productivity.domain.value.Project
 import de.nykon.productivity.domain.value.Task
 import de.nykon.productivity.domain.value.TaskDescription
 import de.nykon.productivity.domain.value.UI
+import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -13,7 +14,8 @@ import java.util.*
 
 @Service
 class TaskService(
-    private val taskRepository: TaskRepository) {
+    private val taskRepository: TaskRepository,
+    private val mongoTemplate: MongoTemplate) {
 
     fun save(task: Task): Task {
         return taskRepository.save(task)
@@ -32,9 +34,12 @@ class TaskService(
     }
 
     fun getAllDueTodayTasks(): List<Task> {
-        val date = LocalDate.now()
-        val formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd")
-        val sqlDate = formatter.format(date)
+        val sqlDate = getCurrentSqlDate()
+
+        return getAllDueTodayTasks(sqlDate)
+    }
+
+    fun getAllDueTodayTasks(sqlDate: String): List<Task> {
 
         val relativeDate = taskRepository.findByNotifyRelativeDate(sqlDate)
         val deadline = taskRepository.findByNotifyDateBeforeDeadline(sqlDate)
@@ -46,6 +51,35 @@ class TaskService(
         dueTasks.addAll(deadline)
 
         return dueTasks
+    }
+
+    fun getImminentTasks(projects: List<Project>): List<Task> {
+
+        // 1. Find all tasks for all projects that are not deleted
+        val sqlDate = getCurrentSqlDate()
+
+        val imminentTasks = ArrayList<Task>()
+        for (project in projects) {
+
+            val tasks = taskRepository.findByProjectId(project.projectId).
+                filter { task ->
+                    task.notifyDateBeforeDeadline == sqlDate || task.notifyRelativeDate == sqlDate
+                }
+
+
+            imminentTasks.addAll(
+                tasks     //TODO add date sensitive query
+            )
+        }
+
+        return imminentTasks
+    }
+
+    // Get today in SQL format
+    private fun getCurrentSqlDate(): String {
+        val date = LocalDate.now()
+        val formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd")
+        return formatter.format(date)
     }
 
     /**

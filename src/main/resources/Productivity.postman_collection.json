@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "37d267cd-103d-488d-88ef-1c62ebb35f57",
+		"name": "Productivity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all due tasks for all associated projects",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "TvDSncpBttdjFbrsxHZo",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "4dc42ba2-c8ac-4186-a995-28511cc59929",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic NGRjNDJiYTItYzhhYy00MTg2LWE5OTUtMjg1MTFjYzU5OTI5OlR2RFNuY3BCdHRkakZicnN4SFpv",
+						"description": "Base64 encoded basic authentication \"user:token\"",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"meet@nykon.de\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/v1/tasks/imminent",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"v1",
+						"tasks",
+						"imminent"
+					]
+				},
+				"description": "Get all due tasks for all projects linked by the same eMail address"
+			},
+			"response": []
+		},
+		{
+			"name": "Authorization",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"projectId\": \"4dc42ba2-c8ac-4186-a995-28511cc59929\",\n    \"password\": \"me\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/auth",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"auth"
+					]
+				},
+				"description": "Get a authorization token using your credentials"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic"
+	}
+}
