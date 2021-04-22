@@ -2,6 +2,7 @@ package de.nykon.productivity.domain
 
 import de.nykon.productivity.authorization.AuthorizationService
 import de.nykon.productivity.authorization.value.AuthorizationStatus
+import de.nykon.productivity.calendar.Calendar
 import de.nykon.productivity.domain.value.ImminentTasksQuery
 import de.nykon.productivity.domain.value.ImminentTasksResponse
 import de.nykon.productivity.domain.value.Task
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.*
 class TaskController(
     private val taskService: TaskService,
     private val projectService: ProjectService,
-    private val authorizationService: AuthorizationService
+    private val authorizationService: AuthorizationService,
+    private val calendar: Calendar
 )
 {
 
@@ -92,7 +94,8 @@ class TaskController(
             return ResponseEntity.ok(
                 ImminentTasksResponse.Builder()
                     .email(imminentTasksQuery.email)
-                    .tasks(taskService.getImminentTasks(projects)).build())
+                    .tasks(taskService.getImminentTasks(projects), calendar)
+                    .build())
         } else {
             log.warn("Unauthorized retrieval of tasks requested: " +
                     "${projects.map { project -> project.projectId}}")

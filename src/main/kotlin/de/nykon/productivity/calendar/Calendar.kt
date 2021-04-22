@@ -18,7 +18,7 @@ class Calendar(
     private val infrastructureConfig: InfrastructureConfig
 ) {
 
-    val CALENDAR = """
+    private val CALENDAR = """
          BEGIN:VCALENDAR
          VERSION:2.0
          PRODID://to/productivity
@@ -26,7 +26,7 @@ class Calendar(
          END:VCALENDAR
     """.trimIndent()
 
-    val COMPONENT_EVENT = """
+    private val COMPONENT_EVENT = """
          BEGIN:VEVENT
          UID:{{UID}}@productivity.to
          DTSTAMP:{{DTSTAMP}}

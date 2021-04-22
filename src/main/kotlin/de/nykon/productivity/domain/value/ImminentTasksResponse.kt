@@ -1,5 +1,7 @@
 package de.nykon.productivity.domain.value
 
+import de.nykon.productivity.calendar.Calendar
+
 class ImminentTasksResponse private constructor(builder: ImminentTasksResponse.Builder) {
 
     val email: String?
@@ -10,14 +12,14 @@ class ImminentTasksResponse private constructor(builder: ImminentTasksResponse.B
         this.tasks = builder.tasks
     }
 
-    class Builder {
+    class Builder() {
         var email: String? = null
             private set
         var tasks: ArrayList<ImminentTask> = ArrayList()
             private set
 
         fun email(email: String) = apply { this.email = email }
-        fun tasks(fullTasks: List<Task>) = apply {
+        fun tasks(fullTasks: List<Task>, calendar: Calendar) = apply {
             fullTasks.forEach {
                 task -> tasks.add(
                     ImminentTask(
@@ -27,7 +29,8 @@ class ImminentTasksResponse private constructor(builder: ImminentTasksResponse.B
                         task.description,
                         task.deadline,
                         task.notifyRelativeDate,
-                        task.notifyDateBeforeDeadline
+                        task.notifyDateBeforeDeadline,
+                        calendar.build(listOf(task))
                     )
                 )
             }
