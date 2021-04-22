@@ -44,7 +44,7 @@ class Calendar(
         var components = ""
         for (task in tasks) {
             components += COMPONENT_TODO
-                .replace("{{DATE}}", today)
+                .replace("{{DATE}}", today.replace("-", ""))
                 .replace("{{SUMMARY}}", task.title)
                 .replace("{{DESCRIPTION}}",
                     task.description.shortDescription

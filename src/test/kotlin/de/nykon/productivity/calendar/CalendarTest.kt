@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.apache.coyote.http11.Constants.a
+
+
+
 
 @SpringBootTest
 internal class CalendarTest(
@@ -31,6 +35,14 @@ internal class CalendarTest(
         Assertions.assertTrue(icsCalendar.contains("https://productivity.to/?id=bamboozled"))
         Assertions.assertTrue(icsCalendar.contains("SUMMARY:Hello moto"))
         Assertions.assertTrue(icsCalendar.contains("DESCRIPTION:You better | read a book | "))
+        Assertions.assertTrue(icsCalendar.contains("DTSTART;VALUE=DATE:"))  // 20100101
+
+        val date = icsCalendar
+            .split(System.getProperty("line.separator"))[4]
+            .split(":")[1]
+
+        Assertions.assertTrue(date.length == 8)
+        Assertions.assertTrue(date[0].toString() == "2")
     }
 
     @Test
@@ -50,6 +62,8 @@ internal class CalendarTest(
 
         // act
         val icsCalendar = calendar.build(tasks)
+
+        print(icsCalendar)
 
         // assert
         Assertions.assertTrue(icsCalendar.contains("https://productivity.to/?id=bamboozled"))

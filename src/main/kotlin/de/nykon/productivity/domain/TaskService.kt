@@ -67,7 +67,6 @@ class TaskService(
                     task.notifyDateBeforeDeadline == sqlDate || task.notifyRelativeDate == sqlDate
                 }
 
-
             imminentTasks.addAll(
                 tasks     //TODO add date sensitive query
             )
