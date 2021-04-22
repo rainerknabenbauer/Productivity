@@ -51,8 +51,6 @@ internal class CalendarTest(
         // act
         val icsCalendar = calendar.build(tasks)
 
-        println(icsCalendar)
-
         // assert
         Assertions.assertTrue(icsCalendar.contains("https://productivity.to/?id=bamboozled"))
         Assertions.assertTrue(icsCalendar.contains("SUMMARY:Hello moto"))
