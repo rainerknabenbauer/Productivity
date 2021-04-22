@@ -18,8 +18,28 @@ class PurgeService(
 ) {
 
     fun purgeUnusedProjects(): Int {
-
         val purgableProjects = getPurgableProjects()
+        return purgeUnusedProjects(purgableProjects)
+    }
+
+    fun getPurgableProjects(): List<Project> {
+        val matcher: ExampleMatcher = ExampleMatcher.matching()
+            .withIgnorePaths("projectId")
+            .withIgnorePaths("createTime")
+
+        val example: Example<Project> = Example.of(Project(), matcher)
+
+        val candidates = projectRepository.findAll(example)
+
+        val deleteMe = mutableListOf<Project>()
+        candidates.forEach {
+                candidate -> if(olderThanOneDay(candidate)) deleteMe.add(candidate)
+        }
+
+        return candidates
+    }
+
+    fun purgeUnusedProjects(purgableProjects: List<Project>): Int {
         val numberOfDeletedProjects = AtomicInteger(0)
 
         purgableProjects.forEach { project ->
@@ -46,7 +66,7 @@ class PurgeService(
     }
 
     private fun containsOnlyDeleted(tasks: List<Task>): Boolean {
-        return tasks.stream().map { task -> !task.isDeleted }.count() == 0L
+        return tasks.stream().filter { task -> task.isDeleted }.count() == tasks.size.toLong()
     }
 
     private fun containsOnlyStarterTask(tasks: List<Task>) =
@@ -55,23 +75,6 @@ class PurgeService(
     private fun purge(project: Project, tasks: List<Task>) {
         projectRepository.delete(project)
         taskRepository.deleteAll(tasks)
-    }
-
-    fun getPurgableProjects(): List<Project> {
-        val matcher: ExampleMatcher = ExampleMatcher.matching()
-            .withIgnorePaths("projectId")
-            .withIgnorePaths("createTime")
-
-        val example: Example<Project> = Example.of(Project(), matcher)
-
-        val candidates = projectRepository.findAll(example)
-
-        val deleteMe = mutableListOf<Project>()
-        candidates.forEach {
-                candidate -> if(olderThanOneDay(candidate)) deleteMe.add(candidate)
-        }
-
-        return candidates
     }
 
     private fun olderThanOneDay(project: Project): Boolean {
