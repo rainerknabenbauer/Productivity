@@ -132,6 +132,13 @@ class AuthorizationService(
         }
     }
 
+    /**
+     * Tier 3.b: Verify that given token is valid and gives access to all associated projects.
+     */
+    fun isAuthorized(projects: List<Project>, authorizationBase64: String): AuthorizationStatus {
+        return isAuthorized(projects.first().projectId, authorizationBase64)
+    }
+
     private fun authorize(authorizationBase64: String): AuthorizationStatus {
         val authorization = transform(authorizationBase64)
 

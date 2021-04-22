@@ -78,23 +78,15 @@ class TaskController(
         @RequestHeader("Authorization") authorizationBase64: String,
         @RequestBody imminentTasksQuery: ImminentTasksQuery): ResponseEntity<ImminentTasksResponse> {
 
+        // Find all associated projects
         val projects =  projectService.findByEmail(imminentTasksQuery.email)
 
         if (projects.isEmpty()) {
             return ResponseEntity.noContent().build()
         }
 
-        // [] -> AuthorizationStatus yes / no -> [] projectID
-
-        var verified = AuthorizationStatus.SUCCESSFUL
-
-        for (project in projects) {
-            val verification = authorizationService.isAuthorized(project.projectId, authorizationBase64)
-
-            if (verification == AuthorizationStatus.FAILED) {
-                verified = AuthorizationStatus.FAILED
-            }
-        }
+        // Authorization is only valid for one project and gives access to all associated projects
+        val verified = authorizationService.isAuthorized(projects, authorizationBase64)
 
         return if (verified == AuthorizationStatus.SUCCESSFUL) {
             return ResponseEntity.ok(
