@@ -1,14 +1,16 @@
-### Introduction
+# Productivity, enhance!
+
+## Introduction
 Finally manage your TODOs in a hassle free way.
 Remember losing your most valuable notes? 
 Did you ever write a shopping list just to leave it on the table at home?
 
 This app aims to be 'at least as good as paper'.
 
-### Reference
+## Reference
 Check out the live product at [productivity.to](https://productivity.to/)
 
-### Features
+## Features
 * Clean interface
 * Rearrange your tasks with joy 
 * Chain tasks where needed
@@ -20,10 +22,10 @@ Check out the live product at [productivity.to](https://productivity.to/)
 * Share on mobile with auto-generated QR codes
 * Unused projects get purged every night
 
-### Backlog
+## Backlog
 * Add full mobile support
 
-### What we don't do
+## What we don't do
 We don't track you in any way or form.
 
 **There's only one cookie** - in case you locked your project, a session cookie containing
