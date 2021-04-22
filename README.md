@@ -1,5 +1,3 @@
-# Getting Started
-
 ### Introduction
 Finally manage your TODOs in a hassle free way.
 Remember losing your most valuable notes? 
