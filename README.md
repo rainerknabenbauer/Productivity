@@ -35,7 +35,7 @@ your session token gets stored.
 (if you lost the link to a project) or if you set a deadline - because we notify you
 by eMail once the day of the deadline is reached.
 
-**Why eMail you ask?** It's less unique than your phone number and versatile enough
+**Why eMail?** It's less unique than your phone number and versatile enough
 for everyone to have at least one. Feel free to create a specific postbox or 
 forwarding to increase your anonymity, we support that.
 
