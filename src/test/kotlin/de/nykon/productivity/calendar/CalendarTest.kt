@@ -38,7 +38,7 @@ internal class CalendarTest(
         Assertions.assertTrue(icsCalendar.contains("DTSTART;VALUE=DATE:"))  // 20100101
 
         val date = icsCalendar
-            .split(System.getProperty("line.separator"))[4]
+            .split(System.getProperty("line.separator"))[6]  // this will break when adding additional lines to .ics string
             .split(":")[1]
 
         Assertions.assertTrue(date.length == 8)
