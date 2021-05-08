@@ -1,6 +1,6 @@
 # Productivity, enhance!
 
-For help with SSL setup, see [scripts](./scripts).
+For help with SSL setup, see [scripts](./scripts).  
 
 ## Introduction
 Finally manage your TODOs in a hassle free way.
